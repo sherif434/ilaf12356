@@ -44,7 +44,7 @@ $$('.magnetic').forEach(el=>{
 });
 window.addEventListener('scroll',()=>{
  const y=scrollY,h=$('.site-header');
- if(h){h.style.background=y>20?'rgba(11,13,15,.72)':'transparent';h.style.backdropFilter=y>20?'blur(16px)':'none'}
+ if(h){const light=document.documentElement.classList.contains('light-mode');h.style.background=y>20?(light?'rgba(244,243,238,.88)':'rgba(11,13,15,.72)'):'transparent';h.style.backdropFilter=y>20?'blur(16px)':'none'}
 },{passive:true});
 
 const sb=window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY);
@@ -176,7 +176,7 @@ $('#booking-form')?.addEventListener('submit',async e=>{
  const {error}=await sb.from('bookings').insert({
   user_id:currentUser.id,service_id:service.id,customer_name:$('#booking-name').value.trim(),
   phone:normalizePhone($('#booking-phone').value),booking_date:$('#booking-date').value,
-  booking_time:$('#booking-time').value,notes:$('#booking-notes').value.trim(),total_price:Number(service.price)
+  booking_time:$('#booking-time').value,notes:$('#booking-notes').value.trim(),vehicle_model:$('#vehicle-model').value.trim(),total_price:Number(service.price)
  });
  if(error)return showStatus('#booking-status','تعذر حفظ الحجز: '+error.message,true);
  showStatus('#booking-status','تم تسجيل الحجز بنجاح.');
@@ -185,3 +185,74 @@ $('#booking-form')?.addEventListener('submit',async e=>{
 
 sb.auth.onAuthStateChange(async()=>{setTimeout(refreshApp,0)});
 refreshApp();
+
+
+async function isManager(){
+ if(!currentUser)return false;
+ const {data}=await sb.from('profiles').select('role').eq('id',currentUser.id).maybeSingle();
+ return !!data&&['admin','manager'].includes(data.role);
+}
+function escapeHtml(v){
+ return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+function adminTabs(){
+ $$('.admin-tab').forEach(btn=>btn.addEventListener('click',async()=>{
+  $$('.admin-tab').forEach(x=>x.classList.toggle('active',x===btn));
+  $$('.admin-pane').forEach(x=>x.classList.toggle('active',x.dataset.adminPane===btn.dataset.adminTab));
+  await loadAdminPane(btn.dataset.adminTab);
+ }));
+}
+async function loadAdminPane(tab){
+ if(!await isManager())return;
+ if(tab==='bookings')return loadManageBookings();
+ if(tab==='services')return loadManageServices();
+ if(tab==='offers')return loadManageOffers();
+ if(tab==='customers')return loadManageCustomers();
+ if(tab==='reviews')return loadManageReviews();
+}
+async function loadManageBookings(){
+ const {data,error}=await sb.from('bookings').select('id,customer_name,phone,booking_date,booking_time,status,total_price,vehicle_model,notes,services(name)').order('created_at',{ascending:false}).limit(100);
+ if(error)return $('#manage-bookings').innerHTML='<p class="error-text">تعذر تحميل الحجوزات.</p>';
+ const statuses=['pending','confirmed','preparing','completed','rejected','cancelled'];
+ $('#manage-bookings').innerHTML=(data||[]).length?'<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>العميل</th><th>السيارة</th><th>الخدمة</th><th>الموعد</th><th>الحالة</th><th>السعر</th><th>إجراء</th></tr></thead><tbody>'+
+ (data||[]).map(b=>'<tr><td>'+escapeHtml(b.customer_name)+'<small>'+escapeHtml(b.phone)+'</small></td><td>'+escapeHtml(b.vehicle_model||'—')+'</td><td>'+escapeHtml(b.services?.name||'—')+'</td><td>'+escapeHtml(b.booking_date)+'<small>'+escapeHtml(String(b.booking_time||'').slice(0,5))+'</small></td><td><select class="admin-status" data-id="'+b.id+'">'+statuses.map(s=>'<option value="'+s+'" '+(s===b.status?'selected':'')+'>'+statusAr(s)+'</option>').join('')+'</select></td><td>'+Number(b.total_price||0).toLocaleString('ar-EG')+' ج.م</td><td><button class="mini-btn danger delete-booking" data-id="'+b.id+'">حذف</button></td></tr>').join('')+
+ '</tbody></table></div>':'<p>لا توجد حجوزات.</p>';
+ $$('.admin-status').forEach(x=>x.addEventListener('change',async()=>{const {error}=await sb.from('bookings').update({status:x.value}).eq('id',x.dataset.id);if(error)alert('تعذر تغيير الحالة');else{await loadManageBookings();await loadDashboard();}}));
+ $$('.delete-booking').forEach(x=>x.addEventListener('click',async()=>{if(!confirm('حذف الحجز نهائيًا؟'))return;const {error}=await sb.from('bookings').delete().eq('id',x.dataset.id);if(error)alert('تعذر الحذف');else{await loadManageBookings();await loadDashboard();}}));
+}
+function resetServiceForm(){const f=$('#service-form');f?.reset();$('#service-id').value='';$('#service-active').checked=true;$('#service-duration').value=60;$('#service-order').value=0}
+async function loadManageServices(){
+ const {data,error}=await sb.from('services').select('*').order('sort_order').order('created_at');
+ if(error)return $('#manage-services').innerHTML='<p class="error-text">تعذر تحميل الخدمات.</p>';
+ $('#manage-services').innerHTML='<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>الخدمة</th><th>السعر</th><th>المدة</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>'+
+ (data||[]).map(s=>'<tr><td><b>'+escapeHtml(s.name)+'</b><small>'+escapeHtml(s.description||'')+'</small></td><td>'+Number(s.price).toLocaleString('ar-EG')+' ج.م</td><td>'+s.duration_minutes+' دقيقة</td><td>'+(s.active?'نشطة':'متوقفة')+'</td><td><button class="mini-btn edit-service" data-json="'+encodeURIComponent(JSON.stringify(s))+'">تعديل</button> <button class="mini-btn danger delete-service" data-id="'+s.id+'">حذف</button></td></tr>').join('')+'</tbody></table></div>';
+ $$('.edit-service').forEach(x=>x.addEventListener('click',()=>{const s=JSON.parse(decodeURIComponent(x.dataset.json));$('#service-id').value=s.id;$('#service-name').value=s.name;$('#service-price').value=s.price;$('#service-duration').value=s.duration_minutes;$('#service-order').value=s.sort_order;$('#service-description').value=s.description||'';$('#service-active').checked=s.active;scrollTo({top:$('#service-form').getBoundingClientRect().top+scrollY-100,behavior:'smooth'})}));
+ $$('.delete-service').forEach(x=>x.addEventListener('click',async()=>{if(!confirm('حذف الخدمة؟ لو عليها حجوزات قد يمنع قاعدة البيانات الحذف.'))return;const {error}=await sb.from('services').delete().eq('id',x.dataset.id);if(error)alert('تعذر الحذف: '+error.message);else{await loadManageServices();await loadServices();}}));
+}
+$('#service-form')?.addEventListener('submit',async e=>{e.preventDefault();if(!await isManager())return;const id=$('#service-id').value;const payload={name:$('#service-name').value.trim(),price:Number($('#service-price').value),duration_minutes:Number($('#service-duration').value),sort_order:Number($('#service-order').value),description:$('#service-description').value.trim(),active:$('#service-active').checked};const q=id?sb.from('services').update(payload).eq('id',id):sb.from('services').insert(payload);const {error}=await q;if(error)alert('تعذر حفظ الخدمة: '+error.message);else{resetServiceForm();await loadManageServices();await loadServices();}});
+$('#service-cancel')?.addEventListener('click',resetServiceForm);
+async function loadManageOffers(){
+ const {data,error}=await sb.from('offers').select('*').order('created_at',{ascending:false});
+ if(error)return $('#manage-offers').innerHTML='<p class="error-text">تعذر تحميل العروض.</p>';
+ $('#manage-offers').innerHTML='<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>العرض</th><th>الخصم</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>'+
+ (data||[]).map(o=>'<tr><td><b>'+escapeHtml(o.title)+'</b><small>'+escapeHtml(o.description||'')+'</small></td><td>'+Number(o.discount_percent)+'%</td><td>'+(o.active?'نشط':'متوقف')+'</td><td><button class="mini-btn edit-offer" data-json="'+encodeURIComponent(JSON.stringify(o))+'">تعديل</button> <button class="mini-btn danger delete-offer" data-id="'+o.id+'">حذف</button></td></tr>').join('')+'</tbody></table></div>';
+ $$('.edit-offer').forEach(x=>x.addEventListener('click',()=>{const o=JSON.parse(decodeURIComponent(x.dataset.json));$('#offer-id').value=o.id;$('#offer-title').value=o.title;$('#offer-discount').value=o.discount_percent;$('#offer-description').value=o.description||'';$('#offer-active').checked=o.active;scrollTo({top:$('#offer-form').getBoundingClientRect().top+scrollY-100,behavior:'smooth'})}));
+ $$('.delete-offer').forEach(x=>x.addEventListener('click',async()=>{if(!confirm('حذف العرض؟'))return;const {error}=await sb.from('offers').delete().eq('id',x.dataset.id);if(error)alert('تعذر الحذف: '+error.message);else loadManageOffers();}));
+}
+$('#offer-form')?.addEventListener('submit',async e=>{e.preventDefault();if(!await isManager())return;const id=$('#offer-id').value;const payload={title:$('#offer-title').value.trim(),discount_percent:Number($('#offer-discount').value),description:$('#offer-description').value.trim(),active:$('#offer-active').checked};const q=id?sb.from('offers').update(payload).eq('id',id):sb.from('offers').insert(payload);const {error}=await q;if(error)alert('تعذر حفظ العرض: '+error.message);else{e.target.reset();$('#offer-id').value='';$('#offer-active').checked=true;loadManageOffers();}});
+$('#offer-cancel')?.addEventListener('click',()=>{ $('#offer-form')?.reset();$('#offer-id').value='';$('#offer-active').checked=true;});
+async function loadManageCustomers(){
+ const {data,error}=await sb.from('profiles').select('id,phone,full_name,role,created_at').order('created_at',{ascending:false}).limit(200);
+ if(error)return $('#manage-customers').innerHTML='<p class="error-text">تعذر تحميل العملاء.</p>';
+ $('#manage-customers').innerHTML='<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>الاسم</th><th>الهاتف</th><th>الدور</th><th>التاريخ</th></tr></thead><tbody>'+(data||[]).map(x=>'<tr><td>'+escapeHtml(x.full_name||'بدون اسم')+'</td><td>'+escapeHtml(x.phone)+'</td><td>'+escapeHtml(x.role)+'</td><td>'+new Date(x.created_at).toLocaleDateString('ar-EG')+'</td></tr>').join('')+'</tbody></table></div>';
+}
+async function loadManageReviews(){
+ const {data,error}=await sb.from('reviews').select('id,rating,comment,approved,created_at,profiles(full_name,phone)').order('created_at',{ascending:false}).limit(100);
+ if(error)return $('#manage-reviews').innerHTML='<p class="error-text">تعذر تحميل التقييمات.</p>';
+ $('#manage-reviews').innerHTML='<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>العميل</th><th>التقييم</th><th>التعليق</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>'+(data||[]).map(x=>'<tr><td>'+escapeHtml(x.profiles?.full_name||x.profiles?.phone||'عميل')+'</td><td>'+x.rating+' ★</td><td>'+escapeHtml(x.comment||'—')+'</td><td>'+(x.approved?'منشور':'معلق')+'</td><td><button class="mini-btn toggle-review" data-id="'+x.id+'" data-value="'+(!x.approved)+'">'+(x.approved?'إخفاء':'نشر')+'</button> <button class="mini-btn danger delete-review" data-id="'+x.id+'">حذف</button></td></tr>').join('')+'</tbody></table></div>';
+ $$('.toggle-review').forEach(x=>x.addEventListener('click',async()=>{const {error}=await sb.from('reviews').update({approved:x.dataset.value==='true'}).eq('id',x.dataset.id);if(error)alert('تعذر تحديث التقييم');else loadManageReviews();}));
+ $$('.delete-review').forEach(x=>x.addEventListener('click',async()=>{if(!confirm('حذف التقييم؟'))return;const {error}=await sb.from('reviews').delete().eq('id',x.dataset.id);if(error)alert('تعذر الحذف');else loadManageReviews();}));
+}
+adminTabs();
+const originalLoadDashboard=loadDashboard;
+loadDashboard=async function(){await originalLoadDashboard();if(await isManager()){const s=$('#admin-management');if(s)s.style.display='block';await loadManageBookings();}};
