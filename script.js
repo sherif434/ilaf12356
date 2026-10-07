@@ -183,6 +183,7 @@ $('#forgot-password-btn')?.addEventListener('click',()=>{
  showStatus('#auth-status','لو أنت داخل حسابك، استخدم "تغيير كلمة المرور" من صفحة حسابي.',false);
 });
 
+$('#favorite-service-btn')?.addEventListener('click',async()=>{if(!currentUser){openAuth();return}const serviceId=$('#booking-service').value;if(!serviceId)return alert('اختار الخدمة الأول.');const {error}=await sb.from('favorites').upsert({user_id:currentUser.id,service_id:serviceId},{onConflict:'user_id,service_id'});if(error)alert('تعذر إضافة الخدمة للمفضلة: '+error.message);else{alert('اتضافت للمفضلة.');await loadFavorites();await loadAccount();}});
 $('#booking-form')?.addEventListener('submit',async e=>{
  e.preventDefault();
  if(!currentUser){openAuth();return showStatus('#booking-status','سجّل دخولك أولًا لإتمام الحجز.',true)}
