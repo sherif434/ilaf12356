@@ -94,6 +94,22 @@ function renderAuthButton(){
  const b=$('#account-btn');
  if(b)b.textContent=currentUser?'حسابي':'دخول';
 }
+
+async function loadOffers(){
+ const box=$('#offers-grid'); if(!box)return;
+ const {data,error}=await sb.from('offers').select('*').eq('active',true).order('created_at',{ascending:false});
+ if(error){box.innerHTML='<p class="error-text">تعذر تحميل العروض حاليًا.</p>';return}
+ box.innerHTML=(data||[]).length?(data||[]).map(o=>'<article class="offer-card reveal"><span class="offer-badge">خصم '+Number(o.discount_percent)+'%</span><h3>'+escapeHtml(o.title)+'</h3><p>'+escapeHtml(o.description||'عرض لفترة محدودة.')+'</p><a class="btn btn-primary" href="#booking">احجز العرض ↗</a></article>').join(''):'<div class="offer-empty">لا توجد عروض نشطة حاليًا.</div>';
+}
+async function loadFavorites(){
+ const box=$('#favorite-list'); if(!box)return;
+ if(!currentUser){box.innerHTML='<p>سجّل دخولك لإدارة المفضلة.</p>';return}
+ const {data,error}=await sb.from('favorites').select('service_id,services(name,price)').eq('user_id',currentUser.id);
+ if(error){box.innerHTML='<p class="error-text">تعذر تحميل المفضلة.</p>';return}
+ box.innerHTML=(data||[]).length?(data||[]).map(x=>'<div class="favorite-row"><span>'+escapeHtml(x.services?.name||'خدمة')+'</span><b>'+Number(x.services?.price||0).toLocaleString('ar-EG')+' ج.م</b><button class="mini-btn danger remove-favorite" data-id="'+x.service_id+'">إزالة</button></div>').join(''):'<p>لسه مفيش خدمات في المفضلة.</p>';
+ $('.remove-favorite').forEach(btn=>btn.addEventListener('click',async()=>{const {error}=await sb.from('favorites').delete().eq('user_id',currentUser.id).eq('service_id',btn.dataset.id);if(error)alert('تعذر إزالة الخدمة');else{await loadFavorites();await loadAccount();}}));
+}
+
 async function loadServices(){
  const {data,error}=await sb.from('services').select('*').eq('active',true).order('sort_order');
  if(error){console.error(error);return}
@@ -135,7 +151,7 @@ async function loadDashboard(){
 }
 async function refreshApp(){
  const {data:{user}}=await sb.auth.getUser();currentUser=user||null;
- await loadProfile();await loadServices();await loadAccount();await loadDashboard();
+ await loadProfile();await loadServices();await loadOffers();await loadAccount();await loadFavorites();await loadDashboard();
 }
 $('#auth-form')?.addEventListener('submit',async e=>{
  e.preventDefault();
