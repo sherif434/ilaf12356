@@ -180,20 +180,26 @@
 
 <section class="booking section" id="booking">
   <div class="section-head reveal">
-    <div class="section-label"><span>05</span><b>الحجز الإلكتروني</b></div>
-    <p>اختار الخدمة والسيارة والموعد المناسب. كل حجوزاتك هتظهر في حسابك.</p>
+    <div class="section-label"><span>05</span><b>الحجز والسلة</b></div>
+    <p>اختار الخدمات، هتتجمع في السلة، وبعدها أكّد الاسم والرقم والموعد.</p>
   </div>
-  <form class="booking-form reveal" id="booking-form">
-    <div class="field"><label>الخدمة</label><select id="booking-service" required><option value="">جاري تحميل الخدمات...</option></select><button type="button" class="mini-btn" id="favorite-service-btn">♡ أضف للمفضلة</button></div>
-    <div class="field"><label>نوع السيارة</label><input id="vehicle-model" maxlength="80" placeholder="مثال: BMW X5" required></div>
-    <div class="field"><label>اسم العميل</label><input id="booking-name" maxlength="80" required></div>
-    <div class="field"><label>رقم الهاتف</label><input id="booking-phone" inputmode="tel" maxlength="20" required></div>
-    <div class="field"><label>اليوم</label><input id="booking-date" type="date" required></div>
-    <div class="field"><label>الساعة</label><input id="booking-time" type="time" required></div>
-    <div class="field field-full"><label>ملاحظات</label><textarea id="booking-notes" maxlength="500" placeholder="أي تفاصيل تحب نعرفها عن العربية..."></textarea></div>
-    <button class="btn btn-primary" type="submit">تأكيد الحجز <span>↗</span></button>
-    <p class="form-status" id="booking-status"></p>
-  </form>
+  <div class="booking-layout">
+    <div class="booking-form reveal">
+      <div class="field"><label>الخدمة</label><select id="booking-service" required><option value="">جاري تحميل الخدمات...</option></select></div>
+      <button class="btn btn-outline add-cart-btn" type="button" id="add-to-cart">إضافة للسلة +</button>
+      <div class="cart-box"><div class="cart-head"><b>السلة</b><span id="cart-count">0 خدمات</span></div><div id="cart-list"><p class="cart-empty">السلة فاضية، اختار خدمة.</p></div><div class="cart-total"><span>الإجمالي</span><strong id="cart-total">0 ج.م</strong></div></div>
+    </div>
+    <form class="booking-form reveal" id="booking-form">
+      <div class="field"><label>الاسم</label><input id="booking-name" maxlength="80" required placeholder="اسمك"></div>
+      <div class="field"><label>رقم الموبايل</label><input id="booking-phone" inputmode="tel" maxlength="20" required placeholder="01000000000"></div>
+      <div class="field"><label>نوع السيارة</label><input id="vehicle-model" maxlength="80" placeholder="مثال: BMW X5" required></div>
+      <div class="field"><label>اليوم</label><input id="booking-date" type="date" required></div>
+      <div class="field"><label>الساعة</label><input id="booking-time" type="time" required></div>
+      <div class="field field-full"><label>ملاحظات</label><textarea id="booking-notes" maxlength="500" placeholder="أي تفاصيل تحب نعرفها عن العربية..."></textarea></div>
+      <button class="btn btn-primary" type="submit">تأكيد الحجز <span>↗</span></button>
+      <p class="form-status" id="booking-status"></p>
+    </form>
+  </div>
 </section>
 
 <section class="account-panel section" id="account">
@@ -268,14 +274,15 @@
   <div class="auth-backdrop" data-close-auth></div>
   <div class="auth-box" role="dialog" aria-modal="true" aria-labelledby="auth-title">
     <button class="modal-close" data-close-auth aria-label="إغلاق">×</button>
-    <div class="section-label"><span>08</span><b>حساب العميل</b></div>
-    <h2 id="auth-title">دخول سريع.</h2>
-    <p>اكتب رقم الهاتف، وبعدها هتظهر خانة كلمة المرور.</p>
+    <div class="auth-kicker"><span>ACCOUNT</span><b>حسابك</b></div>
+    <h2 id="auth-title">أهلاً بيك.</h2>
+    <p id="auth-subtitle">اكتب رقم الموبايل وكلمة المرور للدخول.</p>
     <form id="auth-form">
-      <div class="field"><label>رقم الهاتف</label><input id="auth-phone" inputmode="tel" autocomplete="tel" placeholder="01000000000" required></div>
-      <div class="field password-field" id="password-field"><label>كلمة المرور</label><input id="auth-password" type="password" value="12345678" minlength="6" autocomplete="current-password"></div>
-      <div class="auth-actions"><button class="btn btn-primary" type="submit">دخول</button><button class="btn btn-outline" type="button" id="signup-btn">إنشاء حساب</button></div>
-      <button class="text-link auth-change" type="button" id="forgot-password-btn">تغيير كلمة المرور بعد الدخول</button>
+      <div class="field auth-name-field" id="auth-name-field"><label>الاسم</label><input id="auth-name" maxlength="80" autocomplete="name" placeholder="اكتب اسمك"></div>
+      <div class="field"><label>رقم الموبايل</label><input id="auth-phone" inputmode="tel" autocomplete="tel" placeholder="01000000000" required></div>
+      <div class="field password-field" id="password-field"><label>كلمة المرور</label><input id="auth-password" type="password" minlength="6" autocomplete="current-password" placeholder="كلمة المرور"></div>
+      <div class="auth-actions"><button class="btn btn-primary" id="auth-submit" type="submit">دخول</button><button class="btn btn-outline" type="button" id="signup-btn">إنشاء حساب</button></div>
+      <button class="text-link auth-change" type="button" id="auth-mode-btn">أنا عندي حساب بالفعل</button>
       <p class="form-status" id="auth-status"></p>
     </form>
   </div>
