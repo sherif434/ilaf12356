@@ -81,7 +81,7 @@
 <section class="services section" id="services">
   <div class="section-head reveal">
     <div class="section-label"><span>02</span><b>الخدمات</b></div>
-    <p>اختار اللي عربيتك محتاجاه، واسألنا عن التفاصيل والأسعار على الحجز.</p>
+    <p>اختار اللي عربيتك محتاجاه، وشوف الأسعار الحالية واحجز مباشرة من الموقع.</p>
   </div>
   <div class="service-grid">
     <article class="service-card service-feature reveal">
@@ -173,6 +173,11 @@
 <a class="floating-wa" href="#booking"  aria-label="الحجز">⌁<span>الحجز</span></a>
 
 
+<section class="offers section" id="offers">
+  <div class="section-head reveal"><div class="section-label"><span>05</span><b>العروض الحالية</b></div><p>أي عرض متاح هيظهر هنا تلقائيًا من لوحة الإدارة.</p></div>
+  <div class="offers-grid" id="offers-grid"><div class="offer-loading">جاري تحميل العروض...</div></div>
+</section>
+
 <section class="booking section" id="booking">
   <div class="section-head reveal">
     <div class="section-label"><span>05</span><b>الحجز الإلكتروني</b></div>
@@ -181,7 +186,7 @@
   <form class="booking-form reveal" id="booking-form">
     <div class="field"><label>الخدمة</label><select id="booking-service" required><option value="">جاري تحميل الخدمات...</option></select></div>
     <div class="field"><label>نوع السيارة</label><input id="vehicle-model" maxlength="80" placeholder="مثال: BMW X5" required></div>
-    <div class="field"><label>اسم العميل</label><input id="booking-name" maxlength="80" required></div>
+    <div class="field"><label>اسم العميل</label><input id="vehicle-model" placeholder="موديل السيارة" maxlength="80" required><input id="booking-name" maxlength="80" required></div>
     <div class="field"><label>رقم الهاتف</label><input id="booking-phone" inputmode="tel" maxlength="20" required></div>
     <div class="field"><label>اليوم</label><input id="booking-date" type="date" required></div>
     <div class="field"><label>الساعة</label><input id="booking-time" type="time" required></div>
@@ -202,7 +207,7 @@
     <article class="account-card"><span>الحجوزات</span><strong id="account-bookings">0</strong></article>
     <article class="account-card"><span>المفضلة</span><strong id="account-favorites">0</strong></article>
   </div>
-  <div class="account-actions">
+  <div class="favorites-card"><h3>منتجاتي المفضلة</h3><div id="favorite-list"></div></div><div class="account-actions">
     <button class="btn btn-outline" id="change-password-btn">تغيير كلمة المرور</button>
     <button class="btn btn-outline" id="logout-btn">تسجيل الخروج</button>
   </div>
@@ -275,6 +280,6 @@
     </form>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js?v=20261007"></script><script src="script.js?v=20261007"></script>
 </body>
 </html>
