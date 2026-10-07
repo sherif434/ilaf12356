@@ -58,18 +58,74 @@ function normalizePhone(value){
  return p.startsWith('+')?p:'+'+p;
 }
 function showStatus(id,msg,error=false){const el=$(id);if(el){el.textContent=msg;el.style.color=error?'#ff7b7b':'#d6ff3f'}}
-function openAuth(){
- const m=$('#auth-modal');if(!m)return;m.classList.add('open');m.setAttribute('aria-hidden','false');
+let authMode='login';
+function setAuthMode(mode){
+ authMode=mode;
+ const signup=mode==='signup';
+ $('#auth-name-field')?.classList.toggle('active',signup);
+ $('#auth-submit').textContent=signup?'إنشاء الحساب':'دخول';
+ $('#auth-title').textContent=signup?'اعمل حسابك.':'أهلاً بيك.';
+ $('#auth-subtitle').textContent=signup?'اكتب اسمك ورقم الموبايل وكلمة المرور.':'اكتب رقم الموبايل وكلمة المرور للدخول.';
+ $('#auth-mode-btn').textContent=signup?'عندي حساب بالفعل':'أنا عميل جديد';
+ $('#auth-password').setAttribute('autocomplete',signup?'new-password':'current-password');
+}
+function openAuth(mode='login'){
+ const m=$('#auth-modal');if(!m)return;
+ setAuthMode(mode);m.classList.add('open');m.setAttribute('aria-hidden','false');
  setTimeout(()=>$('#auth-phone')?.focus(),80);
 }
 function closeAuth(){const m=$('#auth-modal');if(!m)return;m.classList.remove('open');m.setAttribute('aria-hidden','true')}
 $$('[data-close-auth]').forEach(x=>x.addEventListener('click',closeAuth));
+$('#auth-mode-btn')?.addEventListener('click',()=>setAuthMode(authMode==='login'?'signup':'login'));
 const authPhone=$('#auth-phone'),passField=$('#password-field');
 authPhone?.addEventListener('input',()=>{
- const valid=/^01\d{9}$/.test(authPhone.value.replace(/\D/g,''));
- passField?.classList.toggle('show',valid);
+ const digits=authPhone.value.replace(/\D/g,'');
+ passField?.classList.toggle('show',/^01\d{9}$/.test(digits));
+});
+$('#auth-form')?.addEventListener('submit',async e=>{
+ e.preventDefault();
+ const phone=normalizePhone(authPhone.value),password=$('#auth-password').value.trim(),name=$('#auth-name').value.trim();
+ if(!/^\+20\d{10}$/.test(phone))return showStatus('#auth-status','اكتب رقم موبايل مصري صحيح.',true);
+ if(password.length<6)return showStatus('#auth-status','كلمة المرور لازم تكون 6 أحرف أو أرقام على الأقل.',true);
+ if(authMode==='signup'&&!name)return showStatus('#auth-status','اكتب اسمك الأول.',true);
+ showStatus('#auth-status',authMode==='signup'?'جاري إنشاء الحساب...':'جاري تسجيل الدخول...');
+ if(authMode==='signup'){
+   const {data,error}=await sb.auth.signUp({phone,password,options:{data:{full_name:name}}});
+   if(error)return showStatus('#auth-status',error.message||'تعذر إنشاء الحساب.',true);
+   if(data.user){
+     if(data.session){closeAuth();await refreshApp();location.hash='#account'}
+     else showStatus('#auth-status','تم إنشاء الحساب. لو التحقق بالرسائل مفعّل، أكّد الرقم ثم سجّل الدخول.');
+   }
+ }else{
+   const {error}=await sb.auth.signInWithPassword({phone,password});
+   if(error)return showStatus('#auth-status','رقم الموبايل أو كلمة المرور غير صحيحة.',true);
+   closeAuth();await refreshApp();location.hash=currentProfile?.role==='admin'||currentProfile?.role==='manager'?'#dashboard':'#account';
+ }
+});
+$('#logout-btn')?.addEventListener('click',async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;showPrivateSections();renderAuthButton();location.hash='#top'});
+$('#change-password-btn')?.addEventListener('click',async()=>{
+ const password=prompt('اكتب كلمة المرور الجديدة (6 أحرف أو أرقام على الأقل):');
+ if(!password||password.length<6)return;
+ const {error}=await sb.auth.updateUser({password});
+ alert(error?'تعذر تغيير كلمة المرور: '+error.message:'تم تغيير كلمة المرور بنجاح.');
 });
 
+let cart=[];
+function renderCart(){
+ const list=$('#cart-list'),count=$('#cart-count'),total=$('#cart-total');
+ if(!list)return;
+ count.textContent=cart.length+' خدمات';
+ total.textContent=cart.reduce((sum,x)=>sum+Number(x.price||0),0).toLocaleString('ar-EG')+' ج.م';
+ list.innerHTML=cart.length?cart.map((x,i)=>'<div class="cart-row"><div><b>'+escapeHtml(x.name)+'</b><small>'+Number(x.price).toLocaleString('ar-EG')+' ج.م</small></div><button type="button" class="mini-btn danger cart-remove" data-index="'+i+'">حذف</button></div>').join(''):'<p class="cart-empty">السلة فاضية، اختار خدمة.</p>';
+ $$('.cart-remove').forEach(b=>b.addEventListener('click',()=>{cart.splice(Number(b.dataset.index),1);renderCart()}));
+}
+$('#add-to-cart')?.addEventListener('click',()=>{
+ const service=services.find(s=>s.id===$('#booking-service').value);
+ if(!service)return showStatus('#booking-status','اختار الخدمة الأول.',true);
+ if(cart.some(x=>x.id===service.id))return showStatus('#booking-status','الخدمة موجودة بالفعل في السلة.',true);
+ cart.push({id:service.id,name:service.name,price:service.price});renderCart();showStatus('#booking-status','اتضافت للسلة.');
+});
+renderCart();
 function addTopControls(){
  const header=$('.site-header'); if(!header)return;
  const controls=document.createElement('div');controls.className='site-controls';
@@ -186,18 +242,22 @@ $('#forgot-password-btn')?.addEventListener('click',()=>{
 $('#favorite-service-btn')?.addEventListener('click',async()=>{if(!currentUser){openAuth();return}const serviceId=$('#booking-service').value;if(!serviceId)return alert('اختار الخدمة الأول.');const {error}=await sb.from('favorites').upsert({user_id:currentUser.id,service_id:serviceId},{onConflict:'user_id,service_id'});if(error)alert('تعذر إضافة الخدمة للمفضلة: '+error.message);else{alert('اتضافت للمفضلة.');await loadFavorites();await loadAccount();}});
 $('#booking-form')?.addEventListener('submit',async e=>{
  e.preventDefault();
- if(!currentUser){openAuth();return showStatus('#booking-status','سجّل دخولك أولًا لإتمام الحجز.',true)}
- const service=services.find(s=>s.id===$('#booking-service').value);
- if(!service)return showStatus('#booking-status','اختار الخدمة أولًا.',true);
+ if(!currentUser){openAuth('login');return showStatus('#booking-status','سجّل دخولك أولًا لإتمام الحجز.',true)}
+ if(!cart.length)return showStatus('#booking-status','اختار خدمة واحدة على الأقل وأضفها للسلة.',true);
+ const name=$('#booking-name').value.trim(),phone=normalizePhone($('#booking-phone').value);
+ if(!name)return showStatus('#booking-status','اكتب الاسم.',true);
+ if(!/^\+20\d{10}$/.test(phone))return showStatus('#booking-status','اكتب رقم موبايل مصري صحيح.',true);
+ const first=cart[0];
  showStatus('#booking-status','جاري حفظ الحجز...');
  const {error}=await sb.from('bookings').insert({
-  user_id:currentUser.id,service_id:service.id,customer_name:$('#booking-name').value.trim(),
-  phone:normalizePhone($('#booking-phone').value),booking_date:$('#booking-date').value,
-  booking_time:$('#booking-time').value,notes:$('#booking-notes').value.trim(),vehicle_model:$('#vehicle-model').value.trim(),total_price:Number(service.price)
+   user_id:currentUser.id,service_id:first.id,customer_name:name,phone,
+   booking_date:$('#booking-date').value,booking_time:$('#booking-time').value,
+   notes:($('#booking-notes').value.trim()||'')+' | الخدمات: '+cart.map(x=>x.name).join('، '),
+   vehicle_model:$('#vehicle-model').value.trim(),total_price:cart.reduce((sum,x)=>sum+Number(x.price||0),0)
  });
  if(error)return showStatus('#booking-status','تعذر حفظ الحجز: '+error.message,true);
  showStatus('#booking-status','تم تسجيل الحجز بنجاح.');
- e.target.reset();await loadAccount();await loadDashboard();
+ e.target.reset();cart=[];renderCart();await loadAccount();await loadDashboard();
 });
 
 sb.auth.onAuthStateChange(async()=>{setTimeout(refreshApp,0)});
