@@ -111,7 +111,7 @@ $('#auth-form')?.addEventListener('submit',async e=>{
    }
    closeAuth();await refreshApp();location.hash=currentProfile?.role==='admin'?'#dashboard':'#account';
  }
-});
+});*/
 $('#logout-btn')?.addEventListener('click',async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;showPrivateSections();renderAuthButton();location.hash='#top'});
 $('#change-password-btn')?.addEventListener('click',async()=>{
  const password=prompt('اكتب كلمة المرور الجديدة (6 أحرف أو أرقام على الأقل):');
@@ -222,37 +222,6 @@ async function refreshApp(){
  const {data:{user}}=await sb.auth.getUser();currentUser=user||null;
  await loadProfile();await loadServices();await loadOffers();await loadAccount();await loadFavorites();await loadDashboard();
 }
-$('#auth-form')?.addEventListener('submit',async e=>{
- e.preventDefault();
- const phone=normalizePhone(authPhone.value),password=$('#auth-password').value;
- if(!/^\+20\d{10}$/.test(phone))return showStatus('#auth-status','اكتب رقم مصري صحيح.',true);
- if(password.length<6)return showStatus('#auth-status','كلمة المرور لازم تكون 6 أحرف أو أرقام على الأقل.',true);
- showStatus('#auth-status','جاري تسجيل الدخول...');
- const {error}=await sb.auth.signInWithPassword({phone,password});
- if(error)return showStatus('#auth-status','بيانات الدخول غير صحيحة أو الحساب يحتاج تفعيل رقم الهاتف.',true);
- closeAuth();await refreshApp();location.hash='#account';
-});
-$('#signup-btn')?.addEventListener('click',async()=>{
- const phone=normalizePhone(authPhone.value),password=$('#auth-password').value;
- if(!/^\+20\d{10}$/.test(phone))return showStatus('#auth-status','اكتب رقم مصري صحيح.',true);
- showStatus('#auth-status','جاري إنشاء الحساب...');
- const {data,error}=await sb.auth.signUp({phone,password});
- if(error)return showStatus('#auth-status',error.message||'تعذر إنشاء الحساب.',true);
- if(data.session){closeAuth();await refreshApp();location.hash='#account'}
- else showStatus('#auth-status','تم إنشاء الحساب. لو التحقق بالرسائل مفعّل، أدخل كود SMS المرسل على الرقم ثم سجّل الدخول.');
-});
-$('#logout-btn')?.addEventListener('click',async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;showPrivateSections();renderAuthButton();location.hash='#top'});
-$('#change-password-btn')?.addEventListener('click',async()=>{
- const password=prompt('اكتب كلمة المرور الجديدة (6 أحرف أو أرقام على الأقل):');
- if(!password||password.length<6)return;
- const {error}=await sb.auth.updateUser({password});
- alert(error?'تعذر تغيير كلمة المرور: '+error.message:'تم تغيير كلمة المرور بنجاح.');
-});
-$('#forgot-password-btn')?.addEventListener('click',()=>{
- showStatus('#auth-status','لو أنت داخل حسابك، استخدم "تغيير كلمة المرور" من صفحة حسابي.',false);
-});
-
-$('#favorite-service-btn')?.addEventListener('click',async()=>{if(!currentUser){openAuth();return}const serviceId=$('#booking-service').value;if(!serviceId)return alert('اختار الخدمة الأول.');const {error}=await sb.from('favorites').upsert({user_id:currentUser.id,service_id:serviceId},{onConflict:'user_id,service_id'});if(error)alert('تعذر إضافة الخدمة للمفضلة: '+error.message);else{alert('اتضافت للمفضلة.');await loadFavorites();await loadAccount();}});
 $('#booking-form')?.addEventListener('submit',async e=>{
  e.preventDefault();
  if(!currentUser){openAuth('login');return showStatus('#booking-status','سجّل دخولك أولًا لإتمام الحجز.',true)}
