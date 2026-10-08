@@ -61,12 +61,15 @@ function showStatus(id,msg,error=false){const el=$(id);if(el){el.textContent=msg
 let authMode='login';
 function setAuthMode(mode){
  authMode=mode;
+ const owner=mode==='owner';
  const signup=mode==='signup';
- $('#auth-name-field')?.classList.toggle('active',signup);
+ $('#auth-name-field')?.classList.toggle('active',signup && !owner);
  $('#auth-submit').textContent=signup?'إنشاء الحساب':'دخول';
- $('#auth-title').textContent=signup?'اعمل حسابك.':'أهلاً بيك.';
- $('#auth-subtitle').textContent=signup?'اكتب اسمك ورقم الموبايل وكلمة المرور.':'اكتب رقم الموبايل وكلمة المرور للدخول.';
+ $('#auth-title').textContent=owner?'دخول المالك':(signup?'اعمل حسابك.':'أهلاً بيك.');
+ $('#auth-subtitle').textContent=owner?'استخدم حساب المالك الموجود في Supabase Auth.':(signup?'اكتب اسمك ورقم الموبايل وكلمة المرور.':'اكتب رقم الموبايل وكلمة المرور للدخول.');
  $('#auth-mode-btn').textContent=signup?'عندي حساب بالفعل':'أنا عميل جديد';
+ $('#auth-mode-btn').style.display=owner?'none':'';
+ $('#signup-btn').style.display=owner?'none':'';
  $('#auth-password').setAttribute('autocomplete',signup?'new-password':'current-password');
 }
 function openAuth(mode='login'){
@@ -97,9 +100,16 @@ $('#auth-form')?.addEventListener('submit',async e=>{
      else showStatus('#auth-status','تم إنشاء الحساب. لو التحقق بالرسائل مفعّل، أكّد الرقم ثم سجّل الدخول.');
    }
  }else{
-   const {error}=await sb.auth.signInWithPassword({phone,password});
-   if(error)return showStatus('#auth-status','رقم الموبايل أو كلمة المرور غير صحيحة.',true);
-   closeAuth();await refreshApp();location.hash=currentProfile?.role==='admin'||currentProfile?.role==='manager'?'#dashboard':'#account';
+   const {data,error}=await sb.auth.signInWithPassword({phone,password});
+   if(error)return showStatus('#auth-status','بيانات الدخول غير صحيحة.',true);
+   if(authMode==='owner'){
+     const {data:profile,error:profileError}=await sb.from('profiles').select('role').eq('id',data.user.id).maybeSingle();
+     if(profileError||profile?.role!=='admin'){
+       await sb.auth.signOut(); currentUser=null; currentProfile=null; showPrivateSections(); renderAuthButton();
+       return showStatus('#auth-status','هذا الحساب ليس حساب المالك.',true);
+     }
+   }
+   closeAuth();await refreshApp();location.hash=currentProfile?.role==='admin'?'#dashboard':'#account';
  }
 });
 $('#logout-btn')?.addEventListener('click',async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;showPrivateSections();renderAuthButton();location.hash='#top'});
@@ -129,22 +139,25 @@ renderCart();
 function addTopControls(){
  const header=$('.site-header'); if(!header)return;
  const controls=document.createElement('div');controls.className='site-controls';
- controls.innerHTML='<button class="control-btn" id="theme-btn" type="button" aria-label="تغيير المظهر">☾</button><button class="control-btn" id="account-btn" type="button">حسابي</button>';
+ controls.innerHTML='<button class="control-btn" id="theme-btn" type="button" aria-label="تغيير المظهر">☾</button><button class="control-btn" id="owner-btn" type="button">المالك</button><button class="control-btn" id="account-btn" type="button">حسابي</button>';
  header.insertBefore(controls,menu||header.lastChild);
  $('#theme-btn')?.addEventListener('click',()=>{
   document.documentElement.classList.toggle('light-mode');
   localStorage.setItem('washing-theme',document.documentElement.classList.contains('light-mode')?'light':'dark');
   $('#theme-btn').textContent=document.documentElement.classList.contains('light-mode')?'☀':'☾';
  });
- $('#account-btn')?.addEventListener('click',()=>currentUser?location.hash='#account':openAuth());
+ $('#account-btn')?.addEventListener('click',()=>currentUser?location.hash='#account':openAuth('login'));
+ $('#owner-btn')?.addEventListener('click',()=>openAuth('owner'));
  if(localStorage.getItem('washing-theme')==='light'){document.documentElement.classList.add('light-mode');$('#theme-btn').textContent='☀'}
 }
 addTopControls();
 
 function showPrivateSections(){
- const account=$('#account'),dashboard=$('#dashboard');
+ const account=$('#account'),dashboard=$('#dashboard'),management=$('#admin-management');
+ const isOwner=!!currentUser&&currentProfile?.role==='admin';
  if(account)account.style.display=currentUser?'block':'none';
- if(dashboard)dashboard.style.display=currentProfile?.role==='admin'||currentProfile?.role==='manager'?'block':'none';
+ if(dashboard)dashboard.style.display=isOwner?'block':'none';
+ if(management)management.style.display=isOwner?'block':'none';
 }
 function renderAuthButton(){
  const b=$('#account-btn');
@@ -193,7 +206,7 @@ async function loadAccount(){
 function statusAr(s){return({pending:'قيد الانتظار',confirmed:'تمت الموافقة',preparing:'جاري التجهيز',completed:'تم التسليم',cancelled:'ملغي',rejected:'تم الرفض'})[s]||s}
 
 async function loadDashboard(){
- if(!currentProfile||!['admin','manager'].includes(currentProfile.role))return;
+ if(!currentProfile||currentProfile.role!=='admin')return;
  const {data:stats,error}=await sb.from('dashboard_stats').select('*').single();
  if(error){console.error(error);return}
  $('#stat-total').textContent=stats.total_bookings||0;
@@ -267,7 +280,7 @@ refreshApp();
 async function isManager(){
  if(!currentUser)return false;
  const {data}=await sb.from('profiles').select('role').eq('id',currentUser.id).maybeSingle();
- return !!data&&['admin','manager'].includes(data.role);
+ return !!data&&data.role==='admin';
 }
 function escapeHtml(v){
  return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
