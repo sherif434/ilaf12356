@@ -19,12 +19,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Verify owner secrets are configured
+        env:
+          OWNER_PHONE: ${{ secrets.OWNER_PHONE }}
+          OWNER_PASSWORD: ${{ secrets.OWNER_PASSWORD }}
+        run: |
+          test -n "$OWNER_PHONE" || (echo "OWNER_PHONE secret is missing" && exit 1)
+          test -n "$OWNER_PASSWORD" || (echo "OWNER_PASSWORD secret is missing" && exit 1)
+          echo "Owner secrets are configured."
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: .
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
