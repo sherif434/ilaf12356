@@ -111,7 +111,7 @@ $('#auth-form')?.addEventListener('submit',async e=>{
    }
    closeAuth();await refreshApp();location.hash=currentProfile?.role==='admin'?'#dashboard':'#account';
  }
-});*/
+});
 $('#signup-btn')?.addEventListener('click',()=>setAuthMode('signup'));
 
 $('#logout-btn')?.addEventListener('click',async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;showPrivateSections();renderAuthButton();location.hash='#top'});
