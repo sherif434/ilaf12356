@@ -105,6 +105,9 @@ function onHands(results){
  }else prevSpan=null;
 }
 document.getElementById('start').addEventListener('click',startCamera);
+// Ask for camera permission automatically when the page opens.
+// If the browser blocks automatic prompting, the Enable Camera button remains available.
+window.addEventListener('load',()=>{setTimeout(()=>{if(!tracking)startCamera()},350)});
 document.getElementById('zoomIn').addEventListener('click',()=>targetZoom=clamp(targetZoom-.55,3.1,9.5));
 document.getElementById('zoomOut').addEventListener('click',()=>targetZoom=clamp(targetZoom+.55,3.1,9.5));
 document.getElementById('reset').addEventListener('click',()=>{targetRotX=-.12;targetRotY=.4;targetZoom=5.2;notify('Globe view reset.')});
