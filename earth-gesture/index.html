@@ -95,7 +95,8 @@ function onHands(results){
  const hands=results.multiHandLandmarks||[];
  if(!hands.length){setStatus('Show your hands',true);prevHand=null;prevSpan=null;return}
  setStatus(hands.length===2?'Two hands detected':'Hand detected',true);
- const h=hands[0],p=h[0],index=h[8];
+ // One hand moves the globe; two hands pinch/spread to zoom.
+ const h=hands[0],p=h[0];
  if(prevHand&&!prevHand.pointer){const dx=p.x-prevHand.x,dy=p.y-prevHand.y;targetRotY-=dx*5;targetRotX+=dy*4}
  prevHand={x:p.x,y:p.y};
  if(hands.length>=2){
