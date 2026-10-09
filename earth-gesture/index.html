@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#030712">
+<title>Earth in Your Hands — Gesture Globe</title>
+<style>
+:root{color-scheme:dark;--cyan:#64f5ff;--blue:#4388ff;--muted:#9fb6d6}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#02040d;color:#f3f8ff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+body{background:radial-gradient(ellipse at 50% 45%,#101b3a 0%,#050918 48%,#01030a 100%)}
+#stage{position:fixed;inset:0}canvas{display:block;width:100%;height:100%}
+.vignette{pointer-events:none;position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 30%,#01030a66 100%)}
+.top{position:fixed;top:clamp(18px,4vh,42px);left:0;right:0;text-align:center;padding:0 16px;pointer-events:none}
+.kicker{font-size:10px;letter-spacing:.42em;color:var(--cyan);text-transform:uppercase;font-weight:800}
+h1{font-size:clamp(25px,5vw,49px);letter-spacing:-.055em;margin:9px 0 8px;font-weight:760;text-shadow:0 0 30px #4ae8ff30}
+.subtitle{font-size:clamp(11px,1.5vw,14px);color:#a7b8d5;letter-spacing:.03em}
+.panel{position:fixed;left:clamp(14px,3vw,34px);bottom:clamp(16px,3vh,30px);width:min(300px,calc(100vw - 28px));border:1px solid #80dfff30;background:linear-gradient(135deg,#09162bd9,#070b19d9);backdrop-filter:blur(18px);border-radius:18px;padding:16px;box-shadow:0 16px 60px #0006}
+.panel-title{display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#dbeaff;font-weight:800;margin-bottom:14px}
+.status{display:flex;align-items:center;gap:7px;font-size:10px;color:#9db1d1;letter-spacing:0;text-transform:none;font-weight:500}
+.dot{width:7px;height:7px;border-radius:50%;background:#f6ba58;box-shadow:0 0 12px #f6ba58}
+.dot.live{background:#58ffc0;box-shadow:0 0 12px #58ffc0}
+.step{display:flex;align-items:center;gap:10px;margin:11px 0;color:#b8c9e2;font-size:12px;line-height:1.4}
+.num{flex:none;width:25px;height:25px;border-radius:8px;display:grid;place-items:center;border:1px solid #61e9ff55;color:var(--cyan);font-size:11px;font-weight:800}
+.hint{margin-top:14px;padding-top:12px;border-top:1px solid #7fcfff20;color:#8299bd;font-size:10px;line-height:1.6}
+.controls{position:fixed;right:clamp(14px,3vw,34px);bottom:clamp(16px,3vh,30px);display:flex;flex-direction:column;gap:9px}
+button{cursor:pointer;color:#e9faff;border:1px solid #7ddfff45;background:#0a1830cc;padding:11px 14px;border-radius:12px;font:600 11px inherit;letter-spacing:.04em;backdrop-filter:blur(14px);transition:.2s}
+button:hover{border-color:var(--cyan);box-shadow:0 0 22px #35dfff24;transform:translateY(-1px)}
+#start{border-color:#64f5ff80;background:linear-gradient(135deg,#0b5265dd,#12327bdd)}
+#camWrap{position:fixed;right:18px;top:18px;width:120px;height:88px;opacity:0;pointer-events:none;overflow:hidden;border-radius:12px;border:1px solid #64f5ff55;transition:opacity .3s}
+#camWrap.visible{opacity:.5}#inputVideo{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+#toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,18px);opacity:0;transition:.25s;max-width:90vw;text-align:center;border:1px solid #64f5ff45;background:#07152bea;color:#c9faff;border-radius:12px;padding:11px 16px;font-size:12px;pointer-events:none}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.footer{position:fixed;right:clamp(14px,3vw,34px);top:24px;color:#7188ad;font-size:9px;letter-spacing:.18em;text-transform:uppercase}
+@media(max-width:600px){.top{top:20px}.subtitle{max-width:290px;margin:auto;line-height:1.5}.panel{bottom:14px;padding:12px;width:calc(100vw - 28px)}.panel-title{margin-bottom:8px}.step{margin:7px 0}.hint{margin-top:9px;padding-top:8px}.controls{right:14px;bottom:185px}.controls button{padding:10px 12px}#camWrap{width:82px;height:62px;top:12px;right:12px}.footer{top:auto;bottom:14px;right:14px;font-size:8px}}
+</style>
+</head>
+<body>
+<div id="stage"></div><div class="vignette"></div>
+<header class="top"><div class="kicker">A gesture-controlled experience</div><h1>Earth in Your Hands</h1><div class="subtitle">Explore our planet with nothing but your hands.</div></header>
+<div class="footer">INTERACTIVE GLOBE · WEBGL</div>
+<section class="panel" aria-label="How to use">
+<div class="panel-title"><span>Gesture controls</span><span class="status"><i id="statusDot" class="dot"></i><span id="statusText">Demo mode</span></span></div>
+<div class="step"><span class="num">01</span><span>Allow camera access to activate hand tracking.</span></div>
+<div class="step"><span class="num">02</span><span>Move one hand to rotate the globe.</span></div>
+<div class="step"><span class="num">03</span><span>Bring two hands closer or farther apart to zoom.</span></div>
+<div class="hint">Camera processing runs in your browser. No video is uploaded by this page. If camera access is unavailable, drag to rotate and use the buttons to zoom.</div>
+</section>
+<div class="controls"><button id="start">◎ &nbsp; Enable camera</button><button id="zoomIn">＋ &nbsp; Zoom in</button><button id="zoomOut">－ &nbsp; Zoom out</button><button id="reset">↺ &nbsp; Reset globe</button></div>
+<div id="camWrap"><video id="inputVideo" playsinline></video></div><div id="toast" role="status"></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script>
+(()=>{
+'use strict';
+const stage=document.getElementById('stage'),video=document.getElementById('inputVideo'),camWrap=document.getElementById('camWrap');
+const statusText=document.getElementById('statusText'),statusDot=document.getElementById('statusDot'),toast=document.getElementById('toast');
+let scene,camera,renderer,globe,earthGroup,clouds,stars,atmosphere,handTracker,mpCamera,tracking=false;
+let targetRotX=-.12,targetRotY=.4,zoom=5.2,targetZoom=5.2,prevHand=null,prevSpan=null,lastToast=0;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function notify(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(lastToast);lastToast=setTimeout(()=>toast.classList.remove('show'),2600)}
+function setStatus(msg,live=false){statusText.textContent=msg;statusDot.classList.toggle('live',live)}
+function init(){
+ scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x030713,.025);
+ camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,100);camera.position.set(0,0,zoom);
+ renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;stage.appendChild(renderer.domElement);
+ earthGroup=new THREE.Group();scene.add(earthGroup);
+ const loader=new THREE.TextureLoader();
+ const fallback=new THREE.MeshStandardMaterial({color:0x1766a7,roughness:.8,metalness:.05});
+ globe=new THREE.Mesh(new THREE.SphereGeometry(1.55,96,96),fallback);earthGroup.add(globe);
+ loader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg',t=>{t.colorSpace=THREE.SRGBColorSpace;globe.material=new THREE.MeshStandardMaterial({map:t,roughness:.88,metalness:.04});},undefined,()=>{});
+ loader.load('https://threejs.org/examples/textures/planets/earth_clouds_1024.png',t=>{t.colorSpace=THREE.SRGBColorSpace;clouds=new THREE.Mesh(new THREE.SphereGeometry(1.57,64,64),new THREE.MeshPhongMaterial({map:t,transparent:true,opacity:.19,depthWrite:false}));earthGroup.add(clouds);},undefined,()=>{});
+ atmosphere=new THREE.Mesh(new THREE.SphereGeometry(1.64,64,64),new THREE.MeshBasicMaterial({color:0x2eabff,transparent:true,opacity:.105,side:THREE.BackSide,blending:THREE.AdditiveBlending}));earthGroup.add(atmosphere);
+ scene.add(new THREE.AmbientLight(0x8bbaff,1.25));const key=new THREE.DirectionalLight(0xffffff,2.5);key.position.set(-3,2,5);scene.add(key);const rim=new THREE.PointLight(0x168aff,14,18);rim.position.set(3,-1,-3);scene.add(rim);
+ const starGeo=new THREE.BufferGeometry(),positions=[];for(let i=0;i<1600;i++){const r=18+Math.random()*35,a=Math.random()*Math.PI*2,b=Math.acos(2*Math.random()-1);positions.push(r*Math.sin(b)*Math.cos(a),r*Math.cos(b),r*Math.sin(b)*Math.sin(a));}starGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));stars=new THREE.Points(starGeo,new THREE.PointsMaterial({color:0x9fcfff,size:.055,transparent:true,opacity:.8}));scene.add(stars);
+ renderer.domElement.addEventListener('pointerdown',e=>{prevHand={x:e.clientX/innerWidth,y:e.clientY/innerHeight,pointer:true};renderer.domElement.setPointerCapture?.(e.pointerId)});renderer.domElement.addEventListener('pointermove',e=>{if(prevHand?.pointer&&e.buttons){targetRotY+=(e.clientX/innerWidth-prevHand.x)*4;targetRotX+=(e.clientY/innerHeight-prevHand.y)*3;prevHand={x:e.clientX/innerWidth,y:e.clientY/innerHeight,pointer:true}}});renderer.domElement.addEventListener('pointerup',()=>{if(prevHand?.pointer)prevHand=null});renderer.domElement.addEventListener('wheel',e=>{targetZoom=clamp(targetZoom+e.deltaY*.004,3.1,9.5)},{passive:true});
+ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2))});
+ animate();
+}
+function animate(){requestAnimationFrame(animate);if(!scene)return;earthGroup.rotation.x+=(targetRotX-earthGroup.rotation.x)*.075;earthGroup.rotation.y+=(targetRotY-earthGroup.rotation.y)*.075;if(clouds){clouds.rotation.copy(earthGroup.rotation);clouds.rotation.y+=performance.now()*.000012}stars.rotation.y+=.00008;zoom+=(targetZoom-zoom)*.1;camera.position.z=zoom;camera.lookAt(0,0,0);renderer.render(scene,camera)}
+async function startCamera(){
+ if(tracking){try{await mpCamera.stop()}catch(e){}tracking=false;camWrap.classList.remove('visible');setStatus('Demo mode');document.getElementById('start').innerHTML='◎ &nbsp; Enable camera';notify('Camera tracking paused.');return}
+ if(!navigator.mediaDevices?.getUserMedia){notify('Camera needs HTTPS and a supported browser.');return}
+ try{
+ setStatus('Starting camera…');document.getElementById('start').textContent='Starting…';
+ handTracker=new Hands({locateFile:file=>'https://cdn.jsdelivr.net/npm/@mediapipe/hands/'+file});
+ handTracker.setOptions({maxNumHands:2,modelComplexity:1,minDetectionConfidence:.65,minTrackingConfidence:.6});
+ handTracker.onResults(onHands);
+ mpCamera=new Camera(video,{onFrame:async()=>{if(handTracker)await handTracker.send({image:video})},width:640,height:480});
+ await mpCamera.start();tracking=true;camWrap.classList.add('visible');setStatus('Camera active',true);document.getElementById('start').innerHTML='◉ &nbsp; Pause camera';notify('Camera ready — show one or both hands.'); 
+ }catch(err){console.error(err);setStatus('Demo mode');document.getElementById('start').innerHTML='◎ &nbsp; Enable camera';notify('Could not start camera. Check browser permission and try HTTPS.');}
+}
+function onHands(results){
+ const hands=results.multiHandLandmarks||[];
+ if(!hands.length){setStatus('Show your hands',true);prevHand=null;prevSpan=null;return}
+ setStatus(hands.length===2?'Two hands detected':'Hand detected',true);
+ const h=hands[0],p=h[0],index=h[8];
+ if(prevHand&&!prevHand.pointer){const dx=p.x-prevHand.x,dy=p.y-prevHand.y;targetRotY-=dx*5;targetRotX+=dy*4}
+ prevHand={x:p.x,y:p.y};
+ if(hands.length>=2){
+  const a=hands[0][8],b=hands[1][8],span=Math.hypot(a.x-b.x,a.y-b.y);
+  if(prevSpan!==null){const delta=span-prevSpan;targetZoom=clamp(targetZoom-delta*8,3.1,9.5)}
+  prevSpan=span;
+ }else prevSpan=null;
+}
+document.getElementById('start').addEventListener('click',startCamera);
+document.getElementById('zoomIn').addEventListener('click',()=>targetZoom=clamp(targetZoom-.55,3.1,9.5));
+document.getElementById('zoomOut').addEventListener('click',()=>targetZoom=clamp(targetZoom+.55,3.1,9.5));
+document.getElementById('reset').addEventListener('click',()=>{targetRotX=-.12;targetRotY=.4;targetZoom=5.2;notify('Globe view reset.')});
+init();
+})();
+</script>
+</body>
+</html>
