@@ -57,7 +57,7 @@ button:hover{border-color:var(--cyan);box-shadow:0 0 22px #35dfff24;transform:tr
 const stage=document.getElementById('stage'),video=document.getElementById('inputVideo'),camWrap=document.getElementById('camWrap');
 const statusText=document.getElementById('statusText'),statusDot=document.getElementById('statusDot'),toast=document.getElementById('toast');
 let scene,camera,renderer,globe,earthGroup,clouds,stars,atmosphere,handTracker,mpCamera,tracking=false;
-let targetRotX=-.12,targetRotY=.4,zoom=5.2,targetZoom=5.2,prevHand=null,prevSpan=null,lastToast=0;
+let targetRotX=-.12,targetRotY=.4,zoom=5.2,targetZoom=5.2,prevHand=null,prevSpan=null,lastToast=0,gestureVelocityX=0,gestureVelocityY=0;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function notify(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(lastToast);lastToast=setTimeout(()=>toast.classList.remove('show'),2600)}
 function setStatus(msg,live=false){statusText.textContent=msg;statusDot.classList.toggle('live',live)}
@@ -78,7 +78,7 @@ function init(){
  addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2))});
  animate();
 }
-function animate(){requestAnimationFrame(animate);if(!scene)return;earthGroup.rotation.x+=(targetRotX-earthGroup.rotation.x)*.075;earthGroup.rotation.y+=(targetRotY-earthGroup.rotation.y)*.075;if(clouds){clouds.rotation.copy(earthGroup.rotation);clouds.rotation.y+=performance.now()*.000012}stars.rotation.y+=.00008;zoom+=(targetZoom-zoom)*.1;camera.position.z=zoom;camera.lookAt(0,0,0);renderer.render(scene,camera)}
+function animate(){requestAnimationFrame(animate);if(!scene)return;earthGroup.rotation.x+=(targetRotX-earthGroup.rotation.x)*.22;earthGroup.rotation.y+=(targetRotY-earthGroup.rotation.y)*.22;if(clouds){clouds.rotation.copy(earthGroup.rotation);clouds.rotation.y+=performance.now()*.000012}stars.rotation.y+=.00008;zoom+=(targetZoom-zoom)*.22;camera.position.z=zoom;camera.lookAt(0,0,0);renderer.render(scene,camera)}
 async function startCamera(){
  if(tracking){try{await mpCamera.stop()}catch(e){}tracking=false;camWrap.classList.remove('visible');setStatus('Demo mode');document.getElementById('start').innerHTML='◎ &nbsp; Enable camera';notify('Camera tracking paused.');return}
  if(!navigator.mediaDevices?.getUserMedia){notify('Camera needs HTTPS and a supported browser.');return}
@@ -97,11 +97,11 @@ function onHands(results){
  setStatus(hands.length===2?'Two hands detected':'Hand detected',true);
  // One hand moves the globe; two hands pinch/spread to zoom.
  const h=hands[0],p=h[0];
- if(prevHand&&!prevHand.pointer){const dx=p.x-prevHand.x,dy=p.y-prevHand.y;targetRotY-=dx*5;targetRotX+=dy*4}
+ if(prevHand&&!prevHand.pointer){const dx=p.x-prevHand.x,dy=p.y-prevHand.y;targetRotY-=dx*9.5;targetRotX+=dy*8.5;targetRotX=clamp(targetRotX,-1.45,1.45)}
  prevHand={x:p.x,y:p.y};
  if(hands.length>=2){
   const a=hands[0][8],b=hands[1][8],span=Math.hypot(a.x-b.x,a.y-b.y);
-  if(prevSpan!==null){const delta=span-prevSpan;targetZoom=clamp(targetZoom-delta*8,3.1,9.5)}
+  if(prevSpan!==null){const delta=span-prevSpan;targetZoom=clamp(targetZoom-delta*13.5,2.55,11)}
   prevSpan=span;
  }else prevSpan=null;
 }
