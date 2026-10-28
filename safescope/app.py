@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, send_file
+from flask import Flask, jsonify, request, send_file
 from urllib.parse import urlparse, urljoin
 from datetime import datetime, timezone
 from html import escape
@@ -54,7 +54,7 @@ def run_scan(raw):
  if not findings: findings=[make("No indicators detected by safe checks","Info",root,"Bounded checks produced no findings.","This is not proof the application is secure; coverage is intentionally limited.","High","Use an authorized comprehensive assessment for more assurance.")]
  return dict(target=base,started_at=datetime.now(timezone.utc).isoformat(),requests_made=len(visited),visited=visited,findings=findings,scope_note="Bounded GET/HEAD only; fixed paths; redirects not followed; no state-changing actions.")
 @app.get("/")
-def home(): return render_template("index.html")
+def home(): return send_file("index.html")
 @app.get("/api/health")
 def health(): return jsonify(status="ready",scope=HOST,scan_on_load=False)
 @app.post("/api/scan")
