@@ -1,11 +1,15 @@
-# SafeScope — training-only web security dashboard
+# SafeScope — لوحة فحص أمان ويب محدودة وآمنة
 
-**GitHub Pages preview:** https://sherif434.github.io/ilaf12356/safescope/
+**واجهة GitHub Pages (معاينة فقط):** https://sherif434.github.io/ilaf12356/safescope/
 
-The hosted page is a visual dashboard preview. GitHub Pages cannot run the Python scanning backend. For live scanning, run the project locally:
+## التشغيل الفعلي على Windows
+
+> GitHub Pages يستضيف الواجهة الثابتة فقط. لا يمكنه تشغيل ماسح Python. لتشغيل الفحص والنتائج والتاريخ والتقارير، شغّل الخادم محليًا على جهازك.
+
+1. نزّل المستودع أو افتح مجلد `safescope` على جهازك.
+2. افتح PowerShell داخل المجلد ثم نفّذ:
 
 ```powershell
-cd safescope
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
@@ -13,12 +17,33 @@ python -m unittest discover -s tests -v
 python app.py
 ```
 
-Open http://127.0.0.1:8765. The Target URL field is intentionally blank. Manually enter `http://demo.testfire.net` and press Start scan when ready. No scan runs on page load.
+3. افتح `http://127.0.0.1:8765`.
+4. اكتب يدويًا `http://demo.testfire.net` واضغط **بدء الفحص**. لا يبدأ أي فحص عند تحميل الصفحة.
 
-## Scope and safety
-- Backend accepts only `demo.testfire.net` and rejects other hosts, credentials, custom ports, query strings, and fragments.
-- Fixed bounded path list; GET/HEAD only; no crawling, form submission, credentials, state-changing requests, or redirect following.
-- Non-executable marker only for reflected input; database checks look only for passive error signatures. Neither alone confirms a vulnerability.
-- The tool is a limited indicator scanner, not a full penetration test.
+إذا منع PowerShell تفعيل البيئة الافتراضية، يمكنك تجاوز التفعيل واستخدام:
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe app.py
+```
 
-The full downloadable package includes the local Flask backend and automated tests. Never use this tool against a target without authorization.
+## الوظائف
+
+- لوحة عربية RTL متجاوبة مع بطاقات ملخص النتائج.
+- فلاتر حسب مستوى الخطورة والثقة، وجدول أدلة وتوصيات.
+- سجل آخر 10 فحوصات في ذاكرة الخادم أثناء تشغيله.
+- تنزيل تقرير JSON أو HTML.
+- فحص رؤوس الأمان، وعلامة انعكاس نصية غير تنفيذية، ومؤشرات أخطاء قواعد البيانات، ومجموعة ثابتة من المسارات.
+- لا توجد بيانات مستهدفة محفوظة مسبقًا، ولا فحص تلقائي عند التشغيل.
+
+## حدود السلامة
+
+- المضيف الوحيد المقبول هو `demo.testfire.net`؛ يتم رفض المضيفات الأخرى والمنافذ غير المطابقة للمخطط والمسارات المخصصة ومعاملات الاستعلام.
+- طلبات GET وHEAD فقط، بمهل زمنية محددة، وحدود لقراءة الاستجابات، ولا يتم اتباع التحويلات.
+- لا توجد محاولات دخول أو تجاوز مصادقة أو تخمين كلمات مرور أو عمليات تغيّر بيانات.
+- انعكاس العلامة أو ظهور توقيع خطأ لا يثبت وحده وجود ثغرة.
+- النتائج مؤشرات أولية وليست بديلًا عن اختبار اختراق شامل مصرح به.
+
+## التحقق
+
+تم تحديث ربط الواجهة مع نقاط API في الشيفرة، لكن يجب تشغيل الاختبارات بالأوامر أعلاه على جهازك؛ لم يتم تنفيذ الخادم أو الفحص الشبكي من هذا التعديل. لا تعتبر الموقع منشورًا تشغيليًا على الإنترنت: رابط Pages واجهة فقط، والفحص الفعلي محلي.
