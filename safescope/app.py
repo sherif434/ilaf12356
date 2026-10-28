@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, send_file
 from urllib.parse import urlparse, urljoin
 from datetime import datetime, timezone
 from html import escape
-import io, json, re, threading
+import io, json, re, threading\nfrom pathlib import Path
 import requests
 from requests.exceptions import RequestException
 
@@ -35,7 +35,7 @@ def validate(raw):
         port = p.port
     except ValueError:
         raise ValueError("Invalid port.")
-    if port not in (None, 80, 443) or p.query or p.fragment or p.path not in ("", "/"):
+    if port is not None and port != (80 if p.scheme == "http" else 443):\n        raise ValueError("Port does not match the URL scheme.")\n    if p.query or p.fragment or p.path not in ("", "/"):
         raise ValueError("Only the base URL is allowed; custom ports, paths, query strings, and fragments are blocked.")
     return p.scheme + "://" + HOST
 
@@ -142,7 +142,7 @@ def security_headers(response):
 
 @app.get("/")
 def home():
-    return send_file("index.html")
+    return send_file(Path(__file__).with_name("index.html"))
 
 @app.get("/api/health")
 def health():
