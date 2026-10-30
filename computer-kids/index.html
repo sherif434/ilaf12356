@@ -91,10 +91,46 @@ body.dark .tip{background:#352c55;color:#e0d5ff}
 .pc-status{color:#cbd5e1;font-size:12px}
 @media(max-width:560px){.pc-screen{min-height:580px;padding:12px 8px 58px}.pc-icons{grid-template-columns:repeat(2,78px)}.pc-icon{width:76px}.pc-window{top:90px}.pc-taskbar{gap:4px}.pc-taskbar button{padding:7px 8px;font-size:12px}}
 
+
+/* AI academy and prompt engineering practice */
+.ai-academy{background:linear-gradient(135deg,#171b3d,#34205d 58%,#633b83);color:#fff;border-radius:28px;padding:24px;box-shadow:0 22px 55px #26134b25}
+.ai-academy .section-head p{color:#d9d2f4}.ai-academy .tag{background:#ffffff20;color:#fff}
+.ai-intro{display:grid;grid-template-columns:1fr auto;gap:15px;align-items:center;background:#ffffff12;border:1px solid #ffffff20;border-radius:18px;padding:17px;margin-bottom:18px}
+.ai-intro .bot{font-size:65px}
+.ai-modules{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:15px 0}
+.ai-module{background:#ffffff12;border:1px solid #ffffff25;color:white;border-radius:15px;padding:13px;text-align:right;cursor:pointer}
+.ai-module:hover,.ai-module.active{background:#ffffff25;border-color:#d7c6ff}
+.ai-module b{display:block;margin-bottom:4px}.ai-module small{color:#ded6f7;line-height:1.7}
+.ai-lesson-detail{background:#fff;color:#272344;border-radius:17px;padding:17px;margin:12px 0;line-height:1.85}
+.ai-lesson-detail h3{margin-top:0}.ai-lesson-detail li{margin:6px 0}
+.ai-workshop{background:#fff;color:#282344;border-radius:20px;padding:18px;margin-top:20px}
+.ai-workshop h3{margin:0 0 7px}.ai-workshop p{line-height:1.8}
+.ai-task{background:#fff5d9;border:1px solid #f5d887;border-radius:14px;padding:13px;margin:12px 0;line-height:1.8}
+.ai-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ai-field label{display:block;font-size:12px;font-weight:900;margin-bottom:5px}
+.ai-field input,.ai-field select,.ai-field textarea,.ai-prompt{width:100%;border:1px solid #d9d5e8;border-radius:10px;padding:10px;font:inherit;color:#282344;background:#fff}
+.ai-prompt{min-height:145px;resize:vertical;line-height:1.8}
+.ai-action{border:0;border-radius:11px;padding:10px 14px;font-weight:900;background:#7658e8;color:white;cursor:pointer;margin:5px 3px}
+.ai-action.alt{background:#eeeaff;color:#654acb}.ai-action.green{background:#dff9ef;color:#087b5b}
+.ai-score{background:#f3f0ff;border-radius:15px;padding:14px;margin-top:12px}
+.ai-scorebar{height:12px;background:#e2def0;border-radius:20px;overflow:hidden;margin:8px 0}.ai-scorebar span{height:100%;display:block;background:linear-gradient(90deg,#17b98d,#8065ed);width:0;transition:width .3s}
+.ai-feedback-list{padding-right:20px;line-height:1.9}.ai-example{background:#f0fff8;border:1px solid #bcebd8;padding:12px;border-radius:12px;white-space:pre-wrap;line-height:1.8}
+.ai-chat-demo{background:#f3f4fa;border-radius:14px;padding:12px;margin-top:12px}
+.ai-chat-line{background:white;border-radius:12px;padding:10px;margin:7px 0;line-height:1.8}
+.ai-chat-line.user{background:#e8e2ff;margin-right:12%}
+.ai-badge{display:inline-block;background:#eeeaff;color:#684dc9;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:900}
+body.dark .ai-workshop,body.dark .ai-lesson-detail{background:#211d35;color:#f2efff}
+body.dark .ai-field input,body.dark .ai-field select,body.dark .ai-field textarea,body.dark .ai-prompt{background:#29243e;color:#fff;border-color:#51466f}
+body.dark .ai-score{background:#352c55;color:#f2efff}body.dark .ai-scorebar{background:#51466f}
+body.dark .ai-example{background:#183b34;color:#e3fff4;border-color:#276b59}
+body.dark .ai-task{background:#44391f;color:#fff0c7;border-color:#806a32}
+body.dark .ai-chat-demo{background:#302b43}body.dark .ai-chat-line{background:#29243e;color:#fff}body.dark .ai-chat-line.user{background:#493b70}
+@media(max-width:700px){.ai-modules{grid-template-columns:1fr 1fr}.ai-intro{grid-template-columns:1fr}.ai-intro .bot{display:none}.ai-form-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap nav"><div class="brand"><span class="logo">🎮</span><span>مغامرة الكمبيوتر</span></div><nav class="navlinks"><a href="#plan">خطة التعلم</a><a href="#play">اللعبة</a><a href="#quiz">الاختبار</a><a href="#videos">فيديوهات</a></nav><div style="display:flex;gap:7px"><button class="sound" id="themeBtn" aria-label="تبديل الوضع الليلي">🌙 ليلي</button><button class="sound" id="soundBtn" aria-label="تشغيل أو إيقاف الصوت">🔊 الصوت</button></div></div></header>
+<header class="top"><div class="wrap nav"><div class="brand"><span class="logo">🎮</span><span>مغامرة الكمبيوتر</span></div><nav class="navlinks"><a href="#plan">خطة التعلم</a><a href="#play">اللعبة</a><a href="#quiz">الاختبار</a><a href="#videos">فيديوهات</a><a href="#aiAcademy">أكاديمية AI</a></nav><div style="display:flex;gap:7px"><button class="sound" id="themeBtn" aria-label="تبديل الوضع الليلي">🌙 ليلي</button><button class="sound" id="soundBtn" aria-label="تشغيل أو إيقاف الصوت">🔊 الصوت</button></div></div></header>
 <main class="wrap">
 <div class="hero"><div class="hero-card"><div><div class="eyebrow">🌈 مغامرة ممتعة من أول نقرة</div><h1>أهلًا يا بطلة الكمبيوتر! 🚀</h1><p>هنتعلم الكمبيوتر خطوة خطوة، ونلعب ونحل ألغاز، وكل ما تتعلمي حاجة هتكسبي نجوم جديدة. مفيش أي خبرة مطلوبة، نبدأ من الصفر!</p><button class="primary" onclick="document.querySelector('#plan').scrollIntoView({behavior:'smooth'})">يلا نبدأ التعلم ←</button></div><div class="hero-art" aria-hidden="true">🧑🏻‍💻</div></div>
 <div class="stats"><div class="stat"><span>⭐</span><div><b id="stars">0</b><small>نجومك</small></div></div><div class="stat"><span>📚</span><div><b id="completed">0 / 8</b><small>دروس مكتملة</small></div></div><div class="stat"><span>🏅</span><div><b id="best">—</b><small>أفضل نتيجة</small></div></div></div></div>
@@ -122,6 +158,50 @@ body.dark .tip{background:#352c55;color:#e0d5ff}
    <div class="pc-taskbar"><button onclick="pcToggleStart()">⊞ ابدأ</button><button onclick="pcOpen('browser')">🌐</button><button onclick="pcOpen('files')">📁</button><button onclick="pcOpen('chat')">💬</button><span class="pc-clock" id="pcClock">12:00</span></div>
   </div>
   <div class="pc-status" style="margin-top:10px">🎯 المهمة: استكشفي التطبيقات. ستصلك مواقف من شخصيات افتراضية تحاول خداعك. قراراتك تغيّر نتيجة القصة.</div>
+ </div>
+</section>
+
+
+<section id="aiAcademy">
+ <div class="ai-academy">
+  <div class="section-head"><div><h2>🤖 أكاديمية الذكاء الاصطناعي</h2><p>تعلمي كيف تفكرين في طلبك، وتكتبين برومبت واضحًا، وتراجعين النتيجة مثل المحترفين.</p></div><span class="tag">مسار موسّع · من الصفر للاحتراف</span></div>
+  <div class="ai-intro"><div><span class="ai-badge">مهمتك الجديدة</span><h3 style="font-size:23px;margin:9px 0">أنتِ قائدة الذكاء الاصطناعي! ✨</h3><p style="line-height:1.9;color:#e3ddfa;margin:0">الذكاء الاصطناعي مساعد، وليس ساحرًا يعرف ما في بالك. كلما شرحتِ له هدفك والجمهور والتفاصيل والشكل المطلوب، أصبحت إجابته أقرب لما تريدين.</p></div><div class="bot">🤖</div></div>
+  <h3>📚 خريطة الأكاديمية</h3>
+  <div class="ai-modules" id="aiModules">
+   <button class="ai-module active" onclick="aiShowLesson(0)"><b>1. ما هو الذكاء الاصطناعي؟</b><small>كيف يعمل؟ وما الذي يستطيع فعله؟</small></button>
+   <button class="ai-module" onclick="aiShowLesson(1)"><b>2. أسرار البرومبت الجيد</b><small>الهدف والدور والسياق والشكل.</small></button>
+   <button class="ai-module" onclick="aiShowLesson(2)"><b>3. الكتابة والتعلم</b><small>شرح الدروس والقصص والأسئلة.</small></button>
+   <button class="ai-module" onclick="aiShowLesson(3)"><b>4. الصور والتصميم</b><small>وصف الصورة والألوان والتكوين.</small></button>
+   <button class="ai-module" onclick="aiShowLesson(4)"><b>5. البحث والعروض</b><small>التلخيص والمصادر والشرائح.</small></button>
+   <button class="ai-module" onclick="aiShowLesson(5)"><b>6. البرمجة والتقنية</b><small>شرح الكود وإصلاح الأخطاء.</small></button>
+   <button class="ai-module" onclick="aiShowLesson(6)"><b>7. الصوت والفيديو</b><small>النصوص والتسجيلات والمشاهد.</small></button>
+   <button class="ai-module" onclick="aiShowLesson(7)"><b>8. تقييم الإجابات</b><small>الأخطاء والهلوسة والتحقق.</small></button>
+   <button class="ai-module" onclick="aiShowLesson(8)"><b>9. الخصوصية والأمان</b><small>ما الذي لا نشاركه؟</small></button>
+  </div>
+  <div class="ai-lesson-detail" id="aiLessonDetail" aria-live="polite"></div>
+  <div class="ai-workshop">
+   <span class="ai-badge">🎯 أهم جزء: تدربي بنفسك</span>
+   <h3>مختبر كتابة البرومبت</h3>
+   <p>سأعطيك مهمة كأن شخصًا طلب منك تنفيذها. اقرئي المطلوب، ثم اكتبي برومبت يساعد الذكاء الاصطناعي على تنفيذ المهمة. بعد ذلك سأقيّم كتابتك وأوضح كيف تطورينها.</p>
+   <div class="ai-form-grid">
+    <div class="ai-field"><label for="aiMission">اختاري نوع المهمة</label><select id="aiMission" onchange="aiNewMission()"><option value="school">شرح درس مدرسي</option><option value="story">كتابة قصة ممتعة</option><option value="image">إنشاء صورة بالذكاء الاصطناعي</option><option value="presentation">إعداد عرض تقديمي</option><option value="research">بحث منظم</option><option value="coding">إنشاء برنامج بسيط</option><option value="summary">تلخيص نص</option><option value="video">فكرة فيديو تعليمي</option></select></div>
+    <div class="ai-field"><label for="aiLevel">مستوى التحدي</label><select id="aiLevel" onchange="aiNewMission()"><option value="easy">سهل</option><option value="medium" selected>متوسط</option><option value="hard">متقدم</option></select></div>
+   </div>
+   <div class="ai-task"><b>📩 طلب العميل / المهمة:</b><div id="aiMissionBrief"></div><div style="margin-top:8px"><b>تأكدي أن برومبتك يوضح:</b><ul id="aiRequirements"></ul></div></div>
+   <label for="aiPromptInput" style="font-weight:900;display:block;margin:12px 0 6px">✍️ اكتبي البرومبت الخاص بكِ:</label>
+   <textarea class="ai-prompt" id="aiPromptInput" placeholder="مثال للبداية: تصرف كأنك معلم لطيف... أريد أن..." maxlength="2500"></textarea>
+   <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:9px"><button class="ai-action" onclick="aiEvaluatePrompt()">قيّمي البرومبت ⭐</button><button class="ai-action alt" onclick="aiHint()">أعطيني تلميحًا</button><button class="ai-action alt" onclick="aiShowExample()">شاهدي نموذجًا ممتازًا</button><button class="ai-action alt" onclick="aiNewMission()">مهمة جديدة ↻</button></div>
+   <div id="aiHintBox" class="tip" style="display:none;margin-top:10px"></div>
+   <div id="aiEvaluation" aria-live="polite"></div>
+   <div id="aiExampleBox" style="display:none;margin-top:12px"></div>
+   <div class="ai-chat-demo">
+    <b>💬 جرّبي محادثة مع مساعد التدريب</b>
+    <p style="font-size:12px">اختاري سؤالًا لتشاهدي كيف يمكن صياغة طلب واضح. هذه محادثة تعليمية جاهزة وليست اتصالًا بنموذج ذكاء اصطناعي حقيقي.</p>
+    <div id="aiCoachReply" class="ai-chat-line">مرحبًا! اسأليني كيف أحسن طلبي، أو اختاري أحد الأسئلة التالية.</div>
+    <div class="sim-actions"><button onclick="aiCoach('كيف أجعل الإجابة مناسبة لعمري؟')">كيف أجعل الإجابة مناسبة لعمري؟</button><button onclick="aiCoach('ماذا أفعل إذا كانت الإجابة طويلة؟')">الإجابة طويلة، ماذا أفعل؟</button><button onclick="aiCoach('كيف أطلب مصادر وأتأكد من صحة المعلومات؟')">كيف أتحقق من المعلومات؟</button></div>
+   </div>
+  </div>
+  <div style="margin-top:17px;background:#ffffff12;border-radius:15px;padding:14px;line-height:1.9"><b>🌟 قاعدة البطلة الذكية:</b> لا تضعي اسمك الكامل أو عنوانك أو رقم هاتفك أو صورك الخاصة أو كلمات المرور في أي أداة ذكاء اصطناعي. اسألي شخصًا بالغًا قبل استخدام خدمة جديدة، ولا تصدقي كل إجابة دون مراجعة.</div>
  </div>
 </section>
 
@@ -264,6 +344,59 @@ function pcRunCommand(){const input=document.getElementById('pcTermInput'),out=d
 function pcClockTick(){const d=new Date();document.getElementById('pcClock').textContent=d.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})}
 pcClockTick();setInterval(pcClockTick,30000);
 setTimeout(()=>{const a=document.getElementById('pcAlert');if(a){document.getElementById('pcAlertText').textContent='مستخدم مجهول يرسل لك: «أرسلي رمز التحقق لنكسب جائزة!» لا تشاركي الرمز.';a.hidden=false}},12000);
+
+
+/* AI learning academy: local interactive prompt coach, no external AI/API */
+const aiLessons=[
+{title:'ما هو الذكاء الاصطناعي؟',icon:'🤖',body:'الذكاء الاصطناعي تقنية تجعل الكمبيوتر ينفذ مهامًا تحتاج عادةً إلى قدر من الذكاء، مثل فهم اللغة أو التعرف على الصور أو اقتراح أفكار. بعض الأدوات تولّد نصوصًا وصورًا وصوتًا وفيديو.',points:['هو مساعد يتعلم أنماطًا من أمثلة كثيرة، وليس إنسانًا يفكر أو يشعر.','يمكنه الشرح والكتابة والترجمة والتلخيص والمساعدة في البرمجة.','قد يخطئ أو يخترع معلومة تبدو مقنعة؛ لذلك نراجع النتائج.'],example:'اطلبي منه شرح دورة الماء بثلاث جمل ومثال من الحياة.'},
+{title:'أسرار البرومبت الجيد',icon:'🎯',body:'البرومبت هو التعليمات التي تكتبينها للأداة. الطلب الجيد يشرح المطلوب بدل أن يقول فقط: «اعمل شيئًا جميلًا».',points:['الدور: من تريدين أن يكون؟ مثل معلم علوم أو رسام.','الهدف والسياق: ماذا تريدين؟ ولمن؟ ولماذا؟','التفاصيل والقيود: الطول والمستوى واللغة وما يجب تجنبه.','شكل النتيجة: نقاط أو جدول أو خطوات أو قصة.','معيار النجاح: كيف تعرفين أن النتيجة جيدة؟'],example:'تصرف كمعلم علوم للمرحلة الابتدائية. اشرح دورة الماء بالعربية السهلة في 5 نقاط، مع مثال وتجربة آمنة في المنزل، ثم اسألني 3 أسئلة.'},
+{title:'الكتابة والتعلم',icon:'✏️',body:'يمكنك طلب شرح درس أو قصة أو أسئلة تدريبية أو خطة مذاكرة. اطلبي مستوى مناسبًا لعمرك، ولا تطلبي منه أداء واجبك بدلًا منك.',points:['قولي اسم الموضوع ومستواك الدراسي.','اطلبي شرحًا خطوة خطوة مع أمثلة بسيطة.','اطلبي أسئلة ثم حاولي الإجابة قبل رؤية الحل.','اطلبي تبسيط الجزء الذي لم تفهميه.'],example:'اشرح الكسور كأنك معلم لطيف، استخدم مثال البيتزا، ثم أعطني سؤالًا واحدًا لأحله وانتظر إجابتي.'},
+{title:'الصور والتصميم',icon:'🎨',body:'أدوات الصور تحتاج وصفًا بصريًا واضحًا. فكري في الموضوع والمكان والأسلوب والألوان والإضاءة والتكوين.',points:['الموضوع: ما الشيء الرئيسي في الصورة؟','المكان والخلفية: أين يحدث المشهد؟','الأسلوب والألوان: كرتوني أم واقعي؟ وما الألوان؟','التكوين: قريب أم بعيد؟ أفقي أم رأسي؟','تجنبي طلب صور شخصية أو معلومات خاصة عنك.'],example:'أنشئ رسمة كرتونية لروبوت لطيف يقرأ كتابًا في مكتبة ملونة، ألوان بنفسجية وتركواز، إضاءة ناعمة، تكوين أفقي، دون كلمات مكتوبة.'},
+{title:'البحث والعروض التقديمية',icon:'🔎',body:'يساعدك الذكاء الاصطناعي في تنظيم البحث والأفكار، لكنه ليس مصدرًا نهائيًا للحقيقة.',points:['حددي السؤال والموضوع والفترة الزمنية.','اطلبي فصل الحقائق عن الآراء والتخمينات.','اطلبي أسماء مصادر يمكن فتحها والتحقق منها.','في العرض: حددي عدد الشرائح والجمهور والنقاط والصور المقترحة.'],example:'جهز مخطط عرض من 5 شرائح عن الطاقة الشمسية لطالب مبتدئ. اكتب عنوان كل شريحة و3 نقاط، واقترح تجربة آمنة، واذكر ما يحتاج إلى مصدر للتحقق.'},
+{title:'البرمجة والتقنية',icon:'💻',body:'يمكن للذكاء الاصطناعي شرح الكود واقتراح إصلاحات، لكن لا تشغلي كودًا لا تفهمينه.',points:['اذكري لغة البرمجة والهدف والبيئة التي تستخدمينها.','أرفقي رسالة الخطأ بعد إزالة كلمات المرور والمفاتيح.','اطلبي شرح كل خطوة قبل تعديل المشروع.','اختبري التغيير على نسخة تجريبية واحتفظي بنسخة احتياطية.'],example:'أنا أتعلم Python. اكتب برنامجًا صغيرًا يسأل عن الاسم ثم يطبع رسالة ترحيب. اشرح كل سطر بلغة بسيطة، ولا تستخدم مكتبات إضافية.'},
+{title:'الصوت والفيديو',icon:'🎬',body:'توجد أدوات تساعد على تحويل الكلام إلى نص، وقراءة النص بصوت، وتخطيط مشاهد الفيديو.',points:['حددي هل تريدين نصًا للتسجيل أم خطة مشاهد أم تلخيصًا.','اذكري مدة الفيديو والجمهور والنبرة.','قسمي الفيديو إلى مشاهد، مع وصف الصورة والتعليق الصوتي.','لا ترفعي تسجيلات أشخاص أو صورهم دون إذن مناسب.'],example:'اكتب سيناريو فيديو تعليمي مدته دقيقة عن غسل اليدين للأطفال. قسّمه إلى 5 مشاهد، واكتب التعليق الصوتي لكل مشهد بلغة سهلة.'},
+{title:'تقييم الإجابات والتحقق',icon:'🧠',body:'قد تنتج الأداة إجابة خاطئة بثقة؛ تسمى هذه أحيانًا هلوسة الذكاء الاصطناعي.',points:['راجعي الأسماء والأرقام والتواريخ والاقتباسات.','قارني المعلومات بمصدر موثوق أو كتاب المدرسة.','اطلبي منه توضيح ما لا يعرفه بدل التخمين.','إذا كانت النتيجة مهمة، اسألي معلمًا أو شخصًا بالغًا موثوقًا.'],example:'راجع إجابتك السابقة. اذكر أي نقطة غير متأكد منها، وافصل الحقائق عن التخمينات، واقترح مصادر موثوقة للتحقق.'},
+{title:'الخصوصية والأمان',icon:'🛡️',body:'أي شيء تكتبينه أو ترفعينه إلى خدمة ما قد تتم معالجته وفق إعداداتها وسياساتها؛ لذلك لا تشاركي أسرارك.',points:['لا تكتبي كلمات المرور أو رموز التحقق أو بيانات الدفع.','لا تشاركي عنوان المنزل أو رقم الهاتف أو الموقع الدقيق.','لا ترفعي صورك أو صور الآخرين دون إذن وموافقة ولي الأمر.','لا تثبتي تطبيقًا أو تفتحي رابطًا اقترحه شخص غريب.','استخدمي أدوات مناسبة لعمرك وبإشراف شخص بالغ.'],example:'بدلًا من كتابة اسم مدرستك وعنوانك، قولي فقط: أنا طالبة في المرحلة الابتدائية.'}
+];
+function aiShowLesson(i){
+ const lesson=aiLessons[i];if(!lesson)return;
+ document.querySelectorAll('.ai-module').forEach((b,n)=>b.classList.toggle('active',n===i));
+ document.getElementById('aiLessonDetail').innerHTML='<div style="font-size:34px">'+lesson.icon+'</div><h3>'+lesson.title+'</h3><p>'+lesson.body+'</p><b>تذكري هذه النقاط:</b><ul>'+lesson.points.map(p=>'<li>'+p+'</li>').join('')+'</ul><div class="tip"><b>مثال تطبيقي:</b> '+lesson.example+'</div>';
+}
+const aiMissions={
+school:{name:'شرح درس مدرسي',easy:{brief:'تريد معلمة أن تشرح لطفلة معنى الكواكب بطريقة سهلة وممتعة.',req:['اذكري أنك تريدين شرح الكواكب','حددي أن الشرح لطفلة وبالعربية السهلة','اطلبي أمثلة أو تشبيهات','حددي شكل الإجابة أو عدد النقاط']},medium:{brief:'تريدين فهم دورة الماء في الطبيعة والاستعداد لاختبار صغير.',req:['حددي الموضوع: دورة الماء','حددي المستوى واللغة','اطلبي شرح المراحل بالترتيب مع مثال','اطلبي 3 أسئلة للتدريب']},hard:{brief:'أعدّي درسًا مصغرًا عن دورة الماء لطفل مبتدئ، يتضمن شرحًا ونشاطًا وتقييمًا.',req:['حددي دور الأداة كمعلمة','اشرحي الجمهور والهدف','حددي عدد الخطوات والنشاط الآمن','اطلبي أسئلة مع إجابات منفصلة ومعيار نجاح']},sample:'تصرف كمعلمة علوم لطيفة. اشرحي دورة الماء لطفلة في المرحلة الابتدائية بالعربية السهلة. رتبي الشرح في 5 خطوات، واستخدمي مثالًا من الحياة اليومية، ثم أعطيني نشاطًا آمنًا و3 أسئلة دون إظهار الحل قبل أن أجيب.'},
+story:{name:'كتابة قصة ممتعة',easy:{brief:'تريد طفلة قصة قصيرة عن قطة شجاعة.',req:['حددي الشخصية الرئيسية','حددي فكرة القصة','اطلبي لغة مناسبة للأطفال','حددي الطول أو النهاية']},medium:{brief:'اكتبي قصة مغامرة عن روبوت يساعد أصدقاءه في حل لغز داخل مكتبة.',req:['حددي الشخصيات والمكان','حددي المشكلة أو المغامرة','حددي طول القصة ونبرة الكتابة','اطلبي نهاية واضحة ودرسًا لطيفًا']},hard:{brief:'ابتكري قصة من 4 مشاهد فيها بطلة وهدف وعقبة وحل، مناسبة لطفلة صغيرة.',req:['حددي الجمهور والنبرة','حددي الشخصيات والمكان','حددي بنية القصة وعدد المشاهد','اطلبي حوارًا ودرسًا في النهاية']},sample:'اكتب قصة مغامرة لطفلة عمرها 11 سنة عن روبوت لطيف يساعد أصدقاءه في مكتبة سحرية. اجعلها من 4 مشاهد، بلغة عربية سهلة، مع حوار قصير ونهاية سعيدة ودرس عن التعاون.'},
+image:{name:'إنشاء صورة',easy:{brief:'تريدين صورة كرتونية لحديقة مليئة بالزهور.',req:['اذكري العنصر الرئيسي','صفي المكان والخلفية','حددي الأسلوب أو الألوان','اذكري شكل الصورة إن أمكن']},medium:{brief:'صممي صورة لروبوت صغير يقرأ كتابًا في مكتبة مستقبلية بألوان هادئة.',req:['حددي الموضوع الرئيسي','حددي المكان والخلفية','اذكري الأسلوب والألوان والإضاءة','حددي زاوية أو اتجاه الصورة']},hard:{brief:'أنشئي غلافًا أفقيًا لنادٍ مدرسي للعلوم، مع روبوت وكتب ومجموعة كواكب، دون نصوص.',req:['حددي الاستخدام والتكوين الأفقي','حددي العناصر وترتيبها','حددي النمط والألوان والإضاءة','اذكري العناصر الممنوعة مثل النصوص والشعارات']},sample:'أنشئ صورة أفقية بأسلوب كرتوني ثلاثي الأبعاد لغلاف نادٍ مدرسي للعلوم. ضع روبوتًا لطيفًا في المنتصف، وكتبًا وكواكب صغيرة حوله، بألوان بنفسجية وتركواز وإضاءة ناعمة، دون كلمات أو شعارات.'},
+presentation:{name:'عرض تقديمي',easy:{brief:'جهزي عرضًا بسيطًا عن فوائد الأشجار.',req:['حددي موضوع العرض','حددي الجمهور','اطلبي عددًا تقريبيًا للشرائح','اطلبي نقاطًا قصيرة']},medium:{brief:'جهزي عرضًا من 5 شرائح عن ترشيد المياه لطلاب المدرسة.',req:['حددي الجمهور والهدف','حددي عدد الشرائح','اطلبي عنوانًا ونقاطًا لكل شريحة','اطلبي أفكار صور وخاتمة']},hard:{brief:'خططي عرضًا من 7 شرائح عن الطاقة المتجددة، بمقدمة ومقارنة وخلاصة وأسئلة.',req:['حددي الجمهور والهدف','حددي بنية الشرائح السبعة','اطلبي مقارنة واضحة ومثالًا','اطلبي مصادر للتحقق وملاحظات للمتحدث']},sample:'تصرف كمصمم عروض تعليمية. أنشئ مخطط عرض من 5 شرائح عن ترشيد المياه لطلاب المدرسة. اكتب عنوانًا و3 نقاط قصيرة لكل شريحة، واقترح صورة مناسبة وخاتمة فيها 3 نصائح عملية.'},
+research:{name:'بحث منظم',easy:{brief:'تريدين معرفة معلومات عن النحل.',req:['حددي السؤال أو الموضوع','اطلبي معلومات منظمة','حددي اللغة والمستوى','اطلبي مصادر أو طريقة تحقق']},medium:{brief:'اعملي بحثًا مبسطًا عن أهمية النحل للنباتات والبيئة.',req:['حددي سؤال البحث','حددي الجمهور واللغة','اطلبي عناوين وفقرات منظمة','اطلبي مصادر يمكن التحقق منها']},hard:{brief:'حضري بحثًا مدرسيًا عن التلوث البلاستيكي: أسبابه وآثاره وحلول عملية.',req:['حددي نطاق الموضوع','اطلبي فصل الحقائق عن الآراء','اطلبي مصادر موثوقة قابلة للتحقق','حددي بنية البحث وخاتمة وحلولًا']},sample:'اكتب مخطط بحث مدرسي مبسط عن أهمية النحل للبيئة. استخدم مقدمة و3 عناوين وخاتمة، بلغة مناسبة لطفلة. أضف أسماء مصادر موثوقة للتحقق، ولا تخترع روابط أو مراجع.'},
+coding:{name:'إنشاء برنامج',easy:{brief:'اعملي برنامجًا يطبع رسالة ترحيب باستخدام Python.',req:['حددي لغة البرمجة','اشرحي وظيفة البرنامج','اطلبي شرحًا للمبتدئين','حددي شكل النتيجة']},medium:{brief:'اعملي لعبة تخمين رقم بسيطة بلغة Python للمبتدئين.',req:['حددي اللغة والهدف','حددي طريقة اللعب والمدخلات','اطلبي كودًا واضحًا وتعليقات','اطلبي شرحًا واختبارًا']},hard:{brief:'صممي برنامج قائمة مهام بسيطًا في Python مع إضافة وحذف وعرض المهام.',req:['حددي اللغة والوظائف المطلوبة','حددي طريقة تخزين البيانات','اطلبي معالجة المدخلات الخاطئة','اطلبي شرحًا واختبارات وحدود الحل']},sample:'أنا مبتدئة في Python. أنشئ لعبة تخمين رقم بسيطة في سطر الأوامر. استخدم كودًا واضحًا وتعليقات عربية، واشرح كل جزء، وأضف معالجة للإدخال غير الصحيح، ثم أعطني 3 حالات اختبار.'},
+summary:{name:'تلخيص نص',easy:{brief:'لخصي فقرة قصيرة في جملتين.',req:['حددي أنك تريدين تلخيصًا','حددي الطول','اطلبي لغة سهلة','اطلبي الحفاظ على الأفكار الأساسية']},medium:{brief:'لخصي مقالًا إلى 5 نقاط مع أهم المصطلحات.',req:['حددي شكل التلخيص','حددي عدد النقاط','اطلبي شرح المصطلحات','اطلبي عدم إضافة معلومات غير موجودة']},hard:{brief:'حوّلي نصًا طويلًا إلى ملخص تنفيذي ونقاط ومفردات وأسئلة مراجعة.',req:['حددي أقسام الناتج','حددي الجمهور والطول','اطلبي الالتزام بالنص وعدم اختراع معلومات','اطلبي أسئلة مراجعة ومصطلحات']},sample:'لخص النص الذي سأرسله لطالبة مبتدئة. اكتب 5 نقاط تلخص الأفكار الأساسية، واشرح 3 مصطلحات مهمة، ثم ضع سؤالين للمراجعة. لا تضف أي معلومة غير موجودة في النص.'},
+video:{name:'فكرة فيديو تعليمي',easy:{brief:'اعملي فكرة فيديو عن تنظيف الأسنان.',req:['حددي موضوع الفيديو','حددي الجمهور','حددي المدة','اطلبي فكرة أو مشاهد']},medium:{brief:'خططي فيديو مدته دقيقة للأطفال عن غسل اليدين.',req:['حددي الجمهور والهدف','حددي مدة الفيديو','اطلبي تقسيم المشاهد','اطلبي التعليق الصوتي والوصف البصري']},hard:{brief:'اكتبي خطة فيديو توعوي من 90 ثانية عن الأمان على الإنترنت، مع مشاهد وتعليق ونهاية تفاعلية.',req:['حددي الهدف والجمهور والمدة','اطلبي ترتيب المشاهد وتوقيتها','حددي التعليق والمؤثرات المقترحة','اطلبي رسالة ختامية واضحة وآمنة']},sample:'اكتب خطة فيديو تعليمي مدته دقيقة للأطفال عن غسل اليدين. قسمه إلى 5 مشاهد مع مدة كل مشهد، ووصف الصورة، والتعليق الصوتي بلغة سهلة، واختم بتذكير عملي.'}
+};
+let aiCurrentMission='school';
+function aiMissionData(){const m=aiMissions[aiCurrentMission],level=document.getElementById('aiLevel').value;return {mission:m,data:m[level]||m.medium}}
+function aiNewMission(){aiCurrentMission=document.getElementById('aiMission').value;const x=aiMissionData();document.getElementById('aiMissionBrief').textContent=x.data.brief;document.getElementById('aiRequirements').innerHTML=x.data.req.map(t=>'<li>'+t+'</li>').join('');document.getElementById('aiPromptInput').value='';document.getElementById('aiHintBox').style.display='none';document.getElementById('aiEvaluation').innerHTML='';document.getElementById('aiExampleBox').style.display='none'}
+function aiEvaluatePrompt(){
+ const value=document.getElementById('aiPromptInput').value.trim(),out=document.getElementById('aiEvaluation');if(value.length<12){out.innerHTML='<div class="ai-score">اكتبي برومبت أطول قليلًا حتى أستطيع تقييمه. حاولي شرح ما تريدينه بدل كلمة أو كلمتين فقط.</div>';return}
+ const low=value.toLowerCase(),mission=aiMissionData(),req=mission.data.req;
+ const checks=[
+ {name:'وضوح الهدف',ok:/أريد|اكتب|اشرح|أنشئ|صمم|لخص|جهز|اعمل|ابتكر|أنشئ|حضّر|تصرف|قم|ساعد|هدف|موضوع/.test(value),tip:'ابدئي بفعل واضح: اشرح، اكتب، صمم، لخص أو أنشئ.'},
+ {name:'تحديد الجمهور والمستوى',ok:/طفل|طفلة|أطفال|مبتدئ|مبتدئة|طالب|طالبة|ابتدائي|مدرس|عمري|بسيط|مناسب/.test(value),tip:'اذكري لمن ستكون النتيجة، مثل طفلة في المرحلة الابتدائية.'},
+ {name:'السياق والتفاصيل',ok:value.length>=75,tip:'أضيفي تفاصيل عن الموضوع أو الخلفية أو الظروف حتى لا يضطر النموذج للتخمين.'},
+ {name:'شكل الإجابة',ok:/نقاط|خطوات|جدول|فقرة|شرائح|مشاهد|قائمة|جمل|أسئلة|عناوين|مشهد|ترتيب|مقدمة|خاتمة/.test(value),tip:'حددي شكل النتيجة: نقاط أو جدول أو خطوات أو عدد شرائح.'},
+ {name:'قيود ومعيار جودة',ok:/لا |دون |بدون|بحد أقصى|عدد|قصير|طويل|لغة|بالعربية|مصادر|آمن|تأكد|تحقق|لا تضف|لا تستخدم/.test(value),tip:'أضيفي شروطًا مثل اللغة والطول وما يجب تجنبه.'}
+ ];
+ const matched=req.filter(t=>{const words=t.split(/\s+/).filter(w=>w.length>3);return words.some(w=>low.includes(w.toLowerCase()))}).length;
+ let score=Math.round(checks.filter(c=>c.ok).length/checks.length*75+matched/req.length*25);score=Math.min(100,score);
+ const feedback=checks.map(c=>'<li>'+(c.ok?'✅ ':'🟡 ')+c.name+(c.ok?' — جيد':' — '+c.tip)+'</li>').join('');
+ const missing=req.filter(t=>!value.includes(t.split(' ')[0])).slice(0,2);
+ out.innerHTML='<div class="ai-score"><b>نتيجة برومبتك: '+score+' / 100</b><div class="ai-scorebar"><span style="width:'+score+'%"></span></div><p>'+(score>=85?'🏆 ممتاز! برومبت واضح ومفصل.':score>=65?'👏 بداية جيدة! أضيفي بعض التفاصيل ليصبح أقوى.':'💜 لديك فكرة جيدة، والآن حسّني التعليمات خطوة خطوة.')+'</p><b>تقييم المهارات:</b><ul class="ai-feedback-list">'+feedback+'</ul><b>متطلبات المهمة:</b><ul class="ai-feedback-list">'+req.map(t=>'<li>📌 '+t+'</li>').join('')+'</ul><p><b>خطوتك التالية:</b> عدّلي البرومبت وفق الملاحظات ثم اضغطي التقييم مرة أخرى. لا توجد إجابة واحدة صحيحة؛ المهم أن تكون تعليماتك مفهومة ومناسبة.</p></div>';
+}
+function aiHint(){const x=aiMissionData();document.getElementById('aiHintBox').style.display='block';document.getElementById('aiHintBox').textContent='تلميح: لا تكتبي المطلوب فقط. فكري: من المساعد الذي أحتاجه؟ لمن يعمل؟ ما التفاصيل؟ كيف أريد النتيجة؟ وما الأشياء التي يجب ألا يفعلها؟ مثال بداية: «تصرف كأنك ... أريد منك ... باللغة ... في شكل ...»'}
+function aiShowExample(){const x=aiMissionData();const box=document.getElementById('aiExampleBox');box.style.display='block';box.innerHTML='<b>🌟 نموذج يمكن التعلم منه — لا تنسخيه دائمًا، بل افهمي لماذا هو جيد:</b><div class="ai-example" id="aiSampleText"></div><button class="ai-action alt" onclick="aiCopyExample()">نسخ النموذج</button>';document.getElementById('aiSampleText').textContent=x.mission.sample}
+function aiCopyExample(){const t=aiMissionData().mission.sample;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>alert('تم نسخ النموذج.')).catch(()=>alert('حددي النموذج وانسخيه يدويًا.'))}else{alert('حددي النموذج وانسخيه يدويًا.')}}
+function aiCoach(q){const answers={'كيف أجعل الإجابة مناسبة لعمري؟':'اكتبي: اشرح بلغة بسيطة تناسب طالبة في المرحلة الابتدائية، وفسّر الكلمات الصعبة بأمثلة.','ماذا أفعل إذا كانت الإجابة طويلة؟':'قولي: اختصر الإجابة إلى 5 نقاط، واجعل كل نقطة جملة واحدة، ثم اسألني إن كنت أريد تفاصيل إضافية.','كيف أطلب مصادر وأتأكد من صحة المعلومات؟':'قولي: اذكر مصادر موثوقة يمكنني البحث عنها، ولا تخترع روابط. وضّح ما أنت غير متأكد منه، وسأقارن المعلومات بمصدر مستقل.'};document.getElementById('aiCoachReply').textContent=answers[q]||'حاولي تحديد هدفك والجمهور والتفاصيل وشكل الإجابة.'}
+aiShowLesson(0);aiNewMission();
 
 </script>
 </body></html>
