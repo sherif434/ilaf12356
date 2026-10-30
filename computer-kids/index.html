@@ -127,10 +127,32 @@ body.dark .ai-task{background:#44391f;color:#fff0c7;border-color:#806a32}
 body.dark .ai-chat-demo{background:#302b43}body.dark .ai-chat-line{background:#29243e;color:#fff}body.dark .ai-chat-line.user{background:#493b70}
 @media(max-width:700px){.ai-modules{grid-template-columns:1fr 1fr}.ai-intro{grid-template-columns:1fr}.ai-intro .bot{display:none}.ai-form-grid{grid-template-columns:1fr}}
 
+
+.helper-shell{background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);max-width:900px;margin:auto}
+.helper-top{display:flex;align-items:center;gap:12px;padding:16px 19px;background:linear-gradient(110deg,#7257df,#936eea);color:#fff}
+.helper-avatar{width:48px;height:48px;border-radius:16px;background:#ffffff25;display:grid;place-items:center;font-size:29px}
+.helper-top small{display:block;color:#eee8ff;font-size:12px;margin-top:3px}.helper-online{font-size:11px;background:#ffffff20;padding:6px 9px;border-radius:30px}
+.helper-welcome{padding:17px 19px 6px}.helper-welcome p{font-size:13px;line-height:1.9;color:var(--muted);margin:6px 0}
+.helper-suggestions{display:flex;gap:8px;flex-wrap:wrap;padding:8px 18px 13px}.helper-suggestions button{background:#f0edff;color:#654bc4;border:1px solid #e4defd;border-radius:30px;padding:8px 12px;font-size:12px;font-weight:800}
+.helper-chat{height:350px;overflow:auto;background:#f8f7fc;border-block:1px solid var(--line);padding:15px;display:flex;flex-direction:column;gap:12px}
+.helper-message{display:flex;align-items:flex-start;gap:9px;max-width:92%}.helper-message.user{align-self:flex-start;flex-direction:row-reverse}
+.helper-face{flex:0 0 31px;width:31px;height:31px;border-radius:11px;background:#eeeaff;display:grid;place-items:center}
+.helper-message>div:last-child{background:#fff;border:1px solid #ece9fa;border-radius:14px;padding:10px 13px;line-height:1.85;font-size:13px;white-space:normal;overflow-wrap:anywhere}
+.helper-message.user>div:last-child{background:#e9e4ff;border-color:#ddd4ff}.helper-message p{margin:3px 0 0;white-space:pre-wrap}
+.helper-compose{display:flex;gap:9px;padding:13px 15px}.helper-compose input{flex:1;min-width:0;border:1px solid #dcd7ef;border-radius:13px;padding:12px 14px;font:inherit;font-size:13px;outline:none;background:#fff;color:#292344}
+.helper-compose button{background:#7658e8;color:white;border-radius:13px;padding:10px 17px;font-weight:900}
+.helper-footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:0 17px 14px;color:var(--muted);font-size:11px}.helper-footer button{background:transparent;color:#7558d7;font-weight:900}
+.helper-disclaimer{background:#fff8e7;color:#75643b;border-top:1px solid #f5e5b6;padding:12px 17px;font-size:11px;line-height:1.8}
+body.dark .helper-shell{background:#211d35;border-color:#393252}body.dark .helper-chat{background:#19162a;border-color:#393252}
+body.dark .helper-message>div:last-child{background:#29243e;border-color:#40385c;color:#f2efff}body.dark .helper-message.user>div:last-child{background:#493b70;border-color:#5b4a88}
+body.dark .helper-compose input{background:#29243e;color:#fff;border-color:#51466f}body.dark .helper-suggestions button{background:#352c55;color:#e0d5ff;border-color:#51466f}
+body.dark .helper-disclaimer{background:#44391f;color:#fff0c7;border-color:#806a32}
+@media(max-width:520px){.helper-chat{height:390px;padding:10px}.helper-message{max-width:98%}.helper-compose{padding:10px}.helper-compose button{padding:9px 12px}.helper-top{padding:12px}}
+
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap nav"><div class="brand"><span class="logo">🎮</span><span>مغامرة الكمبيوتر</span></div><nav class="navlinks"><a href="#plan">خطة التعلم</a><a href="#play">اللعبة</a><a href="#quiz">الاختبار</a><a href="#videos">فيديوهات</a><a href="#aiAcademy">أكاديمية AI</a></nav><div style="display:flex;gap:7px"><button class="sound" id="themeBtn" aria-label="تبديل الوضع الليلي">🌙 ليلي</button><button class="sound" id="soundBtn" aria-label="تشغيل أو إيقاف الصوت">🔊 الصوت</button></div></div></header>
+<header class="top"><div class="wrap nav"><div class="brand"><span class="logo">🎮</span><span>مغامرة الكمبيوتر</span></div><nav class="navlinks"><a href="#plan">خطة التعلم</a><a href="#play">اللعبة</a><a href="#quiz">الاختبار</a><a href="#videos">فيديوهات</a><a href="#aiAcademy">أكاديمية AI</a><a href="#smartHelper">المساعد الذكي</a></nav><div style="display:flex;gap:7px"><button class="sound" id="themeBtn" aria-label="تبديل الوضع الليلي">🌙 ليلي</button><button class="sound" id="soundBtn" aria-label="تشغيل أو إيقاف الصوت">🔊 الصوت</button></div></div></header>
 <main class="wrap">
 <div class="hero"><div class="hero-card"><div><div class="eyebrow">🌈 مغامرة ممتعة من أول نقرة</div><h1>أهلًا يا بطلة الكمبيوتر! 🚀</h1><p>هنتعلم الكمبيوتر خطوة خطوة، ونلعب ونحل ألغاز، وكل ما تتعلمي حاجة هتكسبي نجوم جديدة. مفيش أي خبرة مطلوبة، نبدأ من الصفر!</p><button class="primary" onclick="document.querySelector('#plan').scrollIntoView({behavior:'smooth'})">يلا نبدأ التعلم ←</button></div><div class="hero-art" aria-hidden="true">🧑🏻‍💻</div></div>
 <div class="stats"><div class="stat"><span>⭐</span><div><b id="stars">0</b><small>نجومك</small></div></div><div class="stat"><span>📚</span><div><b id="completed">0 / 24</b><small>دروس مكتملة</small></div></div><div class="stat"><span>🏅</span><div><b id="best">—</b><small>أفضل نتيجة</small></div></div></div></div>
@@ -249,6 +271,18 @@ body.dark .ai-chat-demo{background:#302b43}body.dark .ai-chat-line{background:#2
 <section><div class="safety"><div class="big">🛡️</div><div><b>قاعدة البطلة الذكية على الإنترنت</b><p>لا تشاركي اسمك الكامل أو عنوانك أو كلمة المرور أو صورك مع الغرباء. لو ظهر شيء غريب أو رسالة تخيفك، أخبري شخصًا كبيرًا تثقين به.</p></div></div></section>
 </main><footer>صُنع بحب لتبدأ مغامرة تعلم الكمبيوتر 💜 · تقدّمك محفوظ على هذا الجهاز</footer>
 <div class="modal" id="lessonModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><div class="modal-head"><div><span class="tag" id="modalTag">الدرس الأول</span><h2 id="modalTitle" style="margin:7px 0 0"></h2></div><button class="close" id="closeModal" aria-label="إغلاق">×</button></div><div class="visual" id="modalVisual"></div><p id="modalText"></p><ul id="modalList"></ul><div class="task" id="modalTask"></div><div class="modal-actions"><button class="donebtn" id="completeLesson">أنهيت الدرس ⭐</button><button class="secondary" id="closeLesson">سأكمل لاحقًا</button></div></div></div>
+
+<section id="smartHelper"><div class="wrap">
+<div class="section-head"><div><h2>🤖 اسألي المساعد الذكي</h2><p>مساعد تعليمي عربي يجيب عن أسئلة الكمبيوتر والإنترنت والبرامج والبرمجة والذكاء الاصطناعي.</p></div><span class="tag">يعمل دون تسجيل دخول</span></div>
+<div class="helper-shell">
+<div class="helper-top"><div class="helper-avatar">🤖</div><div style="flex:1"><b>رفيق الكمبيوتر</b><small>مساعد تعليمي • جاهز للإجابة</small></div><span class="helper-online">● يعمل محليًا</span></div>
+<div class="helper-welcome"><b>أهلًا بكِ! أنا رفيق الكمبيوتر 👋</b><p>اسأليني مثلًا: ما وظيفة RAM؟ كيف أنشئ مجلدًا؟ ما الفرق بين Word وExcel؟ كيف أحمي نفسي من الروابط المزيفة؟ سأشرح لكِ خطوة بخطوة.</p></div>
+<div class="helper-suggestions"><button onclick="helperAskSuggestion(this)">ما هو الكمبيوتر؟</button><button onclick="helperAskSuggestion(this)">ما الفرق بين RAM وSSD؟</button><button onclick="helperAskSuggestion(this)">كيف أتعلم البرمجة؟</button><button onclick="helperAskSuggestion(this)">كيف أحمي حسابي؟</button><button onclick="helperAskSuggestion(this)">ما هو الذكاء الاصطناعي؟</button></div>
+<div class="helper-chat" id="helperChat" role="log" aria-live="polite"><div class="helper-message bot"><span class="helper-face">🤖</span><div><b>رفيق الكمبيوتر</b><p>اكتبي سؤالك في الأسفل. لا تكتبي أي كلمة مرور أو بيانات شخصية.</p></div></div></div>
+<form class="helper-compose" onsubmit="helperSend(event)"><input id="helperInput" type="text" maxlength="500" autocomplete="off" placeholder="اكتبي سؤالك هنا... مثل: كيف أحفظ ملفًا؟" aria-label="اكتبي سؤالك"/><button type="submit">إرسال ➤</button></form>
+<div class="helper-footer"><span>💡 جرّبي سؤالًا محددًا لتحصلي على شرح أفضل.</span><button type="button" onclick="helperClear()">مسح المحادثة</button></div>
+<div class="helper-disclaimer">ملاحظة: هذا مساعد تعليمي محلي يعتمد على قاعدة معرفة وإجابات مبرمجة داخل الموقع، ولا يتصل بنموذج ذكاء اصطناعي سحابي أو بالإنترنت. قد لا يفهم كل صياغة؛ إذا لم يعرف الإجابة سيطلب توضيح السؤال بدل اختراع معلومة.</div>
+</div></div></section>
 <script>
 const lessons=[
 {title:"نتعرف على الكمبيوتر",icon:"🖥️",color:"#eeeaff",desc:"ما هو الكمبيوتر؟ وما الأجزاء التي نستخدمها؟",visual:"🖥️⌨️🖱️",text:"الكمبيوتر جهاز يساعدنا على التعلم والكتابة والرسم واللعب. كل جزء له وظيفة مختلفة، وكلها تعمل معًا.",list:["الشاشة: نرى عليها الصور والكلمات.","صندوق الكمبيوتر: بداخله أجزاء تشغيل الجهاز.","لوحة المفاتيح: نكتب بها الحروف والأرقام.","الفأرة: نحرّك بها المؤشر ونختار الأشياء."],task:"مهمتك: أشيري بيدك إلى الشاشة والفأرة ولوحة المفاتيح في جهازك."},
@@ -375,6 +409,69 @@ const aiLessons=[
 {title:'تقييم الإجابات والتحقق',icon:'🧠',body:'قد تنتج الأداة إجابة خاطئة بثقة؛ تسمى هذه أحيانًا هلوسة الذكاء الاصطناعي.',points:['راجعي الأسماء والأرقام والتواريخ والاقتباسات.','قارني المعلومات بمصدر موثوق أو كتاب المدرسة.','اطلبي منه توضيح ما لا يعرفه بدل التخمين.','إذا كانت النتيجة مهمة، اسألي معلمًا أو شخصًا بالغًا موثوقًا.'],example:'راجع إجابتك السابقة. اذكر أي نقطة غير متأكد منها، وافصل الحقائق عن التخمينات، واقترح مصادر موثوقة للتحقق.'},
 {title:'الخصوصية والأمان',icon:'🛡️',body:'أي شيء تكتبينه أو ترفعينه إلى خدمة ما قد تتم معالجته وفق إعداداتها وسياساتها؛ لذلك لا تشاركي أسرارك.',points:['لا تكتبي كلمات المرور أو رموز التحقق أو بيانات الدفع.','لا تشاركي عنوان المنزل أو رقم الهاتف أو الموقع الدقيق.','لا ترفعي صورك أو صور الآخرين دون إذن وموافقة ولي الأمر.','لا تثبتي تطبيقًا أو تفتحي رابطًا اقترحه شخص غريب.','استخدمي أدوات مناسبة لعمرك وبإشراف شخص بالغ.'],example:'بدلًا من كتابة اسم مدرستك وعنوانك، قولي فقط: أنا طالبة في المرحلة الابتدائية.'}
 ];
+
+const helperKnowledge=[
+{keys:["ما هو الكمبيوتر","تعريف الكمبيوتر","ما هو الحاسوب","يعني ايه كمبيوتر"],answer:"الكمبيوتر جهاز إلكتروني يستقبل البيانات ويعالجها وفق تعليمات ثم يعرض النتائج أو يحفظها. مثلًا عند كتابة واجب: تستقبل لوحة المفاتيح الحروف، ويعالجها البرنامج، ثم تظهر على الشاشة ويمكن حفظها."},
+{keys:["كيف يعمل الكمبيوتر","كيف يشتغل الكمبيوتر"],answer:"يمر الكمبيوتر بأربع خطوات: إدخال البيانات بالفأرة أو لوحة المفاتيح، معالجتها بواسطة المعالج والبرامج، إخراج النتيجة على الشاشة أو الطابعة، ثم تخزين الملفات في SSD أو HDD."},
+{keys:["ما هو cpu","ما وظيفة cpu","ما هو المعالج","وظيفة المعالج"],answer:"CPU هو المعالج الرئيسي، ويُشبه عقل الكمبيوتر؛ ينفذ التعليمات ويجري العمليات الحسابية والمنطقية. سرعة الجهاز لا تعتمد عليه وحده، بل تتأثر أيضًا بالذاكرة والتخزين والبرامج."},
+{keys:["ما هي ram","ما هو ram","ما وظيفة ram","ذاكرة الوصول العشوائي"],answer:"RAM ذاكرة مؤقتة يستخدمها الكمبيوتر أثناء تشغيل البرامج. تساعد على تشغيل المهام بسلاسة، لكن محتوياتها تختفي عند إيقاف التشغيل؛ لذلك ليست مكانًا لحفظ ملفاتك بصورة دائمة."},
+{keys:["ما هو ssd","ما هي ssd","ما الفرق بين ram وssd","ما هو hdd","الهارد"],answer:"RAM مساحة عمل مؤقتة للبرامج، أما SSD أو HDD فهو تخزين دائم يحتفظ بالملفات بعد إيقاف الجهاز. SSD أسرع عادة من HDD لأنه لا يعتمد على أجزاء ميكانيكية متحركة."},
+{keys:["ما هي اللوحة الام","اللوحة الأم","motherboard"],answer:"اللوحة الأم هي اللوحة الرئيسية التي تتصل بها مكونات الكمبيوتر مثل المعالج والذاكرة والتخزين ومنافذ التوصيل، وتوفر الاتصال بينها."},
+{keys:["ما هو كرت الشاشة","كارت الشاشة","gpu"],answer:"GPU أو معالج الرسوميات يعالج الصور والرسوم والفيديو، ويساعد في الألعاب والتصميم وبعض تطبيقات الذكاء الاصطناعي. قد يكون مدمجًا أو بطاقة منفصلة."},
+{keys:["ما هو نظام التشغيل","ما معنى windows","ما هو ويندوز"],answer:"نظام التشغيل هو البرنامج الأساسي الذي يدير الكمبيوتر ويتيح تشغيل التطبيقات والتعامل مع الملفات والأجهزة. Windows مثال مشهور، وهناك macOS وLinux وAndroid."},
+{keys:["ما الفرق بين hardware وsoftware","ما هو hardware","ما هو software"],answer:"Hardware هو الجزء المادي الذي يمكن لمسه مثل الشاشة والفأرة واللوحة الأم. Software هو البرامج والتعليمات مثل Windows وWord والمتصفح. الجهاز يحتاج إلى البرامج ليؤدي المهام."},
+{keys:["كيف افتح الاعدادات","فتح settings","اعدادات ويندوز"],answer:"لفتح الإعدادات في Windows اضغطي Start ثم Settings، أو استخدمي الاختصار Windows + I. ستجدين أقسامًا مثل System للشاشة والصوت وBluetooth & devices للأجهزة وTime & language للغة والوقت."},
+{keys:["كيف اصور الشاشة","تصوير الشاشة","screenshot","لقطة شاشة"],answer:"في Windows اضغطي Windows + Shift + S لفتح أداة القص واختيار الجزء الذي تريدين تصويره. ويمكن استخدام PrtScn حسب إعدادات الجهاز. انتبهي ألا تشاركي لقطة شاشة فيها بيانات شخصية."},
+{keys:["اختصارات لوحة المفاتيح","اختصارات الكيبورد","اختصار النسخ","ctrl c"],answer:"اختصارات مفيدة: Ctrl+C نسخ، Ctrl+V لصق، Ctrl+X قص، Ctrl+Z تراجع، Ctrl+A تحديد الكل، Ctrl+S حفظ، Ctrl+P طباعة، Alt+Tab تبديل النوافذ، وWindows+E فتح مستكشف الملفات."},
+{keys:["كيف انشئ مجلد","انشاء مجلد","عمل فولدر","كيف اعمل فولدر"],answer:"افتحي File Explorer، انتقلي للمكان المطلوب، اضغطي بزر الفأرة الأيمن في مساحة فارغة، اختاري New ثم Folder، اكتبي الاسم واضغطي Enter. اختصار سريع: Ctrl + Shift + N."},
+{keys:["كيف احفظ ملف","حفظ ملف","save as"],answer:"من قائمة File اختاري Save أو Save As، حددي المجلد واكتبي اسمًا واضحًا ثم Save. اختصار الحفظ المعتاد Ctrl+S. احفظي عملك باستمرار واحتفظي بنسخة احتياطية."},
+{keys:["ما هو امتداد الملف","امتدادات الملفات","docx","xlsx","pptx","jpg","png","mp4"],answer:"امتداد الملف هو الحروف بعد النقطة في اسمه ويشير إلى نوعه. أمثلة: DOCX مستند Word، XLSX جدول Excel، PPTX عرض PowerPoint، JPG وPNG صور، MP3 صوت، MP4 فيديو، وPDF مستند."},
+{keys:["ما هو word","كيف استخدم word","برنامج word","مايكروسوفت وورد"],answer:"Word برنامج لمعالجة النصوص وإنشاء الواجبات والتقارير. اكتبي النص، نسقي العنوان والفقرات، استخدمي القوائم لتنظيم الأفكار، ثم احفظي DOCX أو صدّري PDF."},
+{keys:["ما هو excel","كيف استخدم excel","برنامج excel","مايكروسوفت اكسل"],answer:"Excel برنامج جداول بيانات. رتبي المعلومات في صفوف وأعمدة، وكل تقاطع خلية. تبدأ المعادلات بعلامة =، مثل =SUM(B2:B5) لجمع القيم من B2 إلى B5."},
+{keys:["ما هو powerpoint","كيف استخدم powerpoint","برنامج بوربوينت","العروض التقديمية"],answer:"PowerPoint لإنشاء عروض من شرائح. اجعلي لكل شريحة فكرة واحدة، واستخدمي عنوانًا ونقاطًا قصيرة وصورة مناسبة. لا تضعي نصًا كثيرًا وتدربي على شرح العرض."},
+{keys:["ما هو المتصفح","ما هو browser","جوجل كروم","ما هو chrome","ما هو محرك البحث"],answer:"المتصفح مثل Chrome أو Edge برنامج لفتح صفحات الإنترنت. أما محرك البحث مثل Google فهو خدمة تساعدك على العثور على صفحات ومعلومات. تحققي من المصدر ولا تعتمدي على أول نتيجة فقط."},
+{keys:["كيف ابحث في الانترنت","البحث على الانترنت","كيف ابحث عن معلومة"],answer:"اكتبي كلمات واضحة ومحددة، وافتحي مصادر معروفة، وراجعي تاريخ النشر واسم الجهة، وقارني المعلومة بمصدر مستقل. لا تضغطي إعلانات أو روابط مجهولة."},
+{keys:["ما هو البريد الالكتروني","كيف ارسل ايميل","ما هو email","الايميل"],answer:"البريد الإلكتروني وسيلة لإرسال الرسائل والملفات. اكتبي عنوان المستلم الصحيح وموضوعًا واضحًا وتحـية ورسالة مهذبة. راجعي المستلم والمرفقات قبل الإرسال، ولا تفتحي مرفقًا غير متوقع."},
+{keys:["ما هي كلمة المرور","كلمة سر قوية","كيف احمي حسابي","حماية الحساب"],answer:"كلمة المرور القوية طويلة وفريدة ولا يعاد استخدامها في مواقع مختلفة. لا تشاركيها أو ترسلي رمز التحقق. استخدمي التحقق بخطوتين بمساعدة ولي أمرك."},
+{keys:["ما هو التصيد","رسالة تصيد","رابط مزيف","كيف اعرف الرابط المزيف","احتيال الانترنت"],answer:"التصيد محاولة لخداعك حتى تكشفي كلمة المرور أو بياناتك. علاماته: استعجال أو تهديد أو جائزة وهمية، رابط غريب أو عنوان يشبه الأصلي، وطلب رمز تحقق. لا تضغطي الرابط؛ أخبري شخصًا بالغًا."},
+{keys:["ما هو الفيروس","فيروس الكمبيوتر","malware","برمجية خبيثة"],answer:"البرمجيات الخبيثة برامج صممت لإيذاء الجهاز أو سرقة البيانات أو التجسس. احمي نفسك بتحديث النظام، واستخدام حماية موثوقة، وتنزيل البرامج من مصادر رسمية، وعدم فتح المرفقات المشبوهة."},
+{keys:["كيف اسرع الكمبيوتر","الكمبيوتر بطيء","الجهاز بطيء","بطء ويندوز"],answer:"ابدئي بخطوات آمنة: أعيدي تشغيل الجهاز بعد حفظ العمل، أغلقي التطبيقات غير المستخدمة، اتركي مساحة تخزين كافية، ثبتي تحديثات Windows من الإعدادات، وراجعي تطبيقات بدء التشغيل. لا تحذفي ملفات النظام."},
+{keys:["الكمبيوتر لا يعمل","الجهاز لا يفتح","الشاشة سوداء"],answer:"تحققي من الكهرباء والشاحن والشاشة وزر التشغيل. إذا كان الجهاز يعمل لكن الشاشة سوداء، افحصي السطوع والكابل إن كان ذلك آمنًا. لا تفتحي الجهاز من الداخل؛ اطلبي مساعدة شخص بالغ أو فني."},
+{keys:["الانترنت لا يعمل","الواي فاي لا يعمل","wifi لا يعمل","لا يوجد اتصال"],answer:"تأكدي أن Wi-Fi أو Ethernet متصل وأن وضع الطيران مغلق. جرّبي موقعًا آخر، ثم أعيدي تشغيل الراوتر بمساعدة شخص بالغ عند الحاجة. لا تعيدي ضبط إعدادات الشبكة المتقدمة دون معرفة كلمة مرور الشبكة."},
+{keys:["كيف انظف الكمبيوتر","تنظيف الكمبيوتر","العناية بالجهاز"],answer:"أطفئي الجهاز وافصليه قبل تنظيف سطحه بقطعة قماش ناعمة وجافة. أبعدي السوائل ولا تدخلي أدوات في المنافذ. اتركي فتحات التهوية مفتوحة ولا تضعي الجهاز على سطح يسدها."},
+{keys:["ما هي النسخة الاحتياطية","backup","كيف احفظ نسخة احتياطية"],answer:"النسخة الاحتياطية نسخة إضافية من الملفات المهمة تحفظ في مكان آخر مثل قرص خارجي أو خدمة سحابية موثوقة بإشراف ولي الأمر. تساعدك على استعادة الملفات عند فقد الأصل."},
+{keys:["ما هي الخوارزمية","ما معنى algorithm","الخوارزميات"],answer:"الخوارزمية مجموعة خطوات واضحة ومرتبة لحل مشكلة. مثال إعداد حقيبة المدرسة: افتحي الجدول، راجعي مواد الغد، ضعي الكتب، أضيفي الأدوات، ثم أغلقي الحقيبة."},
+{keys:["ما هي البرمجة","كيف اتعلم البرمجة","ما معنى coding","تعلم البرمجة"],answer:"البرمجة كتابة تعليمات تجعل الكمبيوتر ينفذ مهمة. ابدئي بالتفكير المنطقي وScratch، ثم تعلمي Python: الطباعة والمتغيرات والشروط والحلقات والدوال. تدربي بمشروعات صغيرة."},
+{keys:["ما هي python","لغة بايثون","تعلم python"],answer:"Python لغة برمجة سهلة نسبيًا للمبتدئين وتستخدم في الأتمتة وتحليل البيانات والذكاء الاصطناعي. مثال: print('مرحبًا') يعرض كلمة مرحبًا. تعلمي المتغيرات والشروط والحلقات بالتدريج."},
+{keys:["ما هو scratch","برنامج scratch"],answer:"Scratch بيئة برمجة مرئية مناسبة للمبتدئين. تبنين البرامج بسحب كتل أوامر ملونة بدل كتابة الكود، ويمكنك صنع قصة أو لعبة أو رسوم متحركة."},
+{keys:["ما هو الذكاء الاصطناعي","ما معنى ai","ما هو ai","تعريف الذكاء الاصطناعي"],answer:"الذكاء الاصطناعي مجال يجعل البرامج تنفذ مهامًا مثل فهم اللغة والتعرف على الصور واقتراح حلول. قد يساعد في الشرح والكتابة والتصميم، لكنه قد يخطئ ولا يفهم العالم مثل الإنسان."},
+{keys:["ما هو البرومبت","ما معنى prompt","كيف اكتب برومبت","كتابة البرومبت"],answer:"البرومبت هو التعليمات التي تكتبينها لأداة الذكاء الاصطناعي. اجعليه واضحًا: حددي الدور والهدف والجمهور والسياق وشكل النتيجة والقيود. مثال: اشرح دورة الماء لطفلة في 5 خطوات مع مثال و3 أسئلة."},
+{keys:["هل الذكاء الاصطناعي يخطئ","هل ai صحيح دائما","هل يمكن الوثوق بالذكاء الاصطناعي"],answer:"نعم، قد يخطئ الذكاء الاصطناعي أو يخترع تفاصيل تبدو مقنعة. تحققي من الأرقام والتواريخ والمصادر، وقارني الإجابة بكتاب أو موقع موثوق، واسألي معلمًا عند الأمور المهمة."},
+{keys:["خصوصية الذكاء الاصطناعي","هل ارسل بياناتي","معلومات شخصية"],answer:"لا تكتبي كلمة مرور أو رمز تحقق أو عنوان المنزل أو رقم الهاتف أو بيانات الدفع في محادثة مع أداة ذكاء اصطناعي. لا ترفعي صورًا خاصة أو معلومات عن الآخرين دون إذن. استشيري ولي أمرك قبل استخدام خدمة جديدة."},
+{keys:["كيف اذاكر الكمبيوتر","كيف اتعلم الكمبيوتر","خطة تعلم الكمبيوتر"],answer:"تعلمي بالتدرج: أجزاء الكمبيوتر والفأرة ولوحة المفاتيح، ثم Windows والنوافذ والإعدادات، فالملفات والمجلدات، ثم Word وExcel وPowerPoint، فالإنترنت والأمان، وأخيرًا التفكير المنطقي والبرمجة. طبقي بعد كل درس."},
+{keys:["ما الفرق بين الانترنت والويب","ما هو الانترنت","ما هي الشبكة"],answer:"الإنترنت شبكة عالمية تربط أجهزة وشبكات كثيرة. الويب خدمة تعمل عبر الإنترنت وتتيح فتح صفحات ومواقع باستخدام المتصفح. توجد خدمات أخرى مثل البريد الإلكتروني ومكالمات الإنترنت."},
+{keys:["ما هي السحابة","التخزين السحابي","cloud storage"],answer:"التخزين السحابي يحفظ ملفاتك على خوادم عبر الإنترنت لتتمكني من الوصول إليها من أجهزة مختلفة. استخدمي خدمة موثوقة وبإشراف ولي الأمر، واحمي الحساب ولا ترفعي ملفات خاصة."},
+{keys:["ما هي الطابعة","كيف اطبع ملف","الطباعة"],answer:"الطابعة جهاز إخراج يحول المستند الرقمي إلى ورق. افتحي الملف واختاري File ثم Print أو Ctrl+P، ثم اختاري الطابعة وعدد النسخ والصفحات وراجعي المعاينة."},
+{keys:["ما هو pdf","ملف pdf"],answer:"PDF تنسيق يحافظ غالبًا على شكل المستند عند فتحه على أجهزة مختلفة. يمكنك تصدير المستند من File ثم Save As أو Export ثم اختيار PDF بحسب البرنامج."}
+];
+function helperNormalize(t){return t.toLowerCase().replace(/[ًٌٍَُِّْـ]/g,"").replace(/[؟?!.,،؛:()\[\]{}"']/g," ").replace(/\s+/g," ").trim()}
+function helperAnswer(question){
+ const q=helperNormalize(question);
+ if(!q)return "اكتبي سؤالًا حتى أستطيع مساعدتك.";
+ if(/^(مرحبا|اهلا|السلام عليكم|صباح الخير|مساء الخير|هاي|hello)/.test(q))return "أهلًا بكِ! 🌸 اسأليني عن الكمبيوتر أو Windows أو الملفات أو برامج Office أو الإنترنت أو الأمان أو البرمجة أو الذكاء الاصطناعي. ما الموضوع الذي تريدين تعلمه؟";
+ if(/^(شكرا|شكرا لك|متشكره|تسلم)/.test(q))return "العفو! 💜 أنا هنا لمساعدتك. اسأليني سؤالًا آخر أو اطلبي مثالًا عمليًا.";
+ if(/^(من انت|انت مين|ما اسمك|اسمك ايه)/.test(q))return "أنا رفيق الكمبيوتر 🤖، مساعد تعليمي داخل موقع مغامرة الكمبيوتر. أجيب عن أسئلة كثيرة من قاعدة معرفة تعليمية مدمجة بالموقع، وأشرح للمبتدئين خطوة بخطوة.";
+ let best=null,bestScore=0;
+ for(const item of helperKnowledge){let score=0;for(const key of item.keys){const k=helperNormalize(key);if(q.includes(k))score=Math.max(score,k.split(" ").length*3+k.length/12);else{const words=k.split(" ").filter(w=>w.length>2);const hits=words.filter(w=>q.includes(w)).length;if(words.length&&hits/words.length>=.65)score=Math.max(score,hits*1.4)}}if(score>bestScore){bestScore=score;best=item}}
+ if(best&&bestScore>=2.8)return best.answer;
+ if(/كيف|ازاي|ازاى|طريقة|اشرح|ما هو|ما هي|يعني ايه|ما معنى/.test(q))return "أريد مساعدتك، لكن صياغة السؤال لم تتضح لي بعد. 💜 جرّبي تحديد اسم الموضوع أو البرنامج، مثل: «كيف أنشئ مجلدًا في Windows؟» أو «اشرح لي ذاكرة RAM». أستطيع المساعدة في أساسيات الكمبيوتر وWindows والملفات وOffice والإنترنت والأمان والبرمجة والذكاء الاصطناعي.";
+ return "لم أجد إجابة دقيقة لهذا السؤال في قاعدة المعرفة الحالية، ولا أريد أن أخمّن. هل يمكنك إعادة صياغته أو تحديد هل يتعلق بـ Windows أو Word أو Excel أو الإنترنت أو البرمجة؟";
+}
+function helperAddMessage(text,isUser){const chat=document.getElementById("helperChat");if(!chat)return;const row=document.createElement("div");row.className="helper-message "+(isUser?"user":"bot");const face=document.createElement("span");face.className="helper-face";face.textContent=isUser?"🙂":"🤖";const body=document.createElement("div");const name=document.createElement("b");name.textContent=isUser?"أنتِ":"رفيق الكمبيوتر";const p=document.createElement("p");p.textContent=text;body.appendChild(name);body.appendChild(p);row.appendChild(face);row.appendChild(body);chat.appendChild(row);chat.scrollTop=chat.scrollHeight}
+function helperSend(e){if(e)e.preventDefault();const input=document.getElementById("helperInput");if(!input)return;const q=input.value.trim();if(!q)return;helperAddMessage(q,true);input.value="";if(/كلمة المرور|كلمة السر|رمز التحقق|رقم البطاقة|عنوان منزلي|عنوان البيت/.test(q)){helperAddMessage("تنبيه مهم 🔐 لا تشاركي كلمات المرور أو رموز التحقق أو بيانات الدفع أو عنوان المنزل هنا أو مع أي شخص. احذفي هذه المعلومات من رسالتك، ثم اسألي دون بيانات شخصية.",false);return}helperAddMessage(helperAnswer(q),false)}
+function helperAskSuggestion(btn){const input=document.getElementById("helperInput");input.value=btn.textContent;helperSend(null)}
+function helperClear(){const chat=document.getElementById("helperChat");chat.innerHTML="";helperAddMessage("بدأنا محادثة جديدة! اسأليني عن أي موضوع في الكمبيوتر أو التقنية. 😊",false)}
+
 function aiShowLesson(i){
  const lesson=aiLessons[i];if(!lesson)return;
  document.querySelectorAll('.ai-module').forEach((b,n)=>b.classList.toggle('active',n===i));
