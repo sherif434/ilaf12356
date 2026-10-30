@@ -51,6 +51,46 @@ body.dark .sim-chat{background:#d5d0c9}body.dark .desk-window{background:#fff;co
 body.dark .tip{background:#352c55;color:#e0d5ff}
 @media(max-width:700px){.lab-grid{grid-template-columns:1fr}}
 
+
+/* Windows-like interactive training simulator */
+.pc-live{background:#111827;border-radius:24px;padding:14px;color:#f8fafc;box-shadow:0 22px 55px #17132d35}
+.pc-live-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:5px 4px 13px}
+.pc-live-head small{color:#cbd5e1}
+.pc-screen{min-height:540px;position:relative;overflow:hidden;border:1px solid #64748b;border-radius:17px;background:linear-gradient(135deg,#155e75,#2563eb 52%,#7c3aed);padding:18px 18px 58px}
+.pc-screen:before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:#ffffff12;left:-120px;top:-170px}
+.pc-icons{position:relative;display:grid;grid-template-columns:repeat(2,90px);gap:12px;width:max-content;z-index:1}
+.pc-icon{background:transparent;color:white;border:1px solid transparent;border-radius:10px;padding:9px 5px;width:88px;font-size:12px;text-shadow:0 1px 4px #172554;display:grid;justify-items:center;gap:5px}
+.pc-icon:hover,.pc-icon:focus{background:#ffffff26;border-color:#ffffff55}
+.pc-icon span{font-size:34px}
+.pc-taskbar{position:absolute;bottom:0;right:0;left:0;height:49px;background:#101827dd;backdrop-filter:blur(15px);display:flex;align-items:center;justify-content:center;gap:9px;z-index:8;padding:5px}
+.pc-taskbar button{background:#ffffff16;color:white;border-radius:9px;padding:8px 12px}
+.pc-taskbar button:hover{background:#ffffff30}
+.pc-clock{position:absolute;left:12px;font-size:11px;color:#e2e8f0}
+.pc-window{position:absolute;z-index:5;top:65px;right:50%;transform:translateX(50%);width:min(570px,94%);min-height:245px;max-height:390px;overflow:auto;background:#f8fafc;color:#172033;border:1px solid #cbd5e1;border-radius:13px;box-shadow:0 22px 65px #0f172a88}
+.pc-window[hidden],.pc-start[hidden]{display:none}
+.pc-winbar{height:42px;background:#e2e8f0;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-weight:900}
+.pc-winbar button{background:#fee2e2;color:#991b1b;border-radius:7px;padding:3px 10px}
+.pc-winbody{padding:15px;line-height:1.8}
+.pc-start{position:absolute;z-index:9;bottom:55px;right:50%;transform:translateX(50%);width:min(330px,90%);background:#f8fafc;color:#172033;border-radius:16px;padding:15px;box-shadow:0 20px 55px #0f172a99}
+.pc-start button,.pc-appbtn{background:#e2e8f0;color:#172033;border-radius:9px;padding:9px;margin:4px}
+.pc-file{display:inline-grid;justify-items:center;gap:3px;background:#eff6ff;color:#1e293b;border-radius:10px;padding:10px;margin:5px;min-width:90px}
+.pc-browserbar{display:flex;gap:6px;margin-bottom:12px}
+.pc-browserbar input{min-width:0;flex:1;border:1px solid #cbd5e1;border-radius:8px;padding:8px;direction:ltr}
+.pc-browserbar button{background:#2563eb;color:#fff;border-radius:8px;padding:8px 12px}
+.pc-chatlog{height:170px;overflow:auto;background:#e2e8f0;border-radius:10px;padding:10px;color:#172033}
+.pc-msg{padding:8px 10px;border-radius:11px;margin:6px 0;max-width:90%;background:white;font-size:13px}
+.pc-msg.mine{margin-right:auto;background:#dbeafe}
+.pc-msg.bad{background:#fee2e2;border:1px solid #fecaca}
+.pc-chatrow{display:flex;gap:6px;margin-top:9px}
+.pc-chatrow input{flex:1;min-width:0;border:1px solid #cbd5e1;border-radius:8px;padding:9px}
+.pc-chatrow button{background:#0f766e;color:white;border-radius:8px;padding:8px 13px}
+.pc-alert{position:absolute;z-index:10;left:12px;bottom:62px;width:min(310px,85%);background:#fff;color:#172033;border-right:5px solid #ef4444;border-radius:11px;padding:12px;box-shadow:0 12px 35px #0f172a66}
+.pc-alert button{background:#fee2e2;color:#991b1b;padding:6px 10px;border-radius:7px;margin-top:7px}
+.pc-terminal{background:#07111f;color:#a7f3d0;border-radius:10px;padding:12px;font:13px/1.8 Consolas,monospace;min-height:140px;direction:ltr;text-align:left}
+.pc-terminal input{width:100%;background:#102033;color:#fff;border:1px solid #34516b;padding:8px;border-radius:6px;direction:ltr}
+.pc-status{color:#cbd5e1;font-size:12px}
+@media(max-width:560px){.pc-screen{min-height:580px;padding:12px 8px 58px}.pc-icons{grid-template-columns:repeat(2,78px)}.pc-icon{width:76px}.pc-window{top:90px}.pc-taskbar{gap:4px}.pc-taskbar button{padding:7px 8px;font-size:12px}}
+
 </style>
 </head>
 <body>
@@ -61,6 +101,29 @@ body.dark .tip{background:#352c55;color:#e0d5ff}
 <section id="plan"><div class="section-head"><div><h2>🗺️ خريطة المغامرة</h2><p>ثماني محطات صغيرة، كل محطة فيها معلومة ومهمة عملية.</p></div><span class="tag">خطة التعلم</span></div><div class="progress-card"><div class="progress-meta"><span>تقدمك في الرحلة</span><span id="percent">0%</span></div><div class="progress-line"><div class="progress-fill" id="bar"></div></div><div class="progress-meta"><span>كمّلي الدروس عشان تفتحي كل الشارات 🎖️</span><span id="remain">باقي 8</span></div></div><div class="lessons" id="lessons" style="margin-top:14px"></div></section>
 <section id="play"><div class="section-head"><div><h2>🎯 لعبة اختاري الأداة الصحيحة</h2><p>اقرئي المهمة واختاري الأداة التي تساعدك على تنفيذها.</p></div><span class="tag">اللعب والتعلم</span></div><div class="gamebox"><div class="game-top"><h3 id="gameQuestion">جاهزة للتحدي؟</h3><span class="tag" id="gameCount">السؤال 1 من 6</span></div><p class="game-hint">اختاري إجابة واحدة. لو أخطأتي، جربي مرة ثانية — التعلم بالمحاولة!</p><div class="choices" id="choices"></div><div class="feedback" id="gameFeedback" aria-live="polite">✨ بالتوفيق يا بطلة!</div><div style="text-align:center"><button class="next" id="nextGame" disabled>السؤال التالي ←</button></div></div></section>
 <section id="quiz"><div class="section-head"><div><h2>🧠 اختبار الذكاء الصغير</h2><p>اختبري معلوماتك بعد الدروس. كل إجابة صحيحة تساوي نجمة!</p></div><span class="tag">6 أسئلة</span></div><div class="quiz"><div class="progress-meta"><span id="quizStep">السؤال 1 من 6</span><span id="quizScore">النتيجة: 0</span></div><h3 id="quizQuestion" style="margin:15px 0 5px">ما الأداة التي نستخدمها للكتابة؟</h3><div class="quiz-options" id="quizOptions"></div><div class="feedback" id="quizFeedback"></div><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><button class="next" id="quizNext" disabled>التالي ←</button><button class="secondary" id="quizRestart" style="border-radius:12px;padding:10px 14px;font-weight:900">إعادة الاختبار</button></div></div></section>
+
+
+<section id="liveComputer">
+ <div class="section-head"><div><h2>🖥️ الكمبيوتر التفاعلي المباشر</h2><p>استخدمي سطح مكتب افتراضيًا: افتحي الملفات والمتصفح والمفكرة والمحادثات، وتعاملي مع مواقف أمنية تتغير حسب اختياراتك.</p></div><span class="tag">محاكاة متقدمة</span></div>
+ <div class="pc-live">
+  <div class="pc-live-head"><div><b>Windows 11 · وضع التدريب</b><br><small>بيئة افتراضية — لا تتصل بملفات جهازك أو حساباتك الحقيقية</small></div><div class="pc-status" id="pcStatus">🟢 النظام يعمل · مستوى الأمان: جيد</div></div>
+  <div class="pc-screen" id="pcScreen">
+   <div class="pc-icons">
+    <button class="pc-icon" onclick="pcOpen('files')"><span>📁</span>مستكشف الملفات</button>
+    <button class="pc-icon" onclick="pcOpen('browser')"><span>🌐</span>المتصفح</button>
+    <button class="pc-icon" onclick="pcOpen('chat')"><span>💬</span>رسائل الغرباء</button>
+    <button class="pc-icon" onclick="pcOpen('notes')"><span>📝</span>المفكرة</button>
+    <button class="pc-icon" onclick="pcOpen('security')"><span>🛡️</span>مركز الحماية</button>
+    <button class="pc-icon" onclick="pcOpen('terminal')"><span>⌨️</span>موجه الأوامر</button>
+   </div>
+   <div class="pc-window" id="pcWindow" hidden><div class="pc-winbar"><span id="pcWinTitle">نافذة</span><button onclick="pcClose()">×</button></div><div class="pc-winbody" id="pcWinBody"></div></div>
+   <div class="pc-start" id="pcStart" hidden><b>ابدأ</b><p>ماذا تريدين أن تفتحي؟</p><button onclick="pcOpen('files')">📁 الملفات</button><button onclick="pcOpen('browser')">🌐 المتصفح</button><button onclick="pcOpen('chat')">💬 الرسائل</button><button onclick="pcOpen('security')">🛡️ الحماية</button></div>
+   <div class="pc-alert" id="pcAlert" hidden><b>⚠️ تنبيه أمني تدريبي</b><div id="pcAlertText">وصلتك رسالة مريبة.</div><button onclick="pcOpen('chat');pcHideAlert()">فحص الرسالة</button><button onclick="pcHideAlert()">إغلاق</button></div>
+   <div class="pc-taskbar"><button onclick="pcToggleStart()">⊞ ابدأ</button><button onclick="pcOpen('browser')">🌐</button><button onclick="pcOpen('files')">📁</button><button onclick="pcOpen('chat')">💬</button><span class="pc-clock" id="pcClock">12:00</span></div>
+  </div>
+  <div class="pc-status" style="margin-top:10px">🎯 المهمة: استكشفي التطبيقات. ستصلك مواقف من شخصيات افتراضية تحاول خداعك. قراراتك تغيّر نتيجة القصة.</div>
+ </div>
+</section>
 
 <section id="lab"><div class="section-head"><div><h2>🧪 مختبر التجربة: جرّبي بنفسك</h2><p>محاكاة آمنة تشبه الكمبيوتر الحقيقي. اضغطي على الأشياء وشاهدي ماذا يحدث.</p></div><span class="tag">تطبيق عملي</span></div>
 <div class="lab-grid">
@@ -170,6 +233,37 @@ const themeButton=document.getElementById('themeBtn');
 function setTheme(dark){document.body.classList.toggle('dark',dark);themeButton.textContent=dark?'☀️ نهاري':'🌙 ليلي';localStorage.setItem('pcAdventureTheme',dark?'dark':'light')}
 setTheme(localStorage.getItem('pcAdventureTheme')==='dark');
 themeButton.addEventListener('click',()=>setTheme(!document.body.classList.contains('dark')));
+
+
+/* Interactive desktop story — all data stays in this page */
+const pcState={files:[{name:'واجب الكمبيوتر.txt',type:'📄'},{name:'صور العائلة (تجريبية)',type:'🖼️'},{name:'مجلد المدرسة',type:'📁'}],security:100,stage:0,notes:'',messages:[],blocked:false};
+function pcOpen(app){
+ const win=document.getElementById('pcWindow'),body=document.getElementById('pcWinBody');
+ document.getElementById('pcStart').hidden=true;win.hidden=false;
+ const titles={files:'مستكشف الملفات',browser:'المتصفح الآمن',chat:'الرسائل الواردة',notes:'المفكرة',security:'مركز الحماية',terminal:'موجه الأوامر التدريبي'};
+ document.getElementById('pcWinTitle').textContent=titles[app]||'تطبيق';
+ if(app==='files'){body.innerHTML='<b>هذا الكمبيوتر ← ملفاتي</b><p>ملفات تدريبية يمكنك استكشافها. لا توجد ملفات حقيقية هنا.</p><div id="pcFileList">'+pcState.files.map((f,i)=>'<span class="pc-file">'+f.type+'<br>'+f.name+'</span>').join('')+'</div><button class="pc-appbtn" onclick="pcNewFolder()">＋ إنشاء مجلد</button><button class="pc-appbtn" onclick="pcCreateNoteFile()">＋ إنشاء ملف نصي</button><div id="pcFileFeedback"></div>'}
+ if(app==='browser'){body.innerHTML='<b>🌐 متصفح تجريبي</b><div class="pc-browserbar"><input id="pcUrl" value="https://school.example" aria-label="عنوان تجريبي"><button onclick="pcVisit()">انتقال</button></div><div id="pcWebPage" style="background:#eff6ff;border-radius:10px;padding:14px"><h3>🏫 بوابة المدرسة التجريبية</h3><p>مرحبًا! هذه صفحة محلية خيالية للتدريب على تمييز المواقع.</p><button class="pc-appbtn" onclick="pcShowPhish()">افحصي رسالة الجائزة</button></div><small>المواقع التي تنتهي بـ .example أمثلة غير حقيقية.</small>'}
+ if(app==='chat'){body.innerHTML='<b>💬 صندوق الرسائل — شخصيات افتراضية</b><div class="pc-chatlog" id="pcChatLog"><div class="pc-msg">النظام: وصلت رسالة جديدة من حساب غير معروف.</div><div class="pc-msg bad"><b>مستخدم مجهول:</b> أهلًا! ربحتِ جهازًا جديدًا. أرسلي رمز التحقق المكوّن من 6 أرقام حتى نرسل الجائزة! 🎁</div>'+pcState.messages.map(m=>'<div class="pc-msg '+(m.mine?'mine':'bad')+'">'+m.text+'</div>').join('')+'</div><div class="pc-chatrow"><input id="pcChatInput" placeholder="اكتبي ردك..." maxlength="180"><button onclick="pcSendChat()">إرسال</button></div><p><button class="pc-appbtn" onclick="pcBlockSender()">🚫 حظر الحساب والإبلاغ</button><button class="pc-appbtn" onclick="pcExplainChat()">🔎 تحليل الرسالة</button></p><div id="pcChatFeedback"></div>'}
+ if(app==='notes'){body.innerHTML='<b>📝 المفكرة</b><p>اكتبي ملاحظاتك كما في الكمبيوتر.</p><textarea id="pcNoteText" rows="5" style="width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:10px;font:inherit">'+pcState.notes+'</textarea><button class="pc-appbtn" onclick="pcSaveNote()">💾 حفظ داخل المحاكاة</button><span id="pcNoteResult"></span>'}
+ if(app==='security'){body.innerHTML='<h3>🛡️ مركز الحماية</h3><p>مستوى الحماية في القصة: <b>'+pcState.security+'%</b></p><div style="height:12px;background:#e2e8f0;border-radius:20px;overflow:hidden"><div style="height:100%;width:'+pcState.security+'%;background:#10b981"></div></div><p>الحالة: '+(pcState.blocked?'تم حظر الحساب المريب':'توجد رسالة تحتاج إلى مراجعة')+'</p><button class="pc-appbtn" onclick="pcBlockSender()">حظر المرسل المجهول</button><button class="pc-appbtn" onclick="pcExplainChat()">تعلم علامات الاحتيال</button><div id="pcSecFeedback" class="tip">تذكري: لا تشاركي كلمة المرور أو رمز التحقق أبدًا.</div>'}
+ if(app==='terminal'){body.innerHTML='<b>⌨️ موجه أوامر آمن للتعلم</b><p>جرّبي أوامر تعليمية غير مؤثرة مثل help وdate وwhoami.</p><div class="pc-terminal"><div id="pcTermOut">Training Shell v1.0 — محاكاة فقط<br>اكتبي help لعرض الأوامر المتاحة.</div><input id="pcTermInput" placeholder="help" onkeydown="if(event.key===\'Enter\')pcRunCommand()"></div><button class="pc-appbtn" onclick="pcRunCommand()">تنفيذ الأمر</button>'}
+}
+function pcClose(){document.getElementById('pcWindow').hidden=true}
+function pcToggleStart(){const s=document.getElementById('pcStart');s.hidden=!s.hidden}
+function pcHideAlert(){document.getElementById('pcAlert').hidden=true}
+function pcNewFolder(){pcState.files.push({name:'مجلد جديد',type:'📁'});pcOpen('files');document.getElementById('pcFileFeedback').textContent='✅ تم إنشاء مجلد افتراضي.'}
+function pcCreateNoteFile(){pcState.files.push({name:'ملاحظاتي.txt',type:'📄'});pcOpen('files');document.getElementById('pcFileFeedback').textContent='✅ تم إنشاء ملف افتراضي.'}
+function pcSaveNote(){pcState.notes=document.getElementById('pcNoteText').value;document.getElementById('pcNoteResult').textContent=' ✅ تم الحفظ داخل المحاكاة فقط.'}
+function pcVisit(){const v=document.getElementById('pcUrl').value;const p=document.getElementById('pcWebPage');if(/\.example\b/i.test(v)){p.innerHTML='<h3>ℹ️ صفحة تدريبية</h3><p>هذا عنوان تجريبي وليس موقعًا حقيقيًا. أحسنتِ في التحقق من العنوان.</p>'}else{p.innerHTML='<h3>🔒 فحص تدريبي</h3><p>لن نفتح أي موقع خارجي من هذه المحاكاة. قبل فتح أي رابط حقيقي، افحصي اسم النطاق واسألي شخصًا بالغًا.</p>'}}
+function pcShowPhish(){document.getElementById('pcWebPage').innerHTML='<div style="background:#fff1f2;padding:12px;border-radius:10px"><h3>🚨 صفحة جائزة مزيفة — مثال تعليمي</h3><p>تطلب الصفحة كلمة مرورك ورمز التحقق لتسليم جائزة غير متوقعة.</p><b>ما التصرف الصحيح؟</b><p>أغلقي الصفحة. لا تكتبي أي بيانات. أخبري شخصًا بالغًا.</p><button class="pc-appbtn" onclick="pcOpen(\'security\')">فهم علامات الخداع</button></div>'}
+function pcSendChat(){const input=document.getElementById('pcChatInput'),v=input.value.trim();if(!v)return;pcState.messages.push({mine:true,text:'أنتِ: '+v});let reply;if(/رمز|كلمة المرور|password|123456/i.test(v)){reply='المستخدم المجهول: أرسلي الرمز بسرعة وإلا ستضيع الجائزة!';}else if(/لا|مش|لن|أرفض|حظر/i.test(v)){reply='المستخدم المجهول: لماذا لا تثقين بي؟';}else{reply='المستخدم المجهول: لا تخبري أحدًا، الأمر سر بيننا!';}pcState.messages.push({mine:false,text:reply});pcOpen('chat');document.getElementById('pcChatFeedback').textContent='💡 لاحظي الضغط والاستعجال وطلب السرية: كلها علامات خطر. لا تواصلي المحادثة.';document.getElementById('pcChatLog').scrollTop=9999;input.value=''}
+function pcBlockSender(){pcState.blocked=true;pcState.security=100;document.getElementById('pcStatus').textContent='🟢 تم تأمين الموقف التدريبي';pcOpen('security');document.getElementById('pcSecFeedback').textContent='🏆 ممتاز! حظرتِ الحساب وأوقفتِ التواصل. أخبري شخصًا بالغًا موثوقًا عند حدوث موقف مشابه.'}
+function pcExplainChat(){pcOpen('chat');document.getElementById('pcChatFeedback').innerHTML='<div class="tip">علامات الخداع: جائزة غير متوقعة، طلب رمز تحقق أو كلمة مرور، استعجال، وطلب عدم إخبار الأسرة. لا تشاركي أي بيانات، وخذي لقطة شاشة بعد إخفاء معلوماتك وأخبري شخصًا بالغًا.</div>'}
+function pcRunCommand(){const input=document.getElementById('pcTermInput'),out=document.getElementById('pcTermOut'),cmd=input.value.trim().toLowerCase();let answer={'help':'الأوامر المتاحة: help, date, whoami, list — أوامر عرض تعليمية فقط.','date':'تاريخ تدريبي: اليوم داخل المحاكاة.','whoami':'أنتِ متدربة تتعلمين أساسيات الكمبيوتر.','list':'ملفات افتراضية: واجب الكمبيوتر.txt ، ملاحظاتي.txt'}[cmd]||'هذا الأمر غير متاح في بيئة التدريب. لم يتم تنفيذ أي أمر على جهازك.';out.innerHTML+='\n&gt; '+cmd+'\n'+answer.replace(/</g,'&lt;');input.value=''}
+function pcClockTick(){const d=new Date();document.getElementById('pcClock').textContent=d.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})}
+pcClockTick();setInterval(pcClockTick,30000);
+setTimeout(()=>{const a=document.getElementById('pcAlert');if(a){document.getElementById('pcAlertText').textContent='مستخدم مجهول يرسل لك: «أرسلي رمز التحقق لنكسب جائزة!» لا تشاركي الرمز.';a.hidden=false}},12000);
 
 </script>
 </body></html>
