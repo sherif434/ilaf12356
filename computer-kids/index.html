@@ -21,16 +21,80 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:35px 10px}
 .modal{position:fixed;inset:0;background:#211b3e88;z-index:50;display:none;align-items:center;justify-content:center;padding:18px}.modal.show{display:flex}.modal-card{background:#fff;border-radius:25px;max-width:650px;width:100%;max-height:88vh;overflow:auto;padding:23px;box-shadow:0 25px 80px #16102c55}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.close{background:#f4f1fc;color:#615a83;border-radius:12px;width:38px;height:38px;font-size:20px}.visual{background:linear-gradient(135deg,#f2efff,#fff0f5);border-radius:20px;padding:18px;text-align:center;font-size:64px;margin:14px 0}.modal-card p{line-height:1.9;color:#5f5c78}.modal-card li{margin:8px 0;color:#5f5c78}.task{background:#f6f4ff;border-radius:15px;padding:13px;font-weight:800;margin:14px 0}.modal-actions{display:flex;gap:9px;flex-wrap:wrap}.modal-actions button{padding:11px 17px;border-radius:12px;font-weight:900}.donebtn{background:#19b98c;color:white}.secondary{background:#f1edff;color:var(--purple)}
 @media(max-width:800px){.lessons{grid-template-columns:repeat(2,1fr)}.hero-card{grid-template-columns:1fr;text-align:center;padding:28px}.hero p{margin-inline:auto}.hero-art{font-size:90px}.videos{grid-template-columns:1fr 1fr}.navlinks{display:none}}
 @media(max-width:520px){.wrap{padding:0 13px}.stats{gap:7px}.stat{padding:10px;gap:7px}.stat b{font-size:17px}.stat small{font-size:10px}.lessons{gap:9px}.lesson{padding:12px}.lesson p{min-height:55px}.choices{grid-template-columns:1fr 1fr}.videos{grid-template-columns:1fr}.section-head h2{font-size:20px}.hero{padding-top:24px}}
+
+/* إضافات المختبر والوضع الليلي */
+body.dark{--ink:#f2efff;--muted:#b6b0d0;--paper:#211d35;--bg:#151226;--line:#393252;--shadow:0 16px 45px #00000030;background:var(--bg);color:var(--ink)}
+body.dark .top{background:#1b1730ed;border-color:#393252}
+body.dark .stat,body.dark .progress-card,body.dark .lesson,body.dark .quiz,body.dark .video,body.dark .modal-card{background:#211d35;border-color:#393252;color:var(--ink)}
+body.dark .navlinks a{color:#c4bddf}body.dark .navlinks a:hover{background:#332b50;color:#fff}
+body.dark .sound,body.dark .lesson button,body.dark .secondary{background:#352c55;color:#d9ceff}
+body.dark .gamebox{background:linear-gradient(135deg,#211d35,#29213e);border-color:#393252}
+body.dark .choice,body.dark .quiz-options button{background:#29243e;border-color:#40385c;color:#f2efff}
+body.dark .quiz-options button.selected{background:#3b3060;border-color:#a38aff}
+body.dark .visual{background:linear-gradient(135deg,#30264b,#422a45)}
+body.dark .task{background:#332c4b;color:#eee8ff}
+body.dark footer{color:#aaa3c8}
+body.dark .safety{background:#332b1d;border-color:#6b5628;color:#fff1c7}body.dark .safety p{color:#e3d4a8}
+body.dark .video .thumb{background:linear-gradient(135deg,#30264b,#472b43)}
+body.dark .video a{background:#492a40;color:#ffc0d3}
+body.dark .modal-card p,body.dark .modal-card li{color:#d1cbe5}
+body.dark .lesson.done{border-color:#368e79}
+.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lab-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:19px;box-shadow:var(--shadow)}
+body.dark .lab-card{background:#211d35;border-color:#393252}
+.lab-card h3{margin:0 0 7px}.lab-card p{color:var(--muted);font-size:13px;line-height:1.8}
+.desktop-demo{background:linear-gradient(145deg,#a8d9ff,#c8b8ff);border:7px solid #34304b;border-bottom-width:17px;border-radius:17px;padding:15px;min-height:205px;position:relative;color:#292344}
+.desktop-icons{display:flex;gap:13px;flex-wrap:wrap}.desk-icon{background:#ffffffa8;border:1px solid #ffffffd9;border-radius:12px;padding:9px 8px;width:77px;text-align:center;color:#272342;font-size:12px;font-weight:900;cursor:pointer}.desk-icon b{display:block;font-size:29px}.desk-window{display:none;background:#fff;color:#282344;border-radius:12px;padding:13px;margin-top:12px;box-shadow:0 8px 22px #2b245533}.desk-window.show{display:block}.demo-bar{position:absolute;bottom:-13px;right:0;left:0;height:18px;background:#29243e;color:#fff;text-align:center;font-size:10px}
+.sim-chat{background:#e8dfd2;border-radius:18px;padding:13px;color:#26233b;max-width:520px;margin:10px auto}.chat-head{background:#087d68;color:white;padding:10px;border-radius:12px;font-weight:900}.bubble{background:#fff;border-radius:13px;padding:10px 12px;margin:10px 0;max-width:88%;font-size:13px;line-height:1.7;box-shadow:0 2px 4px #0000000c}.bubble.me{background:#d9fdd3;margin-right:auto}.fake-link{display:inline-block;background:#e7f0ff;color:#1654a5;border-radius:8px;padding:6px 9px;font-weight:900;direction:ltr}.sim-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.sim-actions button{border-radius:12px;padding:10px 13px;font-weight:900;background:#eeeaff;color:#6650c9}.sim-actions button.safe{background:#dff9ef;color:#087b5b}.sim-actions button.danger{background:#fff0f3;color:#c33d64}
+body.dark .sim-chat{background:#d5d0c9}body.dark .desk-window{background:#fff;color:#282344}
+.tip{background:#f4f1ff;border-radius:13px;padding:11px;color:#6650b8;font-size:12px;line-height:1.8}
+body.dark .tip{background:#352c55;color:#e0d5ff}
+@media(max-width:700px){.lab-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap nav"><div class="brand"><span class="logo">🎮</span><span>مغامرة الكمبيوتر</span></div><nav class="navlinks"><a href="#plan">خطة التعلم</a><a href="#play">اللعبة</a><a href="#quiz">الاختبار</a><a href="#videos">فيديوهات</a></nav><button class="sound" id="soundBtn" aria-label="تشغيل أو إيقاف الصوت">🔊 الصوت</button></div></header>
+<header class="top"><div class="wrap nav"><div class="brand"><span class="logo">🎮</span><span>مغامرة الكمبيوتر</span></div><nav class="navlinks"><a href="#plan">خطة التعلم</a><a href="#play">اللعبة</a><a href="#quiz">الاختبار</a><a href="#videos">فيديوهات</a></nav><div style="display:flex;gap:7px"><button class="sound" id="themeBtn" aria-label="تبديل الوضع الليلي">🌙 ليلي</button><button class="sound" id="soundBtn" aria-label="تشغيل أو إيقاف الصوت">🔊 الصوت</button></div></div></header>
 <main class="wrap">
 <div class="hero"><div class="hero-card"><div><div class="eyebrow">🌈 مغامرة ممتعة من أول نقرة</div><h1>أهلًا يا بطلة الكمبيوتر! 🚀</h1><p>هنتعلم الكمبيوتر خطوة خطوة، ونلعب ونحل ألغاز، وكل ما تتعلمي حاجة هتكسبي نجوم جديدة. مفيش أي خبرة مطلوبة، نبدأ من الصفر!</p><button class="primary" onclick="document.querySelector('#plan').scrollIntoView({behavior:'smooth'})">يلا نبدأ التعلم ←</button></div><div class="hero-art" aria-hidden="true">🧑🏻‍💻</div></div>
 <div class="stats"><div class="stat"><span>⭐</span><div><b id="stars">0</b><small>نجومك</small></div></div><div class="stat"><span>📚</span><div><b id="completed">0 / 8</b><small>دروس مكتملة</small></div></div><div class="stat"><span>🏅</span><div><b id="best">—</b><small>أفضل نتيجة</small></div></div></div></div>
 <section id="plan"><div class="section-head"><div><h2>🗺️ خريطة المغامرة</h2><p>ثماني محطات صغيرة، كل محطة فيها معلومة ومهمة عملية.</p></div><span class="tag">خطة التعلم</span></div><div class="progress-card"><div class="progress-meta"><span>تقدمك في الرحلة</span><span id="percent">0%</span></div><div class="progress-line"><div class="progress-fill" id="bar"></div></div><div class="progress-meta"><span>كمّلي الدروس عشان تفتحي كل الشارات 🎖️</span><span id="remain">باقي 8</span></div></div><div class="lessons" id="lessons" style="margin-top:14px"></div></section>
 <section id="play"><div class="section-head"><div><h2>🎯 لعبة اختاري الأداة الصحيحة</h2><p>اقرئي المهمة واختاري الأداة التي تساعدك على تنفيذها.</p></div><span class="tag">اللعب والتعلم</span></div><div class="gamebox"><div class="game-top"><h3 id="gameQuestion">جاهزة للتحدي؟</h3><span class="tag" id="gameCount">السؤال 1 من 6</span></div><p class="game-hint">اختاري إجابة واحدة. لو أخطأتي، جربي مرة ثانية — التعلم بالمحاولة!</p><div class="choices" id="choices"></div><div class="feedback" id="gameFeedback" aria-live="polite">✨ بالتوفيق يا بطلة!</div><div style="text-align:center"><button class="next" id="nextGame" disabled>السؤال التالي ←</button></div></div></section>
 <section id="quiz"><div class="section-head"><div><h2>🧠 اختبار الذكاء الصغير</h2><p>اختبري معلوماتك بعد الدروس. كل إجابة صحيحة تساوي نجمة!</p></div><span class="tag">6 أسئلة</span></div><div class="quiz"><div class="progress-meta"><span id="quizStep">السؤال 1 من 6</span><span id="quizScore">النتيجة: 0</span></div><h3 id="quizQuestion" style="margin:15px 0 5px">ما الأداة التي نستخدمها للكتابة؟</h3><div class="quiz-options" id="quizOptions"></div><div class="feedback" id="quizFeedback"></div><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><button class="next" id="quizNext" disabled>التالي ←</button><button class="secondary" id="quizRestart" style="border-radius:12px;padding:10px 14px;font-weight:900">إعادة الاختبار</button></div></div></section>
+
+<section id="lab"><div class="section-head"><div><h2>🧪 مختبر التجربة: جرّبي بنفسك</h2><p>محاكاة آمنة تشبه الكمبيوتر الحقيقي. اضغطي على الأشياء وشاهدي ماذا يحدث.</p></div><span class="tag">تطبيق عملي</span></div>
+<div class="lab-grid">
+<div class="lab-card"><h3>🖥️ سطح مكتب تجريبي</h3><p>اضغطي على الأيقونات لتفتحي نافذة أو مجلدًا. هذه محاكاة فقط ولا تغيّر ملفات جهازك.</p>
+<div class="desktop-demo"><div class="desktop-icons">
+<button class="desk-icon" onclick="deskOpen('folder')"><b>📁</b>ملفاتي</button>
+<button class="desk-icon" onclick="deskOpen('paint')"><b>🎨</b>الرسام</button>
+<button class="desk-icon" onclick="deskOpen('note')"><b>📝</b>المفكرة</button>
+</div><div class="desk-window" id="deskWindow"></div><div class="demo-bar">● ابدأ　　سطح المكتب التجريبي</div></div>
+<div class="tip" style="margin-top:12px">💡 تلميح: في الكمبيوتر الحقيقي، نضغط ضغطتين سريعتين على الأيقونة لفتحها.</div>
+</div>
+<div class="lab-card"><h3>⌨️ جرّبي الكتابة والحفظ</h3><p>اكتبي جملة قصيرة، ثم اضغطي حفظ لتشاهدي كيف تبدو فكرة حفظ الملف.</p>
+<textarea id="practiceText" rows="3" placeholder="اكتبي هنا: أنا بطلة الكمبيوتر!" style="width:100%;border:1px solid var(--line);border-radius:13px;padding:12px;font:inherit;resize:vertical"></textarea>
+<div class="sim-actions"><button class="safe" onclick="savePractice()">💾 حفظ تجريبي</button><button onclick="document.getElementById('practiceText').value='';document.getElementById('saveResult').textContent=''">مسح</button></div><div id="saveResult" class="tip" style="margin-top:10px" aria-live="polite">لم تحفظي شيئًا بعد.</div>
+</div>
+</div></section>
+<section id="cyber"><div class="section-head"><div><h2>🛡️ حارسة الإنترنت: رسائل واتساب والروابط</h2><p>تعلّمي اكتشاف الخداع ومحاولات سرقة الحساب في أمثلة خيالية آمنة.</p></div><span class="tag">وعي رقمي</span></div>
+<div class="lab-grid">
+<div class="lab-card"><h3>💬 محادثة واتساب تجريبية</h3><p>هذه محادثة تمثيلية وليست واتساب حقيقيًا. اقرئي الرسالة واختاري التصرف الصحيح.</p>
+<div class="sim-chat"><div class="chat-head">🟢 محادثة تدريبية · رقم غير معروف</div><div class="bubble">مرحبًا! أنا من فريق الجوائز 🎁 ربحتِ هاتفًا جديدًا! اضغطي الرابط وسجّلي كلمة مرور واتساب لاستلامه.</div><div class="bubble"><span class="fake-link">wa-prize.example/claim</span><br><small>رابط تدريبي وهمي — لا تفتحيه</small></div><div class="bubble me">هل أضغط على الرابط؟</div></div>
+<div class="sim-actions"><button class="danger" onclick="chatAnswer(false)">🎁 أضغط وأدخل بياناتي</button><button class="safe" onclick="chatAnswer(true)">🛡️ أتجاهل وأحظر وأخبر شخصًا كبيرًا</button></div><div id="chatFeedback" class="tip" style="margin-top:10px">اختاري التصرف الآمن.</div>
+</div>
+<div class="lab-card"><h3>🚨 اكتشفي محاولة اختراق وهمية</h3><p>تخيّلي أن شخصًا أرسل لك هذه الرسالة. هل هي طبيعية أم محاولة خداع؟</p>
+<div class="sim-chat"><div class="chat-head">رسالة واردة · حساب غير معروف</div><div class="bubble">حسابك سيتوقف خلال 5 دقائق! أرسلي رمز التحقق المكوّن من 6 أرقام حتى نحمي حسابك.</div><div class="bubble">أنا صديقك، ابعتيلي كود الرسالة بسرعة عشان أرجع حسابي.</div></div>
+<div class="sim-actions"><button class="danger" onclick="securityAnswer(false)">أرسل رمز التحقق</button><button class="safe" onclick="securityAnswer(true)">لا أشارك الرمز وأتحقق مع شخص أثق به</button></div><div id="securityFeedback" class="tip" style="margin-top:10px">هل تعرفين ما الذي يجب ألا نشاركه أبدًا؟</div>
+</div>
+<div class="lab-card"><h3>🔗 كيف أفتح رابط واتساب بأمان؟</h3><p>قد يبدأ رابط التواصل الرسمي مع رقم بصيغة <bdi dir="ltr">https://wa.me/</bdi> متبوعًا برقم الهاتف الدولي. لكن وجود هذه الصيغة وحده لا يضمن أن الشخص موثوق.</p>
+<div class="tip">مثال تعليمي غير مكتمل: <bdi dir="ltr">https://wa.me/20XXXXXXXXXX</bdi><br>لا تستبدلي X برقم عشوائي، ولا تراسلي شخصًا غريبًا.</div>
+<ol style="font-size:13px;line-height:2;color:var(--muted);padding-right:20px"><li>اسألي شخصًا كبيرًا تثقين به عن مصدر الرابط.</li><li>تأكدي من اسم الموقع وعنوانه قبل المتابعة.</li><li>لا تدخلي كلمة المرور أو رمز التحقق في صفحة يرسلها غريب.</li><li>إذا لم تكوني متأكدة، لا تفتحي الرابط.</li></ol>
+<div class="sim-actions"><button class="safe" onclick="window.open('https://web.whatsapp.com/','_blank','noopener')">فتح واتساب ويب الرسمي</button><button onclick="window.open('https://faq.whatsapp.com/','_blank','noopener')">مركز مساعدة واتساب</button></div>
+</div>
+<div class="lab-card"><h3>🧠 تحدي: آمن أم خطر؟</h3><p>اختاري الإجابة في كل موقف لتصبحي أكثر ذكاءً على الإنترنت.</p><div id="safetyQuiz"></div></div>
+</div></section>
+
 <section id="videos"><div class="section-head"><div><h2>▶️ شاهدي وتعلمي</h2><p>فيديوهات عربية قصيرة ومناسبة للمبتدئين. شاهدي مع أحد أفراد الأسرة.</p></div><span class="tag">فيديوهات يوتيوب</span></div><div class="videos">
 <div class="video"><div class="thumb">🖥️</div><h3>التعرف على أجزاء الكمبيوتر</h3><p>الشاشة، صندوق الكمبيوتر، لوحة المفاتيح والفأرة.</p><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=شرح+مكونات+الحاسب+الآلي+للمبتدئين+بالعربي">▶ ابحثي عن فيديو الشرح</a></div>
 <div class="video"><div class="thumb">🖱️</div><h3>تعلم استخدام الماوس والكيبورد</h3><p>النقر والسحب والكتابة وأهم الأزرار.</p><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=شرح+الماوس+ولوحة+المفاتيح+للمبتدئين+بالعربي">▶ ابحثي عن فيديو الشرح</a></div>
@@ -91,5 +155,21 @@ $("quizRestart").onclick=()=>{qi=0;qanswers={};qsubmitted=false;qscore=0;renderQ
 let soundOn=true;function playTone(freq){if(!soundOn)return;try{let c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.frequency.value=freq;o.connect(g);g.connect(c.destination);g.gain.value=.06;o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.16);o.stop(c.currentTime+.17)}catch(e){}}
 $("soundBtn").onclick=()=>{soundOn=!soundOn;$("soundBtn").textContent=soundOn?"🔊 الصوت":"🔇 الصوت"};
 renderStats();renderGame();renderQuiz();
+
+/* محاكاة تعليمية آمنة */
+function deskOpen(type){const w=document.getElementById('deskWindow');w.classList.add('show');const views={folder:'<b>📁 مجلد ملفاتي</b><p>📄 واجبي الأول.txt<br>🖼️ رسمة جميلة.png</p><small>هذه ملفات خيالية للتدريب.</small>',paint:'<b>🎨 الرسام التجريبي</b><p style="font-size:38px">☀️ 🏠 🌳</p><small>في Paint الحقيقي يمكنك الرسم باستخدام الفرشاة والألوان.</small>',note:'<b>📝 المفكرة التجريبية</b><p>مرحبًا! أنا أتعلم استخدام الكمبيوتر.</p><small>المفكرة مكان لكتابة النصوص البسيطة.</small>'};w.innerHTML=views[type]||''}
+function savePractice(){const v=document.getElementById('practiceText').value.trim();document.getElementById('saveResult').textContent=v?'✅ أحسنتِ! في هذا التدريب حفظنا النص بشكل تجريبي: «'+v+'». في جهازك الحقيقي استخدمي Ctrl + S واختاري مكان الحفظ.':'اكتبي جملة أولًا ثم اضغطي حفظ.'}
+function chatAnswer(safe){const el=document.getElementById('chatFeedback');el.textContent=safe?'🌟 ممتاز! الجوائز المفاجئة من الغرباء والروابط غير المعروفة قد تكون خدعة. لا تضغطي الرابط، واحظري المرسل وأخبري شخصًا كبيرًا.':'⚠️ توقفي! لا تضغطي روابط الجوائز المجهولة ولا تدخلي بياناتك. اختاري تجاهل الرسالة وحظر المرسل واطلبي مساعدة شخص كبير.';el.style.color=safe?'#128260':'#c33d64';if(safe){stars++;persist();playTone(740)}}
+function securityAnswer(safe){const el=document.getElementById('securityFeedback');el.textContent=safe?'🏆 إجابة ممتازة! رمز التحقق مثل مفتاح حسابك. لا تشاركيه مع أي شخص، حتى لو قال إنه صديقك أو من الدعم.':'🚨 خطر! لا تشاركي رمز التحقق أو كلمة المرور. قد يستخدمهما شخص آخر للدخول إلى حسابك. أخبري شخصًا كبيرًا.';el.style.color=safe?'#128260':'#c33d64';if(safe){stars++;persist();playTone(740)}}
+const safetyQuestions=[{q:'صديق يطلب منك رمز التحقق الذي وصلك برسالة. ماذا تفعلين؟',a:['أرسله فورًا','لا أشاركه أبدًا وأتأكد من هويته'],c:1,e:'رمز التحقق سري جدًا، لا تشاركيه مع أي شخص.'},{q:'وصلك رابط جائزة من رقم لا تعرفينه.',a:['أفتحه وأكتب بياناتي','لا أفتحه وأخبر شخصًا كبيرًا'],c:1,e:'الروابط المجهولة قد تقود إلى صفحات مزيفة.'},{q:'شخص غريب يطلب عنوان بيتك وصورتك.',a:['أرفض وأخبر شخصًا أثق به','أرسلها له'],c:0,e:'لا تشاركي معلوماتك الشخصية أو صورك مع الغرباء.'}];
+let si=0;
+function renderSafetyQuiz(){const q=safetyQuestions[si];document.getElementById('safetyQuiz').innerHTML='<b>'+q.q+'</b><div class="sim-actions">'+q.a.map((a,i)=>'<button onclick="safetyPick('+i+')" class="'+(i===1?'safe':'')+'">'+a+'</button>').join('')+'</div><div id="safetyResult" class="tip" style="margin-top:10px">الموقف '+(si+1)+' من 3</div>'}
+function safetyPick(i){const q=safetyQuestions[si],el=document.getElementById('safetyResult');const ok=i===q.c;el.textContent=(ok?'✅ صحيح! ':'❌ حاولي التفكير مرة أخرى. ')+q.e;if(ok){stars++;persist();playTone(700)}const old=si;si=(si+1)%safetyQuestions.length;setTimeout(renderSafetyQuiz,ok?2200:3300)}
+renderSafetyQuiz();
+const themeButton=document.getElementById('themeBtn');
+function setTheme(dark){document.body.classList.toggle('dark',dark);themeButton.textContent=dark?'☀️ نهاري':'🌙 ليلي';localStorage.setItem('pcAdventureTheme',dark?'dark':'light')}
+setTheme(localStorage.getItem('pcAdventureTheme')==='dark');
+themeButton.addEventListener('click',()=>setTheme(!document.body.classList.contains('dark')));
+
 </script>
 </body></html>
