@@ -574,31 +574,31 @@ aiShowLesson(0);aiNewMission();
 
 /* ===== Premium UX layer: search, daily mission, scroll progress, reveals ===== */
 (function(){
- const $=(s,r=document)=>r.querySelector(s);
- const $=(s,r=document)=>Array.from(r.querySelectorAll(s));
- const toast=(message)=>{let t=$('#premiumToast');if(!t){t=document.createElement('div');t.id='premiumToast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=message;t.classList.add('show');clearTimeout(window.__premiumToastTimer);window.__premiumToastTimer=setTimeout(()=>t.classList.remove('show'),2600)};
+ const premiumQ=(s,r=document)=>r.querySelector(s);
+ const premiumQ=(s,r=document)=>Array.from(r.querySelectorAll(s));
+ const toast=(message)=>{let t=premiumQ('#premiumToast');if(!t){t=document.createElement('div');t.id='premiumToast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=message;t.classList.add('show');clearTimeout(window.__premiumToastTimer);window.__premiumToastTimer=setTimeout(()=>t.classList.remove('show'),2600)};
  const progress=document.createElement('div');progress.id='premiumProgress';document.body.appendChild(progress);
  const tools=document.createElement('div');tools.id='premiumTools';tools.innerHTML='<button class="premium-fab" type="button" id="backTop" aria-label="العودة إلى أعلى الصفحة" title="للأعلى">↑</button><button class="premium-fab" type="button" id="quickHelp" aria-label="نصيحة تعليمية" title="نصيحة اليوم">✨</button>';document.body.appendChild(tools);
- $('#backTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
- $('#quickHelp').addEventListener('click',()=>toast('✨ خدي وقتك في التعلم، وجربي بنفسك، ولا تشاركي بياناتك الخاصة أبدًا.'));
- const onScroll=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%';$('#backTop').style.opacity=scrollY>450?'1':'.55'};
+ premiumQ('#backTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+ premiumQ('#quickHelp').addEventListener('click',()=>toast('✨ خدي وقتك في التعلم، وجربي بنفسك، ولا تشاركي بياناتك الخاصة أبدًا.'));
+ const onScroll=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%';premiumQ('#backTop').style.opacity=scrollY>450?'1':'.55'};
  addEventListener('scroll',onScroll,{passive:true});onScroll();
- const plan=$('#plan'),grid=$('#lessons');
+ const plan=premiumQ('#plan'),grid=premiumQ('#lessons');
  if(plan&&grid){
   const bar=document.createElement('div');bar.className='lesson-tools';bar.innerHTML='<input class="lesson-search" id="lessonSearch" type="search" placeholder="🔎 ابحثي عن درس بالاسم..." aria-label="ابحثي عن درس"><span class="lesson-count" id="lessonCount">24 درسًا</span>';
-  const progressCard=$('.progress-card',plan);progressCard.insertAdjacentElement('afterend',bar);
-  const filter=()=>{const q=$('#lessonSearch').value.trim().toLocaleLowerCase('ar');let visible=0;$('.lesson',grid).forEach(card=>{const match=!q||card.textContent.toLocaleLowerCase('ar').includes(q);card.hidden=!match;if(match)visible++});$('#lessonCount').textContent=visible+' من '+$('.lesson',grid).length+' درس'};
-  $('#lessonSearch').addEventListener('input',filter);
+  const progressCard=premiumQ('.progress-card',plan);progressCard.insertAdjacentElement('afterend',bar);
+  const filter=()=>{const q=premiumQ('#lessonSearch').value.trim().toLocaleLowerCase('ar');let visible=0;premiumQ('.lesson',grid).forEach(card=>{const match=!q||card.textContent.toLocaleLowerCase('ar').includes(q);card.hidden=!match;if(match)visible++});premiumQ('#lessonCount').textContent=visible+' من '+premiumQ('.lesson',grid).length+' درس'};
+  premiumQ('#lessonSearch').addEventListener('input',filter);
   const mission=document.createElement('div');mission.className='daily-mission';mission.innerHTML='<div class="mission-icon">🌟</div><div><b>مهمة صغيرة لبطلة اليوم</b><p id="dailyMissionText">اختاري درسًا جديدًا، وتعلمي معلومة، ثم جربي تطبيقها بنفسك.</p></div><button type="button" id="dailyMissionGo">ابدئي المهمة</button>';progressCard.insertAdjacentElement('afterend',mission);
-  $('#dailyMissionGo').addEventListener('click',()=>{const first=$('.lesson:not([hidden]) button',grid);if(first)first.click();else toast('اكتبي كلمة بحث مختلفة لعرض الدروس.')});
+  premiumQ('#dailyMissionGo').addEventListener('click',()=>{const first=premiumQ('.lesson:not([hidden]) button',grid);if(first)first.click();else toast('اكتبي كلمة بحث مختلفة لعرض الدروس.')});
   const missions=['تعلمي اختصارًا جديدًا وجربيه في المحاكاة.','افتحي درسًا عن مكونات الكمبيوتر واكتبي أهم معلومة.','اكتشفي علامة واحدة من علامات الرسائل المزيفة.','اكتبي برومبتًا واضحًا في مختبر أكاديمية الذكاء الاصطناعي.','جربي إنشاء مجلد افتراضي في مستكشف الملفات.'];
-  const day=Math.floor(Date.now()/86400000)%missions.length;$('#dailyMissionText').textContent=missions[day];
+  const day=Math.floor(Date.now()/86400000)%missions.length;premiumQ('#dailyMissionText').textContent=missions[day];
  }
- const revealTargets=$('section,.stat,.hero-card,.progress-card,.lesson,.video,.lab-card,.quiz,.gamebox,.helper-shell');
+ const revealTargets=premiumQ('section,.stat,.hero-card,.progress-card,.lesson,.video,.lab-card,.quiz,.gamebox,.helper-shell');
  revealTargets.forEach(el=>el.classList.add('reveal'));document.documentElement.classList.add('reveal-ready');
  if('IntersectionObserver'in window){const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');io.unobserve(entry.target)}}),{threshold:.08,rootMargin:'0px 0px -30px 0px'});revealTargets.forEach(el=>io.observe(el))}else revealTargets.forEach(el=>el.classList.add('in-view'));
  document.addEventListener('click',e=>{const btn=e.target.closest('.lesson button,.donebtn,.next,.choice,.ai-action');if(btn&&!btn.disabled){btn.animate?.([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}],{duration:180})}});
- const observer=new MutationObserver(()=>{const completed=$('#completed')?.textContent||'0';const stars=$('#stars')?.textContent||'0';const best=$('#best')?.textContent||'—';const stat=$('.stat');if(stat.length>=3){stat[0].title='نجومك المكتسبة: '+stars;stat[1].title='الدروس المنجزة: '+completed;stat[2].title='أفضل نتيجة: '+best}});
+ const observer=new MutationObserver(()=>{const completed=premiumQ('#completed')?.textContent||'0';const stars=premiumQ('#stars')?.textContent||'0';const best=premiumQ('#best')?.textContent||'—';const stat=premiumQ('.stat');if(stat.length>=3){stat[0].title='نجومك المكتسبة: '+stars;stat[1].title='الدروس المنجزة: '+completed;stat[2].title='أفضل نتيجة: '+best}});
  observer.observe(document.body,{subtree:true,childList:true,characterData:true});
 })();
 
