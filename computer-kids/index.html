@@ -149,6 +149,65 @@ body.dark .helper-compose input{background:#29243e;color:#fff;border-color:#5146
 body.dark .helper-disclaimer{background:#44391f;color:#fff0c7;border-color:#806a32}
 @media(max-width:520px){.helper-chat{height:390px;padding:10px}.helper-message{max-width:98%}.helper-compose{padding:10px}.helper-compose button{padding:9px 12px}.helper-top{padding:12px}}
 
+
+/* ===== Premium learning experience: motion, depth, accessibility ===== */
+:root{--accent-a:#7357e8;--accent-b:#ec78b5;--accent-c:#38c9b0;--surface-glass:#ffffffc9}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{overflow-x:hidden;background-image:radial-gradient(circle at 8% 18%,#e8e1ff88 0 2px,transparent 3px),radial-gradient(circle at 92% 36%,#ffd9e788 0 3px,transparent 4px),linear-gradient(180deg,#faf9ff 0%,var(--bg) 42%,#f8f7ff 100%)}
+body.dark{background-image:radial-gradient(circle at 8% 18%,#7662b633 0 2px,transparent 3px),radial-gradient(circle at 92% 36%,#bd649033 0 3px,transparent 4px),linear-gradient(180deg,#171329 0%,var(--bg) 60%,#19152d 100%)}
+::selection{background:#d9ceff;color:#34205d}
+:focus-visible{outline:3px solid #ffbd65!important;outline-offset:3px}
+.top{box-shadow:0 8px 28px #33245b0b}
+.brand{white-space:nowrap}.logo{animation:logoPulse 4s ease-in-out infinite}
+.hero-card{isolation:isolate;background:linear-gradient(120deg,#6748dc 0%,#8867f0 48%,#ed83b2 100%);background-size:180% 180%;animation:heroGradient 12s ease infinite}
+.hero-card:before{animation:orbDrift 12s ease-in-out infinite}.hero-card:after{animation:orbDrift 9s ease-in-out infinite reverse}
+.hero-art{animation:heroFloat 4s ease-in-out infinite;position:relative;z-index:1}
+.primary,.next,.ai-action,.helper-compose button{transition:transform .22s ease,box-shadow .22s ease,filter .22s ease}
+.primary:hover,.next:hover,.ai-action:hover,.helper-compose button:hover{transform:translateY(-3px);filter:brightness(1.04);box-shadow:0 12px 25px #49328d25}
+.stat,.progress-card,.lesson,.gamebox,.quiz,.video,.lab-card,.helper-shell{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.stat:hover,.progress-card:hover,.video:hover,.lab-card:hover{transform:translateY(-3px);box-shadow:0 20px 42px #41308018}
+.lesson{overflow:hidden}.lesson:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(var(--accent-a),var(--accent-b));transform:scaleY(0);transform-origin:bottom;transition:transform .25s}
+.lesson:hover:before{transform:scaleY(1)}.lesson .emoji{transition:transform .35s cubic-bezier(.2,.8,.2,1)}.lesson:hover .emoji{transform:rotate(-8deg) scale(1.1)}
+.choice,.quiz-options button,.ai-module,.helper-suggestions button,.sim-actions button,.desk-icon{transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}
+.choice:hover,.quiz-options button:hover,.ai-module:hover,.helper-suggestions button:hover,.sim-actions button:hover{transform:translateY(-2px)}
+section{scroll-margin-top:85px}
+.section-head h2{letter-spacing:-.4px}
+.tag{box-shadow:inset 0 0 0 1px #7658e814}
+.ai-academy{position:relative;overflow:hidden;background:radial-gradient(circle at 88% 10%,#a68aff33,transparent 30%),linear-gradient(135deg,#171b3d,#34205d 58%,#633b83)}
+.ai-academy:after{content:"✦";position:absolute;left:5%;top:12%;font-size:28px;color:#ffffff35;animation:twinkle 3s ease-in-out infinite}
+.helper-shell{border-radius:26px}.helper-top{background:linear-gradient(110deg,#6748dc,#9471ef 60%,#e47fb0)}
+.helper-online{animation:onlineGlow 2.2s ease-in-out infinite}
+.pc-live{background:linear-gradient(145deg,#0e1728,#1d2540);border:1px solid #43506d}
+.pc-screen{background:radial-gradient(circle at 75% 20%,#a78bfa55,transparent 26%),linear-gradient(135deg,#0f766e,#2563eb 52%,#6d28d9)}
+.pc-icon{transition:background .2s ease,transform .2s ease}.pc-icon:hover{transform:translateY(-3px)}
+.pc-window{animation:windowPop .22s ease-out}
+#premiumProgress{position:fixed;top:0;right:0;height:4px;width:0;z-index:100;background:linear-gradient(90deg,#39d5b0,#8a70f2,#ff8ab7);box-shadow:0 0 12px #a78bfa88;transition:width .08s linear}
+#premiumTools{position:fixed;left:18px;bottom:18px;z-index:35;display:grid;gap:9px}
+.premium-fab{width:46px;height:46px;border-radius:16px;background:linear-gradient(145deg,#7658e8,#a47cf3);color:white;font-size:19px;box-shadow:0 10px 25px #49328d35;transition:transform .2s,box-shadow .2s}
+.premium-fab:hover{transform:translateY(-4px) rotate(-4deg);box-shadow:0 14px 30px #49328d55}
+#premiumToast{position:fixed;right:50%;bottom:24px;transform:translate(50%,20px);opacity:0;pointer-events:none;z-index:120;background:#24203d;color:white;padding:12px 18px;border-radius:14px;box-shadow:0 14px 40px #17132d44;font-size:13px;font-weight:800;transition:.3s}
+#premiumToast.show{opacity:1;transform:translate(50%,0)}
+.lesson-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0}
+.lesson-search{flex:1;min-width:210px;border:1px solid var(--line);border-radius:14px;padding:12px 15px;background:var(--paper);color:var(--ink);font:inherit;box-shadow:var(--shadow)}
+.lesson-count{font-size:12px;font-weight:900;color:var(--muted)}
+.daily-mission{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;margin:16px 0 0;padding:15px 18px;border-radius:19px;background:linear-gradient(110deg,#fff4d9,#f4edff 60%,#ffeaf2);border:1px solid #eee2ff}
+.daily-mission .mission-icon{font-size:32px}.daily-mission p{margin:3px 0 0;color:#70678d;font-size:12px;line-height:1.7}.daily-mission button{background:#7658e8;color:white;border-radius:12px;padding:9px 13px;font-weight:900;white-space:nowrap}
+body.dark .daily-mission{background:linear-gradient(110deg,#45391f,#302747 60%,#45283e);border-color:#55466e}
+body.dark .daily-mission p{color:#d1c8e7}
+.reveal-ready .reveal{opacity:0;transform:translateY(22px) scale(.99);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}
+.reveal-ready .reveal.in-view{opacity:1;transform:none}
+.lesson-search:focus{border-color:#9a83f3;box-shadow:0 0 0 4px #9a83f322;outline:none}
+@keyframes heroGradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes heroFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-13px) rotate(2deg)}}
+@keyframes orbDrift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-18px,14px) scale(1.08)}}
+@keyframes logoPulse{0%,100%{box-shadow:0 8px 18px #8d70e544}50%{box-shadow:0 8px 28px #8d70e577,0 0 0 7px #8d70e510}}
+@keyframes twinkle{0%,100%{opacity:.3;transform:scale(.8) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(18deg)}}
+@keyframes onlineGlow{0%,100%{box-shadow:0 0 0 0 #b8ffdf00}50%{box-shadow:0 0 0 5px #b8ffdf22}}
+@keyframes windowPop{from{opacity:0;transform:translate(50%,8px) scale(.97)}to{opacity:1;transform:translate(50%,0) scale(1)}}
+@media(max-width:800px){.navlinks{display:flex;flex:1;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;gap:2px}.navlinks::-webkit-scrollbar{display:none}.navlinks a{white-space:nowrap;padding:7px 9px;font-size:11px}.nav{height:auto;min-height:66px;flex-wrap:wrap;padding:8px 0}.brand{font-size:15px}.nav>div:last-child{margin-inline-start:auto}.daily-mission{grid-template-columns:auto 1fr}.daily-mission button{grid-column:1/-1}}
+@media(max-width:520px){#premiumTools{left:10px;bottom:10px}.premium-fab{width:42px;height:42px;border-radius:14px}.lesson-search{min-width:100%}.hero-card{border-radius:24px}.hero-art{font-size:82px}.daily-mission{padding:12px}.navlinks{order:3;flex-basis:100%;width:100%}.navlinks a{font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal-ready .reveal{opacity:1;transform:none}}
+
 </style>
 </head>
 <body>
@@ -511,6 +570,37 @@ function aiShowExample(){const x=aiMissionData();const box=document.getElementBy
 function aiCopyExample(){const t=aiMissionData().mission.sample;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>alert('تم نسخ النموذج.')).catch(()=>alert('حددي النموذج وانسخيه يدويًا.'))}else{alert('حددي النموذج وانسخيه يدويًا.')}}
 function aiCoach(q){const answers={'كيف أجعل الإجابة مناسبة لعمري؟':'اكتبي: اشرح بلغة بسيطة تناسب طالبة في المرحلة الابتدائية، وفسّر الكلمات الصعبة بأمثلة.','ماذا أفعل إذا كانت الإجابة طويلة؟':'قولي: اختصر الإجابة إلى 5 نقاط، واجعل كل نقطة جملة واحدة، ثم اسألني إن كنت أريد تفاصيل إضافية.','كيف أطلب مصادر وأتأكد من صحة المعلومات؟':'قولي: اذكر مصادر موثوقة يمكنني البحث عنها، ولا تخترع روابط. وضّح ما أنت غير متأكد منه، وسأقارن المعلومات بمصدر مستقل.'};document.getElementById('aiCoachReply').textContent=answers[q]||'حاولي تحديد هدفك والجمهور والتفاصيل وشكل الإجابة.'}
 aiShowLesson(0);aiNewMission();
+
+
+/* ===== Premium UX layer: search, daily mission, scroll progress, reveals ===== */
+(function(){
+ const $=(s,r=document)=>r.querySelector(s);
+ const $=(s,r=document)=>Array.from(r.querySelectorAll(s));
+ const toast=(message)=>{let t=$('#premiumToast');if(!t){t=document.createElement('div');t.id='premiumToast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=message;t.classList.add('show');clearTimeout(window.__premiumToastTimer);window.__premiumToastTimer=setTimeout(()=>t.classList.remove('show'),2600)};
+ const progress=document.createElement('div');progress.id='premiumProgress';document.body.appendChild(progress);
+ const tools=document.createElement('div');tools.id='premiumTools';tools.innerHTML='<button class="premium-fab" type="button" id="backTop" aria-label="العودة إلى أعلى الصفحة" title="للأعلى">↑</button><button class="premium-fab" type="button" id="quickHelp" aria-label="نصيحة تعليمية" title="نصيحة اليوم">✨</button>';document.body.appendChild(tools);
+ $('#backTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+ $('#quickHelp').addEventListener('click',()=>toast('✨ خدي وقتك في التعلم، وجربي بنفسك، ولا تشاركي بياناتك الخاصة أبدًا.'));
+ const onScroll=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%';$('#backTop').style.opacity=scrollY>450?'1':'.55'};
+ addEventListener('scroll',onScroll,{passive:true});onScroll();
+ const plan=$('#plan'),grid=$('#lessons');
+ if(plan&&grid){
+  const bar=document.createElement('div');bar.className='lesson-tools';bar.innerHTML='<input class="lesson-search" id="lessonSearch" type="search" placeholder="🔎 ابحثي عن درس بالاسم..." aria-label="ابحثي عن درس"><span class="lesson-count" id="lessonCount">24 درسًا</span>';
+  const progressCard=$('.progress-card',plan);progressCard.insertAdjacentElement('afterend',bar);
+  const filter=()=>{const q=$('#lessonSearch').value.trim().toLocaleLowerCase('ar');let visible=0;$('.lesson',grid).forEach(card=>{const match=!q||card.textContent.toLocaleLowerCase('ar').includes(q);card.hidden=!match;if(match)visible++});$('#lessonCount').textContent=visible+' من '+$('.lesson',grid).length+' درس'};
+  $('#lessonSearch').addEventListener('input',filter);
+  const mission=document.createElement('div');mission.className='daily-mission';mission.innerHTML='<div class="mission-icon">🌟</div><div><b>مهمة صغيرة لبطلة اليوم</b><p id="dailyMissionText">اختاري درسًا جديدًا، وتعلمي معلومة، ثم جربي تطبيقها بنفسك.</p></div><button type="button" id="dailyMissionGo">ابدئي المهمة</button>';progressCard.insertAdjacentElement('afterend',mission);
+  $('#dailyMissionGo').addEventListener('click',()=>{const first=$('.lesson:not([hidden]) button',grid);if(first)first.click();else toast('اكتبي كلمة بحث مختلفة لعرض الدروس.')});
+  const missions=['تعلمي اختصارًا جديدًا وجربيه في المحاكاة.','افتحي درسًا عن مكونات الكمبيوتر واكتبي أهم معلومة.','اكتشفي علامة واحدة من علامات الرسائل المزيفة.','اكتبي برومبتًا واضحًا في مختبر أكاديمية الذكاء الاصطناعي.','جربي إنشاء مجلد افتراضي في مستكشف الملفات.'];
+  const day=Math.floor(Date.now()/86400000)%missions.length;$('#dailyMissionText').textContent=missions[day];
+ }
+ const revealTargets=$('section,.stat,.hero-card,.progress-card,.lesson,.video,.lab-card,.quiz,.gamebox,.helper-shell');
+ revealTargets.forEach(el=>el.classList.add('reveal'));document.documentElement.classList.add('reveal-ready');
+ if('IntersectionObserver'in window){const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');io.unobserve(entry.target)}}),{threshold:.08,rootMargin:'0px 0px -30px 0px'});revealTargets.forEach(el=>io.observe(el))}else revealTargets.forEach(el=>el.classList.add('in-view'));
+ document.addEventListener('click',e=>{const btn=e.target.closest('.lesson button,.donebtn,.next,.choice,.ai-action');if(btn&&!btn.disabled){btn.animate?.([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}],{duration:180})}});
+ const observer=new MutationObserver(()=>{const completed=$('#completed')?.textContent||'0';const stars=$('#stars')?.textContent||'0';const best=$('#best')?.textContent||'—';const stat=$('.stat');if(stat.length>=3){stat[0].title='نجومك المكتسبة: '+stars;stat[1].title='الدروس المنجزة: '+completed;stat[2].title='أفضل نتيجة: '+best}});
+ observer.observe(document.body,{subtree:true,childList:true,characterData:true});
+})();
 
 </script>
 </body></html>
