@@ -575,7 +575,7 @@ aiShowLesson(0);aiNewMission();
 /* ===== Premium UX layer: search, daily mission, scroll progress, reveals ===== */
 (function(){
  const premiumQ=(s,r=document)=>r.querySelector(s);
- const premiumQ=(s,r=document)=>Array.from(r.querySelectorAll(s));
+ const premiumAll=(s,r=document)=>Array.from(r.querySelectorAll(s));
  const toast=(message)=>{let t=premiumQ('#premiumToast');if(!t){t=document.createElement('div');t.id='premiumToast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=message;t.classList.add('show');clearTimeout(window.__premiumToastTimer);window.__premiumToastTimer=setTimeout(()=>t.classList.remove('show'),2600)};
  const progress=document.createElement('div');progress.id='premiumProgress';document.body.appendChild(progress);
  const tools=document.createElement('div');tools.id='premiumTools';tools.innerHTML='<button class="premium-fab" type="button" id="backTop" aria-label="العودة إلى أعلى الصفحة" title="للأعلى">↑</button><button class="premium-fab" type="button" id="quickHelp" aria-label="نصيحة تعليمية" title="نصيحة اليوم">✨</button>';document.body.appendChild(tools);
