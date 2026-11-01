@@ -254,6 +254,16 @@ body.dark .cq-map,body.dark .cq-achievements{background:#211d35;border-color:#39
 @keyframes cqFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
 @media(max-width:900px){.cq-language-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:620px){.cq-hero{grid-template-columns:1fr;padding:21px}.cq-mascot{display:none}.cq-language-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cq-map{padding:14px}.cq-map-head input{width:100%}.cq-game{padding:14px}.cq-progress{align-items:flex-start;flex-direction:column}.cq-progress>div{width:100%;flex:auto}}@media(prefers-reduced-motion:reduce){.cq-mascot{animation:none}}
 
+
+.cq-screen-hidden{display:none!important}.cq-home-screen{padding:8px 0 22px}
+.cq-home-hero{position:relative;overflow:hidden;min-height:340px;border-radius:30px;padding:34px;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:20px;color:#fff;background:radial-gradient(circle at 76% 30%,#ffffff22,transparent 24%),linear-gradient(125deg,#171b45,#5b3eaa 58%,#b64e9b);box-shadow:0 24px 60px #37246c35}
+.cq-home-copy{position:relative;z-index:2}.cq-home-copy h2{font-size:clamp(28px,4.5vw,44px);line-height:1.35;margin:12px 0}.cq-home-copy p{color:#e8e2ff;line-height:2;max-width:580px}.cq-home-stats{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0}.cq-home-stats span{background:#ffffff20;border:1px solid #ffffff35;border-radius:12px;padding:8px 12px;font-size:12px}.cq-home-start{background:#ffe08a;color:#38285e;padding:13px 22px;border-radius:14px;font-weight:1000;box-shadow:0 9px 24px #100a333d}
+.cq-home-art{height:260px;position:relative;display:grid;place-items:center}.cq-home-planet{z-index:2;width:150px;height:150px;border-radius:50%;display:grid;place-items:center;font-size:90px;background:radial-gradient(circle at 35% 25%,#fff,#d6c4ff 35%,#7756d6 72%,#38236e);box-shadow:inset -18px -20px 35px #20104777,0 0 55px #d4a8ff77;animation:cqFloat 3.5s ease-in-out infinite}.cq-home-orbit{position:absolute;width:250px;height:90px;border:2px solid #ffffff65;border-radius:50%;transform:rotate(-25deg)}.orbit-b{width:280px;height:120px;transform:rotate(35deg);border-color:#ffd98b88}.cq-float-code{position:absolute;padding:8px 12px;border-radius:12px;background:#ffffff20;border:1px solid #ffffff45;color:#fff;font-weight:900}.code-a{top:12px;right:4%}.code-b{bottom:28px;left:2%}.code-c{top:45%;right:0}
+.cq-home-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:15px}.cq-home-quick>div{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:var(--shadow)}.cq-home-quick span{grid-row:span 2;font-size:28px}.cq-home-quick b{font-size:13px}.cq-home-quick small{font-size:10px;color:var(--muted);line-height:1.6}
+.cq-screen-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 14px;padding:10px 12px;border-radius:15px;background:var(--paper);border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:900}.cq-screen-toolbar button{border-radius:10px;background:#eeeaff;color:#654bc4;padding:8px 12px;font-size:11px;font-weight:900}
+body.dark .cq-home-quick>div{background:#211d35;border-color:#393252}
+@media(max-width:680px){.cq-home-hero{grid-template-columns:1fr;padding:24px;min-height:0;text-align:center}.cq-home-art{height:190px}.cq-home-planet{width:115px;height:115px;font-size:68px}.cq-home-orbit{width:205px;height:75px}.orbit-b{width:225px;height:95px}.cq-home-stats{justify-content:center}.cq-home-quick{grid-template-columns:1fr}.cq-home-copy p{margin-inline:auto}}
+
 </style>
 </head>
 <body>
@@ -286,6 +296,12 @@ body.dark .cq-map,body.dark .cq-achievements{background:#211d35;border-color:#39
 <section id="plan"><div class="section-head"><div><h2>🗺️ خريطة المغامرة</h2><p>47 درسًا في مسارات متدرجة من الأساسيات إلى المشاريع المتقدمة.</p></div><span class="tag">خطة التعلم</span></div><div class="progress-card"><div class="progress-meta"><span>تقدمك في الرحلة</span><span id="percent">0%</span></div><div class="progress-line"><div class="progress-fill" id="bar"></div></div><div class="progress-meta"><span>كمّلي الدروس عشان تفتحي كل الشارات 🎖️</span><span id="remain">باقي 47</span></div></div><div class="lessons" id="lessons" style="margin-top:14px"></div></section>
 
 <section id="codeQuest" class="code-quest">
+ <div id="cqHomeScreen" class="cq-home-screen">
+  <div class="cq-home-hero"><div class="cq-home-copy"><span class="cq-kicker">🎮 CODE QUEST · عالم المطورين</span><h2>مرحبًا بك في مملكة البرمجة!</h2><p>رحلة تفاعلية لاكتشاف لغات البرمجة. اختاري عالمك، تعلمي مهارة جديدة، واجتازي التحديات لتصبحي بطلة الكود.</p><div class="cq-home-stats"><span>⭐ <b id="cqHomeXP">0</b> XP</span><span>🏅 <b id="cqHomeBadges">0</b> شارة</span><span>🚀 المستوى <b id="cqHomeLevel">1</b></span></div><button id="cqStartAdventure" class="cq-home-start">ابدئي المغامرة ←</button></div><div class="cq-home-art"><div class="cq-home-orbit orbit-a"></div><div class="cq-home-orbit orbit-b"></div><div class="cq-home-planet">👩🏻‍🚀</div><span class="cq-float-code code-a">&lt;/&gt;</span><span class="cq-float-code code-b">0101</span><span class="cq-float-code code-c">🚀</span></div></div>
+  <div class="cq-home-quick"><div><span>🪐</span><b>عوالم متعددة</b><small>لغات الويب والتطبيقات والأنظمة والبيانات</small></div><div><span>🧩</span><b>تحديات ممتعة</b><small>تعلمي بالممارسة وحل المهمات</small></div><div><span>🏆</span><b>اجمعي الإنجازات</b><small>نقاط خبرة وشارات ومستويات</small></div></div>
+ </div>
+ <div id="cqSelectScreen" class="cq-sub-screen cq-screen-hidden">
+  <div class="cq-screen-toolbar"><button data-cq-screen="home">← الشاشة الرئيسية</button><span>🪐 اختاري عالم اللغة</span></div>
  <div class="cq-hero">
   <div><span class="cq-kicker">🎮 CODE QUEST · مغامرة المطورين</span><h2>أكاديمية البرمجة: العب، اكتشف، واصنع!</h2><p>اختاري لغة من عالم البرمجة، تعلمي فكرتها، ثم اكتبي أول كود بنفسك. اجمعي XP وافتحي مستويات وميداليات جديدة!</p><div class="cq-stats"><span>⭐ نقاط الخبرة: <b id="cqXP">0</b></span><span>🏅 الشارات: <b id="cqBadges">0</b></span><span>🚀 المستوى: <b id="cqLevel">1</b></span></div></div>
   <div class="cq-mascot" aria-hidden="true">👩🏻‍🚀<i>💻</i></div>
@@ -297,6 +313,9 @@ body.dark .cq-map,body.dark .cq-achievements{background:#211d35;border-color:#39
   </div>
   <div class="cq-language-grid" id="cqLanguages"></div>
  </div>
+  </div>
+ <div id="cqDetailScreen" class="cq-sub-screen cq-screen-hidden">
+  <div class="cq-screen-toolbar"><button data-cq-screen="languages">← كل اللغات</button><button data-cq-screen="home">⌂ الرئيسية</button><span>📘 صفحة تعلم اللغة</span></div>
  <div class="cq-game">
   <div class="cq-game-head"><div><span class="cq-kicker">🧩 مختبر المهمات</span><h3 id="cqSelectedTitle">اختاري لغة لبدء المغامرة</h3><p id="cqSelectedDesc">كل لغة لها عالمها وتحدياتها الخاصة.</p></div><div class="cq-level-chip" id="cqStage">المستوى 1 · المبتدئة</div></div>
   <div class="cq-lesson" id="cqLesson"><div class="cq-lesson-icon">🧠</div><div><b>ماذا ستتعلمين؟</b><p>اختاري أي لغة من الخريطة لتظهر هنا قصتها وأول خطوة فيها.</p></div></div>
@@ -312,6 +331,7 @@ body.dark .cq-map,body.dark .cq-achievements{background:#211d35;border-color:#39
   <div class="cq-note">🔒 هذا مختبر تعليمي آمن: يتحقق من وجود أجزاء أساسية في الكود ويعرض نتيجة تدريبية، لكنه لا يشغّل أوامر حقيقية ولا ينفّذ كودك. كل لغة لها مترجمها أو بيئة تشغيلها الخاصة، وسنضيف تشغيلًا حقيقيًا لاحقًا بطريقة آمنة.</div>
  </div>
  <div class="cq-achievements"><h3>🏆 مجموعة إنجازاتك</h3><div id="cqAchievementList"><span>ابدئي أول تحدٍ لفتح أول إنجاز!</span></div></div>
+ </div>
 </section>
 <section id="play"><div class="section-head"><div><h2>🎯 لعبة اختاري الأداة الصحيحة</h2><p>اقرئي المهمة واختاري الأداة التي تساعدك على تنفيذها.</p></div><span class="tag">اللعب والتعلم</span></div><div class="gamebox"><div class="game-top"><h3 id="gameQuestion">جاهزة للتحدي؟</h3><span class="tag" id="gameCount">السؤال 1 من 6</span></div><p class="game-hint">اختاري إجابة واحدة. لو أخطأتي، جربي مرة ثانية — التعلم بالمحاولة!</p><div class="choices" id="choices"></div><div class="feedback" id="gameFeedback" aria-live="polite">✨ بالتوفيق يا بطلة!</div><div style="text-align:center"><button class="next" id="nextGame" disabled>السؤال التالي ←</button></div></div></section>
 <section id="quiz"><div class="section-head"><div><h2>🧠 اختبار الذكاء الصغير</h2><p>اختبري معلوماتك بعد الدروس. كل إجابة صحيحة تساوي نجمة!</p></div><span class="tag">6 أسئلة</span></div><div class="quiz"><div class="progress-meta"><span id="quizStep">السؤال 1 من 6</span><span id="quizScore">النتيجة: 0</span></div><h3 id="quizQuestion" style="margin:15px 0 5px">ما الأداة التي نستخدمها للكتابة؟</h3><div class="quiz-options" id="quizOptions"></div><div class="feedback" id="quizFeedback"></div><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><button class="next" id="quizNext" disabled>التالي ←</button><button class="secondary" id="quizRestart" style="border-radius:12px;padding:10px 14px;font-weight:900">إعادة الاختبار</button></div></div></section>
@@ -766,19 +786,35 @@ aiShowLesson(0);aiNewMission();
   {title:'المستوى 3: لمستك الخاصة',desc:'اكتبي أمر طباعة آخر باستخدام نفس الكلمة الأساسية، لكن برسالة مختلفة عن Hello.',reward:50}
  ];
  let selected=null,stage=0,filter='all',xp=Number(localStorage.getItem('codeQuestXP')||0);
+ let cqScreen='home';
+ function showCQScreen(name,push=true){
+  cqScreen=name;
+  el('cqHomeScreen').classList.toggle('cq-screen-hidden',name!=='home');
+  el('cqSelectScreen').classList.toggle('cq-screen-hidden',name!=='languages');
+  el('cqDetailScreen').classList.toggle('cq-screen-hidden',name!=='detail');
+  if(push){const slug=name==='detail'&&selected?selected.id:name==='languages'?'languages':'home';history.pushState({cq:true,screen:name},'','#codeQuest/'+slug);}
+  if(name==='home')renderHomeStats();
+  el('codeQuest').scrollIntoView({behavior:'smooth',block:'start'});
+ }
+ function renderHomeStats(){el('cqHomeXP').textContent=xp;el('cqHomeBadges').textContent=badges.length;el('cqHomeLevel').textContent=1+Math.floor(xp/100);}
+
  let completed=JSON.parse(localStorage.getItem('codeQuestDone')||'{}');
  let badges=JSON.parse(localStorage.getItem('codeQuestBadges')||'[]');
  const el=id=>document.getElementById(id);
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function save(){localStorage.setItem('codeQuestXP',String(xp));localStorage.setItem('codeQuestDone',JSON.stringify(completed));localStorage.setItem('codeQuestBadges',JSON.stringify(badges));renderStats()}
- function renderStats(){el('cqXP').textContent=xp;el('cqBadges').textContent=badges.length;el('cqLevel').textContent=1+Math.floor(xp/100);el('cqAchievementList').innerHTML=badges.length?badges.map(b=>'<span class="cq-achievement">🏅 '+esc(b)+'</span>').join(''):'<span>ابدئي أول تحدٍ لفتح أول إنجاز!</span>'}
+ function renderStats(){el('cqXP').textContent=xp;el('cqBadges').textContent=badges.length;el('cqLevel').textContent=1+Math.floor(xp/100);el('cqAchievementList').innerHTML=badges.length?badges.map(b=>'<span class="cq-achievement">🏅 '+esc(b)+'</span>').join(''):'<span>ابدئي أول تحدٍ لفتح أول إنجاز!</span>';renderHomeStats()}
  function visibleLanguages(){const q=el('cqSearch').value.trim().toLowerCase();return langs.filter(l=>(filter==='all'||l.g===filter||(filter==='beginner'&&l.g==='beginner'))&&(!q||(l.n+' '+l.d+' '+l.tag).toLowerCase().includes(q)))}
  function renderLanguages(){el('cqLanguages').innerHTML=visibleLanguages().map(l=>'<button class="cq-lang '+(selected&&selected.id===l.id?'active':'')+'" data-lang="'+l.id+'"><span class="cq-icon">'+l.i+'</span><b>'+esc(l.n)+'</b><small>'+esc(l.d)+'</small><em>'+esc(l.tag)+'</em></button>').join('')||'<p>لم نعثر على لغة بهذا الاسم. جربي كلمة أخرى.</p>'}
  function progress(){const done=(completed[selected.id]||[]).length;el('cqProgressText').textContent=done+' / 3 مهمات مكتملة';el('cqProgressBar').style.width=(done/3*100)+'%';el('cqTaskNo').textContent='مهمة '+(stage+1)+' من 3';el('cqNext').disabled=stage>=2||!((completed[selected.id]||[]).includes(stage));el('cqReward').textContent=done===3?'🏆 حصلتِ على شارة '+selected.n+'!':'أكملي 3 مهمات لتحصلي على شارة اللغة 🏅'}
- function selectLanguage(id){selected=langs.find(l=>l.id===id);stage=0;el('cqSelectedTitle').textContent=selected.i+' '+selected.n;el('cqSelectedDesc').textContent=selected.d;el('cqLesson').innerHTML='<div class="cq-lesson-icon">'+selected.i+'</div><div><b>🌟 اكتشفي '+esc(selected.n)+'</b><p>'+esc(selected.what)+'</p></div>';el('cqStage').textContent='المستوى 1 · المبتدئة';loadMission();renderLanguages()}
+ function selectLanguage(id){selected=langs.find(l=>l.id===id);if(!selected)return;stage=0;el('cqSelectedTitle').textContent=selected.i+' '+selected.n;el('cqSelectedDesc').textContent=selected.d;el('cqLesson').innerHTML='<div class="cq-lesson-icon">'+selected.i+'</div><div><b>🌟 اكتشفي '+esc(selected.n)+'</b><p>'+esc(selected.what)+'</p></div>';el('cqStage').textContent='المستوى 1 · المبتدئة';loadMission();renderLanguages();showCQScreen('detail')}
  function loadMission(){const m=missions[stage];el('cqMission').textContent=m.title+' — '+selected.task+' '+(stage===0?'حاولي كتابة الأمر الأساسي.':stage===1?'غيّري النص داخل الأمر.':'اكتبي رسالة جديدة من اختيارك.')+' '+m.desc;el('cqEditor').value=stage===0?selected.sample:stage===1?selected.sample.replace(/Hello!?/i,'أنا أتعلم البرمجة!'):selected.sample.replace(/Hello!?/i,'أنا بطلة الكود!');el('cqOutput').className='cq-output';el('cqOutput').textContent='🟣 اكتبي الكود ثم اضغطي اختبار الكود. لن يتم تشغيله؛ سنفحص شكل التعليمة فقط.';el('cqHint').dataset.hint=selected.hint;el('cqStage').textContent=missions[stage].title;progress()}
  function testCode(){if(!selected)return;const code=el('cqEditor').value.trim();if(!code){el('cqOutput').className='cq-output error';el('cqOutput').textContent='اكتبي الكود أولًا، ثم حاولي مرة أخرى.';return}const valid=selected.test.test(code);const output=el('cqOutput');if(!valid){output.className='cq-output error';output.textContent='قريبة جدًا! لم أجد التعليمة الأساسية المطلوبة. راجعي التلميح وتأكدي من كتابة الأمر بالطريقة الصحيحة.';return}const done=completed[selected.id]||[];if(!done.includes(stage)){done.push(stage);completed[selected.id]=done;xp+=missions[stage].reward;if(done.length===3&&!badges.includes(selected.n))badges.push(selected.n);save()}output.className='cq-output success';output.textContent='🎉 أحسنتِ! وجدنا التعليمة الأساسية في كودك. '+(stage===2?'🏆 أنهيتِ تحديات هذه اللغة وفتحتِ شارتها!':'حصلتِ على '+missions[stage].reward+' نقطة خبرة.');progress();el('cqNext').disabled=stage>=2}
  el('cqLanguages').addEventListener('click',e=>{const b=e.target.closest('[data-lang]');if(b)selectLanguage(b.dataset.lang)});
+ el('cqStartAdventure').addEventListener('click',()=>showCQScreen('languages'));
+ document.querySelectorAll('[data-cq-screen]').forEach(b=>b.addEventListener('click',()=>showCQScreen(b.dataset.cqScreen)));
+ window.addEventListener('popstate',()=>{const part=location.hash.split('/')[1]||'home';if(part==='languages')showCQScreen('languages',false);else if(part==='home')showCQScreen('home',false);else if(langs.some(l=>l.id===part))selectLanguage(part);else showCQScreen('home',false)});
+
  el('cqSearch').addEventListener('input',renderLanguages);
  el('cqFilters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;el('cqFilters').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));renderLanguages()});
  el('cqHint').addEventListener('click',()=>{if(selected){el('cqOutput').className='cq-output';el('cqOutput').textContent='💡 تلميح: '+selected.hint}});
@@ -786,6 +822,7 @@ aiShowLesson(0);aiNewMission();
  el('cqRun').addEventListener('click',testCode);
  el('cqNext').addEventListener('click',()=>{if(!selected||stage>=2||!(completed[selected.id]||[]).includes(stage))return;stage++;loadMission()});
  renderLanguages();renderStats();
+ if(location.hash.startsWith('#codeQuest/')){const part=location.hash.split('/')[1];if(part==='languages')showCQScreen('languages',false);else if(langs.some(l=>l.id===part))selectLanguage(part);else showCQScreen('home',false)}else showCQScreen('home',false);
 })();
 
 </script>
